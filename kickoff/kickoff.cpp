@@ -5,7 +5,7 @@
 // Login   <erwan.simon@epitech.eu>
 // 
 // Started on  Tue Mar  7 12:06:51 2017 Simon
-// Last update Mon Mar 27 14:59:17 2017 Simon
+// Last update Mon Mar 27 15:49:28 2017 Simon
 //
 
 #include <dlfcn.h>
@@ -20,7 +20,7 @@ int	main()
   openFct open;
   IGame	*game;
 
-  handle = dlopen("libDyn.so", RTLD_GLOBAL | RTLD_NOW);
+  handle = dlopen("libmy.so", RTLD_GLOBAL | RTLD_NOW);
   if (handle == NULL)
     return (1);
   open = (openFct)dlsym(handle, "handle");
