@@ -5,11 +5,13 @@
 // Login   <antoine@epitech.eu>
 // 
 // Started on  Tue Mar 28 14:24:06 2017 Antoine
-// Last update Tue Mar 28 14:33:22 2017 Antoine
+// Last update Tue Mar 28 14:52:42 2017 Antoine
 //
 
 #ifndef IGAME_HPP_
 # define IGAME_HPP_
+
+#include "Protocol.hpp"
 
 class				IGame
 {
@@ -25,6 +27,10 @@ public:
   // virtual void			_shoot() = 0;
   // virtual void			_illegal() = 0;
   virtual void			_play() = 0;
+
+private:
+  struct GetMap			_map;
+  struct WhereAmI		_position;
 };
 
 #endif /* !IGAME_HPP_ */
