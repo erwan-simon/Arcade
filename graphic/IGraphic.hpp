@@ -5,7 +5,7 @@
 // Login   <antoine@epitech.eu>
 // 
 // Started on  Tue Mar 28 13:40:59 2017 Antoine
-// Last update Tue Mar 28 17:37:17 2017 Simon
+// Last update Tue Mar 28 19:38:32 2017 Simon
 //
 
 #include <iostream>
@@ -15,6 +15,16 @@
 class		IGraphic
 {
 public:
+  typedef enum {
+    BLACK,
+    WHITE,
+    YELLOW,
+    RED,
+    BLUE,
+    PINK,
+    GREEN
+  } e_color;
+
   // Window
   virtual int		openWindow(int x, int y) = 0;
   virtual int		refreshWindow() = 0;
@@ -23,5 +33,5 @@ public:
   virtual int		getKey() = 0;
 
   // BuildCell
-  virtual int		buildCell(int x, int y) = 0;
+  virtual int		buildCell(int x, int y, e_color col) = 0;
 };
