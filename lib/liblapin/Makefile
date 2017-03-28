@@ -9,7 +9,7 @@
 ## -----------------------------------------------------------------------------
 
 LIBNAME		=	lapin
-NAME		=	lib$(LIBNAME).a
+NAME		=	lib$(LIBNAME).so
 ERRLOG		=	errors~
 
 CC		=	g++
@@ -55,8 +55,8 @@ anim:
 
 ## Compile ---------------------------------------------------------------------
 $(NAME):	$(OBJ)
-		@ar r $(NAME) $(OBJ) 2>> $(ERRLOG) && \
-		 $(ECHO) $(GREEN) "[AR]" $(TEAL) $(NAME) $(DEFAULT) || \
+		@g++ -shared -o $(NAME) $(OBJ) 2>> $(ERRLOG) && \
+		 $(ECHO) $(GREEN) "[SHARED]" $(TEAL) $(NAME) $(DEFAULT) || \
 		 $(ECHO) $(RED) "[XX]" $(TEAL) $(NAME)
 		@ranlib $(NAME) && \
 		 $(ECHO) $(GREEN) "[OK]" $(TEAL) $(NAME) $(DEFAULT) || \
