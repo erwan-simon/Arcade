@@ -1,1 +1,0 @@
-g++ truc.cpp -shared -o "nom du binaire" "nom de la shared lib"
