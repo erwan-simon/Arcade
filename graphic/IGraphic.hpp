@@ -1,12 +1,12 @@
-//
-// IGraphic.hpp for  in /home/antoine/Rendu/C++/cpp_arcade/graphic
-// 
-// Made by Antoine
-// Login   <antoine@epitech.eu>
-// 
-// Started on  Tue Mar 28 13:40:59 2017 Antoine
-// Last update Wed Mar 29 14:54:15 2017 Simon
-//
+/*
+** IGraphic.hpp for IGraphic in /home/selimrinaz/repo/tek2/B4-CPP/cpp_arcade/lib/liblapin
+** 
+** Made by Selim Rinaz
+** Login   <selimrinaz@epitech.net>
+** 
+** Started on  Wed Mar 29 15:05:04 2017 Selim Rinaz
+** Last update Wed Mar 29 15:05:05 2017 Selim Rinaz
+*/
 
 #ifndef IGRAPHIC_HPP_
 # define IGRAPHIC_HPP_
@@ -15,28 +15,26 @@
 #include <string>
 #include <array>
 
-class		IGraphic
+class			IGraphic
 {
 public:
-  typedef enum {
-    BLACK,
-    WHITE,
-    YELLOW,
-    RED,
-    BLUE,
-    PINK,
-    GREEN
-  } e_color;
+  enum		e_color
+    {
+      BLACK,
+      WHITE,
+      YELLOW,
+      RED,
+      BLUE,
+      PINK,
+      GREEN
+    }
 
-  // Window
   virtual int		openWindow(int x, int y) = 0;
   virtual int		refreshWindow() = 0;
   virtual int		clearWindow() = 0;
   virtual void		getStatus() = 0;
   virtual int		closeWindow() = 0;
   virtual int		getKey() = 0;
-
-  // BuildCell
   virtual int		buildCell(int x, int y, e_color col) = 0;
 };
 
