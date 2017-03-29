@@ -5,7 +5,7 @@
 // Login   <erwan.simon@epitech.eu>
 // 
 // Started on  Tue Mar 28 19:02:29 2017 Simon
-// Last update Wed Mar 29 15:26:38 2017 Simon
+// Last update Wed Mar 29 16:23:35 2017 Simon
 //
 
 #include <ncurses.h>
@@ -63,7 +63,17 @@ int	myNcurses::closeWindow()
 
 int	myNcurses::getKey()
 {
-  return (getch());
+  switch (getch()) {
+  case KEY_LEFT:
+    return (IGraphic::E_LEFT);
+  case KEY_RIGHT:
+    return (IGraphic::E_RIGHT);
+  case KEY_UP:
+    return (IGraphic::E_UP);
+  case KEY_DOWN:
+    return (IGraphic::E_DOWN);
+  }
+  return (0);
 }
 
 int	myNcurses::buildCell(int x, int y, IGraphic::e_color col)

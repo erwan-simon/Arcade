@@ -5,7 +5,7 @@
 // Login   <antoine@epitech.eu>
 // 
 // Started on  Tue Mar 28 13:40:59 2017 Antoine
-// Last update Wed Mar 29 15:27:10 2017 Simon
+// Last update Wed Mar 29 16:10:42 2017 Simon
 //
 
 #ifndef IGRAPHIC_HPP_
@@ -27,6 +27,13 @@ public:
     E_PINK,
     E_GREEN
   }			e_color;
+
+  typedef enum {
+    E_LEFT,
+    E_RIGHT,
+    E_UP,
+    E_DOWN
+  }			e_key;
 
   // Window
   virtual int		openWindow(int x, int y) = 0;
