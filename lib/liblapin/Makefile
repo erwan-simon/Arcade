@@ -5,7 +5,7 @@
 ## Login   <rinaz_a@epitech.eu>
 ## 
 ## Started on  Tue Dec 22 13:57:35 2015 selim rinaz
-## Last update Wed Mar 29 14:42:56 2017 Selim Rinaz
+## Last update Wed Mar 29 15:19:29 2017 Simon
 ##
 
 NAME		=	test
@@ -19,7 +19,7 @@ CXXFLAGS        +=       -lsfml-system
 CXXFLAGS        +=       -lstdc++ -ldl
 CXXFLAGS        +=       -lm
 CXXFLAGS        +=       -I../../graphic/ -I/home/${USER}/.froot/include/
-CXXFLAGS        +=       -W -Wall -Werror -ansi -pedantic -std=c++11
+CXXFLAGS        +=       -W -Wall -Werror -std=c++11
 
 SRCS		=	myLibLapin.cpp
 

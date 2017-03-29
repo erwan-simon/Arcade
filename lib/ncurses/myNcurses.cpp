@@ -5,7 +5,7 @@
 // Login   <erwan.simon@epitech.eu>
 // 
 // Started on  Tue Mar 28 19:02:29 2017 Simon
-// Last update Wed Mar 29 14:58:33 2017 Simon
+// Last update Wed Mar 29 15:26:38 2017 Simon
 //
 
 #include <ncurses.h>
@@ -50,11 +50,6 @@ int	myNcurses::clearWindow()
 {
   clear();
   return (0);
-}
-
-void	myNcurses::getStatus()
-{
-
 }
 
 int	myNcurses::closeWindow()
