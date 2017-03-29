@@ -5,7 +5,7 @@
 // Login   <erwan.simon@epitech.eu>
 // 
 // Started on  Tue Mar 28 19:02:29 2017 Simon
-// Last update Wed Mar 29 14:01:15 2017 Simon
+// Last update Wed Mar 29 14:58:33 2017 Simon
 //
 
 #include <ncurses.h>
@@ -30,6 +30,10 @@ int	myNcurses::openWindow(int x, int y)
   curs_set(0);
   if ((this->win = newwin(y, x, 0, 0)) == NULL)
     return (84);
+  this->size_cell_y = 1;
+  this->size_cell_x = 2;
+  this->default_x = x;
+  this->default_y = y;
   this->nb_line = y;
   this->nb_col = x;
   return (0);
@@ -44,7 +48,8 @@ int	myNcurses::refreshWindow()
 
 int	myNcurses::clearWindow()
 {
-
+  clear();
+  return (0);
 }
 
 void	myNcurses::getStatus()
@@ -68,10 +73,8 @@ int	myNcurses::getKey()
 
 int	myNcurses::buildCell(int x, int y, IGraphic::e_color col)
 {
-  if (x > nb_col || y > nb_line)
-    return (84);
   attron(COLOR_PAIR(col));
-  mvprintw(y, x, "a");
+  mvprintw(y * this->size_cell_y, x * this->size_cell_x, "  ");
   attroff(COLOR_PAIR(col));
   return (0);
 }

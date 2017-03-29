@@ -5,8 +5,11 @@
 // Login   <antoine@epitech.eu>
 // 
 // Started on  Tue Mar 28 13:40:59 2017 Antoine
-// Last update Wed Mar 29 13:59:29 2017 Simon
+// Last update Wed Mar 29 14:54:15 2017 Simon
 //
+
+#ifndef IGRAPHIC_HPP_
+# define IGRAPHIC_HPP_
 
 #include <iostream>
 #include <string>
@@ -36,3 +39,5 @@ public:
   // BuildCell
   virtual int		buildCell(int x, int y, e_color col) = 0;
 };
+
+#endif
