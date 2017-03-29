@@ -5,13 +5,13 @@
 // Login   <erwan.simon@epitech.eu>
 // 
 // Started on  Tue Mar 28 19:03:04 2017 Simon
-// Last update Tue Mar 28 19:38:56 2017 Simon
+// Last update Wed Mar 29 14:00:19 2017 Simon
 //
 
 #ifndef MYNCURSES_HPP_
 # define MYNCURSES_HPP_
 
-# include "../Graphic/IGraphic.hpp"
+# include "./../../graphic/IGraphic.hpp"
 
 class myNcurses : public IGraphic
 {
@@ -19,6 +19,7 @@ public:
   // Window
   virtual int	openWindow(int x, int y);
   virtual int	refreshWindow();
+  virtual int	clearWindow();
   virtual void	getStatus();
   virtual int	closeWindow();
   virtual int	getKey();
@@ -28,6 +29,8 @@ public:
 
 private:
   WINDOW	*win;
+  int		nb_line;
+  int		nb_col;
 };
 
 #endif

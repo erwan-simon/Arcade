@@ -5,7 +5,7 @@
 // Login   <antoine@epitech.eu>
 // 
 // Started on  Tue Mar 28 13:40:59 2017 Antoine
-// Last update Tue Mar 28 19:38:32 2017 Simon
+// Last update Wed Mar 29 13:59:29 2017 Simon
 //
 
 #include <iostream>
@@ -28,6 +28,7 @@ public:
   // Window
   virtual int		openWindow(int x, int y) = 0;
   virtual int		refreshWindow() = 0;
+  virtual int		clearWindow() = 0;
   virtual void		getStatus() = 0;
   virtual int		closeWindow() = 0;
   virtual int		getKey() = 0;
