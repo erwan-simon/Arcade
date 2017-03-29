@@ -5,21 +5,22 @@
 ## Login   <rinaz_a@epitech.eu>
 ## 
 ## Started on  Tue Dec 22 13:57:35 2015 selim rinaz
-## Last update Wed Mar 29 14:42:56 2017 Selim Rinaz
+## Last update Wed Mar 29 18:02:43 2017 Selim Rinaz
 ##
 
 NAME		=	test
 
 CXXFLAGS	=	-L/home/${USER}/.froot/lib/ -llapin
 CXXFLAGS        +=       -L/usr/local/lib
-CXXFLAGS        +=       -lsfml-audio
+# CXXFLAGS        +=       -lsfml-audio
 CXXFLAGS        +=       -lsfml-graphics
 CXXFLAGS        +=       -lsfml-window
 CXXFLAGS        +=       -lsfml-system
-CXXFLAGS        +=       -lstdc++ -ldl
-CXXFLAGS        +=       -lm
+CXXFLAGS        +=       -ldl
+CXXFLAGS        +=       -lm -g3
 CXXFLAGS        +=       -I../../graphic/ -I/home/${USER}/.froot/include/
-CXXFLAGS        +=       -W -Wall -Werror -ansi -pedantic -std=c++11
+#CXXFLAGS        +=       -W -Wall -Werror -ansi -pedantic
+CXXFLAGS	+=	 -std=c++11
 
 SRCS		=	myLibLapin.cpp
 
@@ -32,7 +33,7 @@ all		:	$(NAME)
 $(NAME)		:	$(OBJS)
 			$(CPP) $(OBJS) $(CXXFLAGS) -o $(NAME)
 clean		:
-			rm -f $(OBJ)
+			rm -f $(OBJS)
 
 fclean		:	clean
 			rm -f $(NAME)
