@@ -5,7 +5,7 @@
 // Login   <erwan.simon@epitech.eu>
 // 
 // Started on  Tue Mar 28 19:03:04 2017 Simon
-// Last update Wed Mar 29 14:54:39 2017 Simon
+// Last update Wed Mar 29 15:29:39 2017 Simon
 //
 
 #ifndef MYNCURSES_HPP_
@@ -20,7 +20,6 @@ public:
   virtual int	openWindow(int x, int y);
   virtual int	refreshWindow();
   virtual int	clearWindow();
-  virtual void	getStatus();
   virtual int	closeWindow();
   virtual int	getKey();
 
