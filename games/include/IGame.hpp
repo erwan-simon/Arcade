@@ -5,7 +5,7 @@
 // Login   <antoine@epitech.eu>
 // 
 // Started on  Tue Mar 28 14:24:06 2017 Antoine
-// Last update Tue Mar 28 17:14:00 2017 Simon
+// Last update Wed Mar 29 17:27:31 2017 Simon
 //
 
 #ifndef IGAME_HPP_
@@ -30,7 +30,7 @@ public:
   virtual void			_goDown() = 0;
   virtual void			_goLeft() = 0;
   virtual void			_goRight() = 0;
-  virtual void			_goForward() = 0;
+  // virtual void			_goForward() = 0;
   // virtual void			_shoot() = 0;
   // virtual void			_illegal() = 0;
 
