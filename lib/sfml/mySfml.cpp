@@ -5,14 +5,14 @@
 // Login   <antoine@epitech.eu>
 // 
 // Started on  Thu Mar 30 15:11:07 2017 Antoine
-// Last update Thu Mar 30 15:13:00 2017 Antoine
+// Last update Thu Mar 30 15:23:10 2017 Simon
 //
 
 #include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>
 #include "mySmfl.hpp"
 
-static sf::Color        colorCell(e_color col)
+static sf::Color	colorCell(e_color col)
 {
   if (col == WHITE)
     return (sf::Color::White);
@@ -29,7 +29,7 @@ static sf::Color        colorCell(e_color col)
   return (sf::Color::Black);
 }
 
-int     mySfml::openWindow(int x, int y)
+int	mySfml::openWindow(int x, int y)
 {
   this->_wd.create(sf::VideoMode(x * 20, y * 20), "Arcade");
   this->_wd.display();
