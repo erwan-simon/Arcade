@@ -5,14 +5,14 @@
 // Login   <erwan.simon@epitech.eu>
 // 
 // Started on  Wed Mar 29 17:30:33 2017 Simon
-// Last update Thu Mar 30 11:24:44 2017 Simon
+// Last update Thu Mar 30 15:11:19 2017 Simon
 //
 
 #include <iostream>
 #include <dlfcn.h>
 #include "./graphic/IGraphic.hpp"
 
-int	main(int argc, char **argv)
+int	main(int ac, char **av)
 {
   if (ac < 2)
     {
@@ -20,21 +20,20 @@ int	main(int argc, char **argv)
       return (1);
     }
 
-  IAssistant* (*external_creator)();
+  IGraphic* (*external_creator)();
   void* dlhandle;
 
   dlhandle = dlopen(av[1], RTLD_LAZY);
   if (dlhandle == NULL)
     return (1);
 
-  external_creator = reinterpret_cast<IAssistant* (*)()>(dlsym(dlhandle, "create_assistant"));
+  external_creator = reinterpret_cast<IGraphic* (*)()>(dlsym(dlhandle, "create_assistant"));
   if (external_creator == NULL)
     return (1);
 
-  IAssistant* bob = external_creator(); //Object included from the library !
-
-  bob->talk(); //Call the code of an unknown object from the code !
-
+  IGraphic* bob = external_creator(); //Object included from the library !
+  bob->openWindow(40, 40);
+  bob->closeWindow();
   dlclose(dlhandle);
 
   return (0);
