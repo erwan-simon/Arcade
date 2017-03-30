@@ -5,7 +5,7 @@
 // Login   <antoine@epitech.eu>
 // 
 // Started on  Thu Mar 30 15:11:07 2017 Antoine
-// Last update Thu Mar 30 15:27:47 2017 Antoine
+// Last update Thu Mar 30 15:46:18 2017 Simon
 //
 
 #include <SFML/Window.hpp>
@@ -91,4 +91,12 @@ int     mySfml::buildCell(int x, int y, IGraphic::e_color col)
   rectangle.setPosition(x * this->_cellX, y * this->_cellY);
   this->_wd.draw(rectangle);
   return (0);
+}
+
+extern "C"
+{
+  IGraphic* launch_lib()
+  {
+    return new mySfml();
+  }
 }

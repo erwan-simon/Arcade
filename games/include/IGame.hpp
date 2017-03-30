@@ -5,7 +5,7 @@
 // Login   <antoine@epitech.eu>
 // 
 // Started on  Tue Mar 28 14:24:06 2017 Antoine
-// Last update Wed Mar 29 17:27:31 2017 Simon
+// Last update Thu Mar 30 17:33:16 2017 Simon
 //
 
 #ifndef IGAME_HPP_
@@ -39,9 +39,9 @@ public:
   virtual void			_pause() = 0;
   virtual void			_gameOver(e_end) = 0;
 
-private:
-  struct GetMap			_map;
-  struct WhereAmI		_position;
+// private:
+//   struct GetMap			_map;
+//   struct WhereAmI		_position;
 };
 
 #endif /* !IGAME_HPP_ */

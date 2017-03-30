@@ -5,12 +5,31 @@
 // Login   <erwan.simon@epitech.eu>
 // 
 // Started on  Wed Mar 29 17:30:33 2017 Simon
-// Last update Thu Mar 30 15:11:19 2017 Simon
+// Last update Thu Mar 30 16:45:08 2017 Simon
 //
 
 #include <iostream>
 #include <dlfcn.h>
+#include "./games/include/IGame.hpp"
 #include "./graphic/IGraphic.hpp"
+
+int	test(IGraphic &lib)
+{
+  int	i;
+  
+  while (1)
+    {
+      for (i = 0; i != 40; i++)
+	lib.buildCell(0, i, IGraphic::E_RED);
+      for (i = 0; i != 40; i++)
+	lib.buildCell(i, 0, IGraphic::E_BLUE);
+      for (i = 0; i != 40; i++)
+	lib.buildCell(40, i, IGraphic::E_GREEN);
+      for (i = 0; i != 40; i++)
+	lib.buildCell(i, 40, IGraphic::E_YELLOW);
+      lib.refreshWindow();
+    }
+}
 
 int	main(int ac, char **av)
 {
@@ -20,21 +39,19 @@ int	main(int ac, char **av)
       return (1);
     }
 
-  IGraphic* (*external_creator)();
+  IGraphic* (*launch_lib)();
   void* dlhandle;
 
   dlhandle = dlopen(av[1], RTLD_LAZY);
   if (dlhandle == NULL)
     return (1);
-
-  external_creator = reinterpret_cast<IGraphic* (*)()>(dlsym(dlhandle, "create_assistant"));
-  if (external_creator == NULL)
+  launch_lib = reinterpret_cast<IGraphic* (*)()>(dlsym(dlhandle, "launch_lib"));
+  if (launch_lib == NULL)
     return (1);
-
-  IGraphic* bob = external_creator(); //Object included from the library !
-  bob->openWindow(40, 40);
-  bob->closeWindow();
+  IGraphic* lib = launch_lib(); //Object included from the library !
+  lib->openWindow(40, 40);
+  test(*lib);
+  lib->closeWindow();
   dlclose(dlhandle);
-
   return (0);
 }
