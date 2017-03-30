@@ -5,26 +5,26 @@
 // Login   <antoine@epitech.eu>
 // 
 // Started on  Thu Mar 30 15:11:07 2017 Antoine
-// Last update Thu Mar 30 15:23:10 2017 Simon
+// Last update Thu Mar 30 15:27:47 2017 Antoine
 //
 
 #include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>
-#include "mySmfl.hpp"
+#include "mySfml.hpp"
 
-static sf::Color	colorCell(e_color col)
+static sf::Color	colorCell(IGraphic::e_color col)
 {
-  if (col == WHITE)
+  if (col == IGraphic::E_WHITE)
     return (sf::Color::White);
-  if (col == YELLOW)
+  if (col == IGraphic::E_YELLOW)
     return (sf::Color::Yellow);
-  if (col == RED)
+  if (col == IGraphic::E_RED)
     return (sf::Color::Red);
-  if (col == BLUE)
+  if (col == IGraphic::E_BLUE)
     return (sf::Color::Blue);
-  if (col == PINK)
+  if (col == IGraphic::E_PINK)
     return (sf::Color::Magenta);
-  if (col == GREEN)
+  if (col == IGraphic::E_GREEN)
     return (sf::Color::Green);
   return (sf::Color::Black);
 }
@@ -83,7 +83,7 @@ int     mySfml::setCell()
   return (0);
 }
 
-int     mySfml::buildCell(int x, int y, e_color col)
+int     mySfml::buildCell(int x, int y, IGraphic::e_color col)
 {
   sf::RectangleShape rectangle(sf::Vector2f(this->_cellX, this->_cellY));
   // rectangle.setSize(sf::Vector2f(this->_cellX, this->_cellX));                                      
