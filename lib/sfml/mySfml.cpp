@@ -5,7 +5,7 @@
 // Login   <antoine@epitech.eu>
 // 
 // Started on  Thu Mar 30 15:11:07 2017 Antoine
-// Last update Thu Mar 30 17:38:42 2017 Simon
+// Last update Thu Mar 30 17:44:31 2017 Simon
 //
 
 #include <SFML/Window.hpp>
@@ -71,12 +71,12 @@ IGraphic::e_key	mySfml::getKey()
     return (E_DOWN);
   if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
     return (E_UP);
-  return (-1);
+  return (E_NONE);
 }
 
 int	mySfml::setCell()
 {
-  // this->_cellY = this->_cellX;                                                                      
+  // this->_cellY = this->_cellX;
   this->_cellX = this->_x / 40;
   this->_cellY = this->_y / 40;
   // this->_cellX = this->_cellY;                                                                      
