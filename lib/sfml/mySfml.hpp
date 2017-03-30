@@ -5,7 +5,7 @@
 // Login   <antoine@epitech.eu>
 // 
 // Started on  Thu Mar 30 15:07:11 2017 Antoine
-// Last update Thu Mar 30 17:36:38 2017 Simon
+// Last update Thu Mar 30 22:05:33 2017 Antoine
 //
 
 #ifndef MYSFML_HPP_
@@ -29,12 +29,12 @@ public:
 public:
   sf::RenderWindow		_wd;
   sf::Event			_event;
-  int				_y = 0;
-  int				_x = 0;
-  int				_cellY = 0;
-  int				_cellX = 0;
-  int				_marginY = 0;
-  int				_marginX = 0;
+  int				_y;
+  int				_x;
+  int				_cellY;
+  int				_cellX;
+  // int				_marginY;
+  // int				_marginX;
 };
 
 #endif

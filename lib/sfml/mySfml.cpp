@@ -5,7 +5,7 @@
 // Login   <antoine@epitech.eu>
 // 
 // Started on  Thu Mar 30 15:11:07 2017 Antoine
-// Last update Thu Mar 30 17:44:31 2017 Simon
+// Last update Thu Mar 30 22:06:25 2017 Antoine
 //
 
 #include <SFML/Window.hpp>
@@ -31,19 +31,21 @@ static sf::Color	colorCell(IGraphic::e_color col)
 
 int	mySfml::openWindow(int x, int y)
 {
+  this->_cellX = 0;
+  this->_cellY = 0;
   this->_wd.create(sf::VideoMode(x * 20, y * 20), "Arcade");
-  this->_wd.display();
   this->setCell();
+  this->_wd.display();
   return (0);
 }
 
 int	mySfml::refreshWindow()
 {
-  sf::Vector2u size = this->_wd.getSize();
+  // sf::Vector2u size = this->_wd.getSize();
 
-  this->_y = size.y;
-  this->_x = size.x;
-  this->_wd.pollEvent(this->_event);
+  // this->_y = size.y;
+  // this->_x = size.x;
+  // this->_wd.pollEvent(this->_event);
   this->setCell();
   this->_wd.display();
   return (0);
@@ -76,6 +78,12 @@ IGraphic::e_key	mySfml::getKey()
 
 int	mySfml::setCell()
 {
+  sf::Vector2u size = this->_wd.getSize();
+
+  this->_y = size.y;
+  this->_x = size.x;
+  this->_wd.pollEvent(this->_event);
+  
   // this->_cellY = this->_cellX;
   this->_cellX = this->_x / 40;
   this->_cellY = this->_y / 40;
