@@ -5,7 +5,7 @@
 // Login   <erwan.simon@epitech.eu>
 // 
 // Started on  Wed Mar 29 17:30:33 2017 Simon
-// Last update Thu Mar 30 11:16:55 2017 Simon
+// Last update Thu Mar 30 11:24:44 2017 Simon
 //
 
 #include <iostream>
@@ -17,7 +17,7 @@ int	main(int argc, char **argv)
   if (ac < 2)
     {
       std::cerr << "Usage : ./exemple4 <libXXX.so>" << std::endl;
-      return(1);
+      return (1);
     }
 
   IAssistant* (*external_creator)();
@@ -25,11 +25,11 @@ int	main(int argc, char **argv)
 
   dlhandle = dlopen(av[1], RTLD_LAZY);
   if (dlhandle == NULL)
-    return(1);
+    return (1);
 
   external_creator = reinterpret_cast<IAssistant* (*)()>(dlsym(dlhandle, "create_assistant"));
   if (external_creator == NULL)
-    return(1);
+    return (1);
 
   IAssistant* bob = external_creator(); //Object included from the library !
 
