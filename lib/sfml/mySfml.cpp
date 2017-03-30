@@ -5,7 +5,7 @@
 // Login   <antoine@epitech.eu>
 // 
 // Started on  Thu Mar 30 15:11:07 2017 Antoine
-// Last update Thu Mar 30 15:46:18 2017 Simon
+// Last update Thu Mar 30 17:38:42 2017 Simon
 //
 
 #include <SFML/Window.hpp>
@@ -37,7 +37,7 @@ int	mySfml::openWindow(int x, int y)
   return (0);
 }
 
-int     mySfml::refreshWindow()
+int	mySfml::refreshWindow()
 {
   sf::Vector2u size = this->_wd.getSize();
 
@@ -49,19 +49,19 @@ int     mySfml::refreshWindow()
   return (0);
 }
 
-int     mySfml::clearWindow()
+int	mySfml::clearWindow()
 {
   this->_wd.clear(sf::Color::Black);
   return (0);
 }
 
-int     mySfml::closeWindow()
+int	mySfml::closeWindow()
 {
   this->_wd.close();
   return (0);
 }
 
-int     mySfml::getKey()
+IGraphic::e_key	mySfml::getKey()
 {
   if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
     return (E_LEFT);
@@ -74,7 +74,7 @@ int     mySfml::getKey()
   return (-1);
 }
 
-int     mySfml::setCell()
+int	mySfml::setCell()
 {
   // this->_cellY = this->_cellX;                                                                      
   this->_cellX = this->_x / 40;
@@ -83,7 +83,7 @@ int     mySfml::setCell()
   return (0);
 }
 
-int     mySfml::buildCell(int x, int y, IGraphic::e_color col)
+int	mySfml::buildCell(int x, int y, IGraphic::e_color col)
 {
   sf::RectangleShape rectangle(sf::Vector2f(this->_cellX, this->_cellY));
   // rectangle.setSize(sf::Vector2f(this->_cellX, this->_cellX));                                      
