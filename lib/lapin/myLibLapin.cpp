@@ -5,7 +5,7 @@
 ** Login   <selimrinaz@epitech.net>
 ** 
 ** Started on  Tue Mar 28 17:42:54 2017 Selim Rinaz
-** Last update Wed Mar 29 18:02:08 2017 Selim Rinaz
+** Last update Thu Mar 30 11:35:54 2017 Selim Rinaz
 */
 
 #include <unistd.h>
@@ -49,13 +49,21 @@ int		myLibLapin::buildCell(int x, int y, e_color col)
 {
   t_bunny_position	position;
   t_bunny_pixelarray	*pixarray;
+  t_bunny_window	*window;
 
   (void)col;
-  pixarray = bunny_new_pixelarray(20, 20);
+  window = bunny_start(800, 800, 0, "The Game");
+  if (!window)
+    {
+      return (1);
+    }
+  bunny_display(window);
+  if (NULL == (pixarray = bunny_new_pixelarray(20, 20)))
+    return (1);
   position.x = x * 20;
   position.y = y * 20;
-  //bunny_blit(&this->window->buffer, &pixarray->clipable, &position);
-  bunny_display(this->window);
+  // bunny_blit(&window->buffer, &pixarray->clipable, &position);
+  bunny_display(window);
   return (0);
 }
 
@@ -63,10 +71,10 @@ int		main()
 {
   myLibLapin	lapin;
 
-  lapin.openWindow(40, 40);
-  lapin.clearWindow();
+  // lapin.openWindow(40, 40);
+  // lapin.clearWindow();
   lapin.buildCell(3, 3, myLibLapin::E_BLACK);
   sleep(10);
-  lapin.closeWindow();
+  // lapin.closeWindow();
   return (EXIT_SUCCESS);
 }
