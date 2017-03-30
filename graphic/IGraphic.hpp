@@ -5,7 +5,7 @@
 ** Login   <selimrinaz@epitech.net>
 ** 
 ** Started on  Wed Mar 29 15:05:04 2017 Selim Rinaz
-** Last update Wed Mar 29 18:06:51 2017 Selim Rinaz
+// Last update Thu Mar 30 11:22:06 2017 Simon
 */
 
 #ifndef IGRAPHIC_HPP_
@@ -29,7 +29,8 @@ public:
   }			e_color;
 
   typedef enum {
-    E_LEFT,
+    E_NONE = -1,
+    E_LEFT = 0,
     E_RIGHT,
     E_UP,
     E_DOWN
