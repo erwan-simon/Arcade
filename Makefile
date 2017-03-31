@@ -5,11 +5,12 @@
 ## Login   <erwan.simon@epitech.eu>
 ## 
 ## Started on  Thu Mar 30 11:17:19 2017 Simon
-## Last update Thu Mar 30 15:38:29 2017 Simon
+## Last update Fri Mar 31 14:40:39 2017 Simon
 ##
 
 NAME_EXE	= arcade
-SRCS_EXE	= ./launcher.cpp
+SRCS_EXE	= ./Launcher.cpp	\
+		  ./main.cpp
 OBJS_EXE	= $(SRCS_EXE:.cpp=.o)
 
 NAME_NC		= ./lib/lib_arcade_ncurses.so

@@ -5,7 +5,7 @@
 // Login   <antoine@epitech.eu>
 // 
 // Started on  Thu Mar 30 15:11:07 2017 Antoine
-// Last update Fri Mar 31 13:28:48 2017 Simon
+// Last update Fri Mar 31 13:38:35 2017 Simon
 //
 
 #include <SFML/Window.hpp>
@@ -73,6 +73,8 @@ IGraphic::e_key	mySfml::getKey()
     return (E_DOWN);
   if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
     return (E_UP);
+  if (sf::Keyboard::isKeyPressed(sf::Keyboard::C))
+    return (E_C);
   return (E_NONE);
 }
 
