@@ -5,7 +5,7 @@
 // Login   <erwan.simon@epitech.eu>
 // 
 // Started on  Wed Mar 29 17:30:33 2017 Simon
-// Last update Fri Mar 31 16:01:23 2017 Simon
+// Last update Fri Mar 31 17:20:31 2017 Simon
 //
 
 #include <iostream>
@@ -17,39 +17,26 @@
 #include "./graphic/IGraphic.hpp"
 #include "Launcher.hpp"
 
-Launcher::Launcher()
+Launcher::Launcher(std::string &lib)
 {
   IGraphic* (*launch)();
   DIR *dir;
+  int	a = 0;
+  int	chose = -1;
   struct dirent *ent;
   static const std::regex r("lib_arcade_[^_.]+.so");
-  int	a;
-  std::string s;
-  this->_dh_lib = new void *[3];
-  this->_lib = new IGraphic *[3];
+  this->_lib_name = new std::string[3];
 
-  a = 0;
   if ((dir = opendir("./lib")) != NULL)
     {
     while (a != 3 && (ent = readdir(dir)) != NULL)
       {
 	if (regex_match(ent->d_name, r))
 	  {
-	    s = "./lib/";
-	    s += ent->d_name;
-	    this->_dh_lib[a] = dlopen(s.c_str(), RTLD_LAZY);
-	    if (this->_dh_lib[a] == NULL)
-	      {
-		std::cerr << "dhandle error" << std::endl;
-		return ;
-	      }
-	    launch = reinterpret_cast<IGraphic* (*)()>(dlsym(this->_dh_lib[a], "launch_lib"));
-	    if (launch == NULL)
-	      {
-		std::cerr << "launch lib error" << std::endl;
-		return ;
-	      }
-	    this->_lib[a] = launch();
+	    this->_lib_name[a] = "./lib/";
+	    this->_lib_name[a] += ent->d_name;
+	    if (lib == this->_lib_name[a])
+	      chose = a;
 	    a++;
 	  }
       }
@@ -60,40 +47,74 @@ Launcher::Launcher()
       std::cerr << "no file lib" << std::endl;
       return ;
     }
+  if (chose == -1)
+    {
+      std::cerr << "lib " << lib << "does not exists" << std::endl;
+      return ;
+    }
+  this->_dh_lib = dlopen(this->_lib_name[chose].c_str(), RTLD_LAZY);
+  if (this->_dh_lib == NULL)
+    {
+      std::cerr << "dhandle error" << std::endl;
+      return ;
+    }
+  launch = reinterpret_cast<IGraphic* (*)()>(dlsym(this->_dh_lib, "launch_lib"));
+  if (launch == NULL)
+    {
+      std::cerr << "launch lib error" << std::endl;
+      return ;
+    }
+  this->_lib = launch();
 }
 
 Launcher::~Launcher()
 {
-  if (this->_dh_lib[0])
-    dlclose(this->_dh_lib[0]);
-  if (this->_dh_lib[1])
-    dlclose(this->_dh_lib[0]);
-  if (this->_dh_lib[2])
-    dlclose(this->_dh_lib[0]);
+  dlclose(this->_dh_lib);
 }
 
-static void	changeLib()
+void		Launcher::changeLib(int *a)
 {
-  
+  IGraphic* (*launch)();
+  this->_lib->closeWindow();
+  dlclose(this->_dh_lib);
+  *a = (*a == 0 ? 1 : 0);
+  this->_dh_lib = dlopen(this->_lib_name[*a].c_str(), RTLD_LAZY);
+  if (this->_dh_lib == NULL)
+    {
+      std::cerr << "dhandle error" << std::endl;
+      return ;
+    }
+  launch = reinterpret_cast<IGraphic* (*)()>(dlsym(this->_dh_lib, "launch_lib"));
+  if (launch == NULL)
+    {
+      std::cerr << "launch lib error" << std::endl;
+      return ;
+    }
+  this->_lib = launch();
+  this->_lib->openWindow(40, 40);
 }
 
-static int	test(IGraphic &lib)
+void		Launcher::launch()
 {
-  int	i;
+  int		i;
+  int		a;
 
+  a = 1;
+  this->_lib->openWindow(40, 40);
   while (1)
     {
       for (i = 1; i != 40; i++)
-      	lib.buildCell(0, i, IGraphic::E_RED);
+      	this->_lib->buildCell(0, i, IGraphic::E_RED);
       for (i = 0; i != 39; i++)
-      	lib.buildCell(i, 0, IGraphic::E_BLUE);
+      	this->_lib->buildCell(i, 0, IGraphic::E_BLUE);
       for (i = 0; i != 39; i++)
-      	lib.buildCell(39, i, IGraphic::E_GREEN);
+      	this->_lib->buildCell(39, i, IGraphic::E_GREEN);
       for (i = 1; i != 40; i++)
-      	lib.buildCell(i, 39, IGraphic::E_YELLOW);
-      if (lib.getKey() == IGraphic::E_3)
-	changeLib();
-      lib.refreshWindow();
-      lib.clearWindow();
+      	this->_lib->buildCell(i, 39, IGraphic::E_YELLOW);
+      if (this->_lib->getKey() == IGraphic::E_3)
+	this->changeLib(&a);
+      this->_lib->refreshWindow();
+      this->_lib->clearWindow();
     }
+  this->_lib->closeWindow();
 }
