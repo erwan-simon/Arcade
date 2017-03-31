@@ -5,7 +5,7 @@
 // Login   <antoine@epitech.eu>
 // 
 // Started on  Thu Mar 30 15:11:07 2017 Antoine
-// Last update Fri Mar 31 13:38:35 2017 Simon
+// Last update Fri Mar 31 16:12:53 2017 Simon
 //
 
 #include <SFML/Window.hpp>
@@ -73,8 +73,20 @@ IGraphic::e_key	mySfml::getKey()
     return (E_DOWN);
   if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
     return (E_UP);
-  if (sf::Keyboard::isKeyPressed(sf::Keyboard::C))
-    return (E_C);
+  if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num2))
+    return (E_2);
+  if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num3))
+    return (E_3);
+  if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num4))
+    return (E_4);
+  if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num5))
+    return (E_5);
+  if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num8))
+    return (E_8);
+  if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num9))
+    return (E_9);
+  if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
+    return (E_ESC);
   return (E_NONE);
 }
 

@@ -5,7 +5,7 @@
 // Login   <erwan.simon@epitech.eu>
 // 
 // Started on  Wed Mar 29 17:30:33 2017 Simon
-// Last update Fri Mar 31 15:43:59 2017 Simon
+// Last update Fri Mar 31 16:01:23 2017 Simon
 //
 
 #include <iostream>
@@ -74,13 +74,13 @@ Launcher::~Launcher()
 
 static void	changeLib()
 {
-
+  
 }
 
 static int	test(IGraphic &lib)
 {
   int	i;
-  
+
   while (1)
     {
       for (i = 1; i != 40; i++)
@@ -91,7 +91,7 @@ static int	test(IGraphic &lib)
       	lib.buildCell(39, i, IGraphic::E_GREEN);
       for (i = 1; i != 40; i++)
       	lib.buildCell(i, 39, IGraphic::E_YELLOW);
-      if (lib.getKey() == IGraphic::E_C)
+      if (lib.getKey() == IGraphic::E_3)
 	changeLib();
       lib.refreshWindow();
       lib.clearWindow();

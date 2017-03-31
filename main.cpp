@@ -5,7 +5,7 @@
 // Login   <erwan.simon@epitech.eu>
 // 
 // Started on  Fri Mar 31 14:11:45 2017 Simon
-// Last update Fri Mar 31 14:40:06 2017 Simon
+// Last update Fri Mar 31 16:01:16 2017 Simon
 //
 
 #include <iostream>
@@ -23,5 +23,6 @@ int             main(int ac, char **av)
       std::cerr << "Need an argument" << std::endl;
       return (1);
     }
+  
   return (0);
 }
