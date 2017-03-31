@@ -5,7 +5,7 @@
 // Login   <antoine@epitech.eu>
 // 
 // Started on  Thu Mar 30 15:11:07 2017 Antoine
-// Last update Thu Mar 30 22:06:25 2017 Antoine
+// Last update Fri Mar 31 12:57:12 2017 Simon
 //
 
 #include <SFML/Window.hpp>
@@ -87,14 +87,14 @@ int	mySfml::setCell()
   // this->_cellY = this->_cellX;
   this->_cellX = this->_x / 40;
   this->_cellY = this->_y / 40;
-  // this->_cellX = this->_cellY;                                                                      
+  // this->_cellX = this->_cellY;   
   return (0);
 }
 
 int	mySfml::buildCell(int x, int y, IGraphic::e_color col)
 {
   sf::RectangleShape rectangle(sf::Vector2f(this->_cellX, this->_cellY));
-  // rectangle.setSize(sf::Vector2f(this->_cellX, this->_cellX));                                      
+  // rectangle.setSize(sf::Vector2f(this->_cellX, this->_cellX));
   rectangle.setFillColor(colorCell(col));
   rectangle.setPosition(x * this->_cellX, y * this->_cellY);
   this->_wd.draw(rectangle);

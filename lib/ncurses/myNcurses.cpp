@@ -5,7 +5,7 @@
 // Login   <erwan.simon@epitech.eu>
 // 
 // Started on  Tue Mar 28 19:02:29 2017 Simon
-// Last update Thu Mar 30 17:33:55 2017 Simon
+// Last update Fri Mar 31 12:50:46 2017 Simon
 //
 
 #include <ncurses.h>
@@ -34,14 +34,13 @@ int	myNcurses::openWindow(int x, int y)
   this->size_cell_x = 2;
   this->default_x = x;
   this->default_y = y;
-  this->nb_line = y;
-  this->nb_col = x;
+  this->nb_line = y - 1;
+  this->nb_col = x - 1;
   return (0);
 }
 
 int	myNcurses::refreshWindow()
 {
-  getmaxyx(stdscr, this->nb_col, this->nb_line);
   refresh();
   return (0);
 }
@@ -78,8 +77,15 @@ IGraphic::e_key	myNcurses::getKey()
 
 int	myNcurses::buildCell(int x, int y, IGraphic::e_color col)
 {
+  int	a;
+  int	b;
+  
   attron(COLOR_PAIR(col));
-  mvprintw(y * this->size_cell_y, x * this->size_cell_x, "  ");
+  for (a = 0; a < this->size_cell_y; a++)
+    {
+      for (b = 0; b < this->size_cell_x; b++)
+	mvprintw((y * this->size_cell_y) + a, (x * this->size_cell_x) + b, " ");
+    }
   attroff(COLOR_PAIR(col));
   return (0);
 }

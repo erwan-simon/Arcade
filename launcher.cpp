@@ -5,7 +5,7 @@
 // Login   <erwan.simon@epitech.eu>
 // 
 // Started on  Wed Mar 29 17:30:33 2017 Simon
-// Last update Thu Mar 30 16:45:08 2017 Simon
+// Last update Fri Mar 31 12:56:52 2017 Simon
 //
 
 #include <iostream>
@@ -19,15 +19,16 @@ int	test(IGraphic &lib)
   
   while (1)
     {
-      for (i = 0; i != 40; i++)
-	lib.buildCell(0, i, IGraphic::E_RED);
-      for (i = 0; i != 40; i++)
-	lib.buildCell(i, 0, IGraphic::E_BLUE);
-      for (i = 0; i != 40; i++)
-	lib.buildCell(40, i, IGraphic::E_GREEN);
-      for (i = 0; i != 40; i++)
-	lib.buildCell(i, 40, IGraphic::E_YELLOW);
+      for (i = 1; i != 40; i++)
+      	lib.buildCell(0, i, IGraphic::E_RED);
+      for (i = 0; i != 39; i++)
+      	lib.buildCell(i, 0, IGraphic::E_BLUE);
+      for (i = 0; i != 39; i++)
+      	lib.buildCell(39, i, IGraphic::E_GREEN);
+      for (i = 1; i != 40; i++)
+      	lib.buildCell(i, 39, IGraphic::E_YELLOW);
       lib.refreshWindow();
+      lib.clearWindow();
     }
 }
 
@@ -44,11 +45,17 @@ int	main(int ac, char **av)
 
   dlhandle = dlopen(av[1], RTLD_LAZY);
   if (dlhandle == NULL)
-    return (1);
+    {
+      std::cerr << "dhandle error" << std::endl;
+      return (1);
+    }
   launch_lib = reinterpret_cast<IGraphic* (*)()>(dlsym(dlhandle, "launch_lib"));
   if (launch_lib == NULL)
-    return (1);
-  IGraphic* lib = launch_lib(); //Object included from the library !
+    {
+      std::cerr << "launch lib error" << std::endl;
+      return (1);
+    }
+  IGraphic* lib = launch_lib();
   lib->openWindow(40, 40);
   test(*lib);
   lib->closeWindow();
