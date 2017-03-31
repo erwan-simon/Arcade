@@ -5,21 +5,21 @@
 ## Login   <rinaz_a@epitech.eu>
 ## 
 ## Started on  Tue Dec 22 13:57:35 2015 selim rinaz
-## Last update Fri Mar 31 15:32:05 2017 Simon
+## Last update Fri Mar 31 17:13:56 2017 Selim Rinaz
 ##
 
 NAME		=	test
 
 CXXFLAGS	=	-L/home/${USER}/.froot/lib/ -llapin
 CXXFLAGS        +=       -L/usr/local/lib
-# CXXFLAGS        +=       -lsfml-audio
+CXXFLAGS        +=       -lsfml-audio
 CXXFLAGS        +=       -lsfml-graphics
 CXXFLAGS        +=       -lsfml-window
 CXXFLAGS        +=       -lsfml-system
-CXXFLAGS        +=       -ldl -std=c++11
+CXXFLAGS        +=       -ldl
 CXXFLAGS        +=       -lm -g3
 CXXFLAGS        +=       -I../../graphic/ -I/home/${USER}/.froot/include/
-# CXXFLAGS        +=       -W -Wall -Werror -std=c++11
+CXXFLAGS        +=       -W -Wall -Werror -std=c++11
 
 SRCS		=	myLibLapin.cpp
 

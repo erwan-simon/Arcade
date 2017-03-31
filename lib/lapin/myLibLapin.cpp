@@ -5,7 +5,7 @@
 ** Login   <selimrinaz@epitech.net>
 ** 
 ** Started on  Tue Mar 28 17:42:54 2017 Selim Rinaz
-** Last update Fri Mar 31 16:18:43 2017 Selim Rinaz
+** Last update Fri Mar 31 17:17:40 2017 Selim Rinaz
 */
 
 #include <unistd.h>
@@ -14,7 +14,9 @@
 
 int			myLibLapin::openWindow(int x, int y)
 {
-  this->window = bunny_start((x * 20), (y * 20), 0, "The Game");
+  this->width = 20;
+  this->height = 20;
+  this->window = bunny_start((x * this->width), (y * this->height), 0, "The Game");
   if (!this->window)
     {
       return (1);
@@ -25,6 +27,9 @@ int			myLibLapin::openWindow(int x, int y)
 
 int			myLibLapin::refreshWindow()
 {
+  this->width = 20;
+  this->height = 20;
+  bunny_display(this->window);
   return (0);
 }
 
@@ -46,18 +51,18 @@ myLibLapin::e_key	myLibLapin::getKey()
   return (E_NONE);
 }
 
-void            fill_color(t_bunny_pixelarray *pixarray, void *color)
+void			fill_color(t_bunny_pixelarray *pixarray, unsigned int col)
 {
-  int           idx;
-  int           total;
-  unsigned      *pixels;
+  int			idx;
+  int			total;
+  unsigned		*pixels;
 
   idx = 0;
   pixels = (unsigned *)pixarray->pixels;
   total = pixarray->clipable.clip_width * pixarray->clipable.clip_height;
   while (idx < total)
     {
-      pixels[idx] = *color;
+      pixels[idx] = col;
       idx++;
     }
 }
@@ -66,34 +71,42 @@ int			myLibLapin::buildCell(int x, int y, e_color col)
 {
   t_bunny_position	position;
   t_bunny_pixelarray	*pixarray;
-  t_bunny_window	*window;
 
   if (NULL == (pixarray = bunny_new_pixelarray(20, 20)))
     return (1);
-  position.x = x * 20;
-  position.y = y * 20;
+  position.x = x * this->width;
+  position.y = y * this->height;
   switch (col) {
   case (E_BLACK) : fill_color(pixarray, BLACK);
+    break;
   case (E_WHITE) : fill_color(pixarray, WHITE);
+    break;
   case (E_YELLOW) : fill_color(pixarray, YELLOW);
+    break;
   case (E_RED) : fill_color(pixarray, RED);
+    break;
   case (E_BLUE) : fill_color(pixarray, BLUE);
+    break;
   case (E_PINK) : fill_color(pixarray, PINK);
+    break;
   case (E_GREEN) : fill_color(pixarray, GREEN);
-    }
+    break;
+  }
   bunny_blit(&this->window->buffer, &pixarray->clipable, &position);
-  bunny_display(this->window);
   return (0);
 }
 
-int		main()
-{
-  myLibLapin	lapin;
+// int		main()
+// {
+//   myLibLapin	lapin;
 
-  lapin.openWindow(40, 40);
-  lapin.clearWindow();
-  lapin.buildCell(3, 3, myLibLapin::E_BLACK);
-  sleep(5);
-  lapin.closeWindow();
-  return (EXIT_SUCCESS);
-}
+//   lapin.openWindow(40, 40);
+//   while (1)
+//     {
+//       lapin.clearWindow();
+//       lapin.buildCell(3, 3, myLibLapin::E_BLUE);
+//       lapin.refreshWindow();
+//     }
+//   lapin.closeWindow();
+//   return (EXIT_SUCCESS);
+// }

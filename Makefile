@@ -5,7 +5,7 @@
 ## Login   <erwan.simon@epitech.eu>
 ## 
 ## Started on  Thu Mar 30 11:17:19 2017 Simon
-## Last update Fri Mar 31 14:40:39 2017 Simon
+## Last update Fri Mar 31 17:16:36 2017 Selim Rinaz
 ##
 
 NAME_EXE	= arcade
@@ -21,12 +21,16 @@ NAME_SF		= ./lib/lib_arcade_sfml.so
 SRCS_SF		= ./lib/sfml/mySfml.cpp
 OBJS_SF		= $(SRCS_SF:.cpp=.o)
 
-# NAME_LA		= lib_arcade_lapin.so
-# SRCS_LA		= ./lib/lapin/myLapin.cpp
-# OBJS_LA		= $(SRCS_LA:.cpp=.o)
+NAME_LA		= ./lib/lib_arcade_lapin.so
+SRCS_LA		= ./lib/lapin/myLibLapin.cpp
+OBJS_LA		= $(SRCS_LA:.cpp=.o)
 
-CXXFLAGS	+= -Wall -Wextra -fPIC -std=c++11
-LDFLAGS		+= -ldl
+CXXFLAGS	+= -Wall -Wextra -fPIC -std=c++11 -Igraphic
+LDFLAGS		+= -ldl							\
+		   -L/home/${USER}/.froot/lib/ -llapin			\
+		   -L/usr/local/lib					\
+		   -lm							\
+		   -I../../graphic/ -I/home/${USER}/.froot/include/
 
 CXX		= g++
 RM		= rm -f
@@ -42,14 +46,14 @@ $(NAME_NC):	$(OBJS_NC)
 $(NAME_SF):	$(OBJS_SF)
 		$(CXX) -shared -o $(NAME_SF) $(OBJS_SF) -lsfml-graphics -lsfml-window -lsfml-system
 
-# $(NAME_LA):	$(OBJS_LA)
-# 		$(CXX) -shared -o $(NAME_LA) $(OBJS_LA) -lsfml-graphics -lsfml-window -lsfml-system
+$(NAME_LA):	$(OBJS_LA)
+		$(CXX) -shared -o $(NAME_LA) $(OBJS_LA) -lsfml-graphics -lsfml-window -lsfml-system
 
 clean:
-		$(RM) $(OBJS_EXE) $(OBJS_NC) $(OBJS_SF) # $(OBJS_LA)
+		$(RM) $(OBJS_EXE) $(OBJS_NC) $(OBJS_SF) $(OBJS_LA)
 
 fclean: 	clean
-		$(RM) $(NAME_EXE) $(NAME_NC) $(NAME_SF) # $(NAME_LA)
+		$(RM) $(NAME_EXE) $(NAME_NC) $(NAME_SF) $(NAME_LA)
 
 re:		fclean all
 

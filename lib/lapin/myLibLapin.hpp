@@ -5,7 +5,7 @@
 ** Login   <selimrinaz@epitech.net>
 ** 
 ** Started on  Tue Mar 28 17:44:50 2017 Selim Rinaz
-** Last update Fri Mar 31 15:11:33 2017 Selim Rinaz
+** Last update Fri Mar 31 17:06:01 2017 Selim Rinaz
 */
 
 #ifndef MYLIBLAPIN_HPP_
@@ -17,6 +17,8 @@
 class			myLibLapin : public IGraphic
 {
   t_bunny_window	*window;
+  unsigned int		width;
+  unsigned int		height;
 
 public:
   virtual int		openWindow(int x, int y);
