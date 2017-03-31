@@ -5,7 +5,7 @@
 // Login   <antoine@epitech.eu>
 // 
 // Started on  Thu Mar 30 15:11:07 2017 Antoine
-// Last update Fri Mar 31 16:12:53 2017 Simon
+// Last update Fri Mar 31 17:36:03 2017 Simon
 //
 
 #include <SFML/Window.hpp>
@@ -33,7 +33,7 @@ int	mySfml::openWindow(int x, int y)
 {
   this->_cellX = 0;
   this->_cellY = 0;
-  this->_wd.create(sf::VideoMode(x * 20, y * 20), "Arcade");
+  this->_wd.create(sf::VideoMode(x * 20, y * 20), "Arcade", sf::Style::Close);
   this->setCell();
   this->_wd.display();
   return (0);
