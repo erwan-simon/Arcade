@@ -5,7 +5,7 @@
 ** Login   <selimrinaz@epitech.net>
 ** 
 ** Started on  Wed Mar 29 15:05:04 2017 Selim Rinaz
-// Last update Fri Mar 31 17:31:19 2017 Simon
+// Last update Fri Mar 31 18:03:41 2017 Simon
 */
 
 #ifndef IGRAPHIC_HPP_
@@ -50,7 +50,7 @@ public:
   virtual int		closeWindow() = 0;
   virtual e_key		getKey() = 0;
 
-  // BuildCell
+  // Draw
   virtual int		buildCell(int x, int y, e_color col) = 0;
 };
 
