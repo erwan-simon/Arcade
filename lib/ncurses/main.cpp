@@ -5,7 +5,7 @@
 // Login   <erwan.simon@epitech.eu>
 // 
 // Started on  Tue Mar 28 19:43:13 2017 Simon
-// Last update Wed Mar 29 16:48:09 2017 Simon
+// Last update Fri Mar 31 13:51:19 2017 Simon
 //
 
 #include <ncurses.h>

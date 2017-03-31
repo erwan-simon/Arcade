@@ -5,7 +5,7 @@
 // Login   <antoine@epitech.eu>
 // 
 // Started on  Tue Mar 28 14:24:06 2017 Antoine
-// Last update Thu Mar 30 17:33:16 2017 Simon
+// Last update Fri Mar 31 13:58:07 2017 Simon
 //
 
 #ifndef IGAME_HPP_
@@ -17,9 +17,9 @@ class				IGame
 {
 public:
   typedef enum {
-    WIN,
-    LOSE
-  } e_end;
+    E_WIN,
+    E_LOSE
+  }	e_end;
 
   // Getters
   virtual struct WhereAmI	_whereAmI() const = 0;
@@ -39,8 +39,8 @@ public:
   virtual void			_pause() = 0;
   virtual void			_gameOver(e_end) = 0;
 
-// private:
-//   struct GetMap			_map;
+private:
+//   struct GetMap		_map;
 //   struct WhereAmI		_position;
 };
 

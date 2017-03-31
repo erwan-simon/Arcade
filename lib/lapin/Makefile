@@ -5,7 +5,7 @@
 ## Login   <rinaz_a@epitech.eu>
 ## 
 ## Started on  Tue Dec 22 13:57:35 2015 selim rinaz
-## Last update Thu Mar 30 11:26:55 2017 Selim Rinaz
+## Last update Fri Mar 31 15:32:05 2017 Simon
 ##
 
 NAME		=	test
@@ -16,7 +16,7 @@ CXXFLAGS        +=       -L/usr/local/lib
 CXXFLAGS        +=       -lsfml-graphics
 CXXFLAGS        +=       -lsfml-window
 CXXFLAGS        +=       -lsfml-system
-CXXFLAGS        +=       -ldl
+CXXFLAGS        +=       -ldl -std=c++11
 CXXFLAGS        +=       -lm -g3
 CXXFLAGS        +=       -I../../graphic/ -I/home/${USER}/.froot/include/
 # CXXFLAGS        +=       -W -Wall -Werror -std=c++11
