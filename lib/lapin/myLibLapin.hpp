@@ -5,16 +5,16 @@
 ** Login   <selimrinaz@epitech.net>
 ** 
 ** Started on  Tue Mar 28 17:44:50 2017 Selim Rinaz
-** Last update Thu Mar 30 17:11:21 2017 Selim Rinaz
+** Last update Fri Mar 31 15:11:33 2017 Selim Rinaz
 */
 
-#ifndef MYQT_HPP_
-# define MYQT_HPP_
+#ifndef MYLIBLAPIN_HPP_
+# define MYLIBLAPIN_HPP_
 
-# include <>
+# include <lapin.h>
 # include "IGraphic.hpp"
 
-class			myQt : public IGraphic
+class			myLibLapin : public IGraphic
 {
   t_bunny_window	*window;
 
@@ -22,9 +22,9 @@ public:
   virtual int		openWindow(int x, int y);
   virtual int		refreshWindow();
   virtual int		closeWindow();
-  virtual int		getKey();
+  virtual e_key		getKey();
   virtual int		clearWindow();
   virtual int		buildCell(int x, int y, e_color col);
 };
 
-#endif /* !MYQT_HPP_ */
+#endif /* !MYLIBLAPIN_HPP_ */
