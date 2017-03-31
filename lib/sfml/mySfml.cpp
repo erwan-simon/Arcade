@@ -5,7 +5,7 @@
 // Login   <antoine@epitech.eu>
 // 
 // Started on  Thu Mar 30 15:11:07 2017 Antoine
-// Last update Fri Mar 31 17:36:03 2017 Simon
+// Last update Fri Mar 31 17:40:03 2017 Antoine
 //
 
 #include <SFML/Window.hpp>
@@ -94,27 +94,34 @@ int	mySfml::setCell()
 {
   sf::Vector2u size = this->_wd.getSize();
 
-  if (size.y > size.x)
-    {
-      this->_x = size.x;
-      this->_y = size.x;
-      // this->_cellY = this->_cellX;
-      this->_cellX = this->_x / 40;
-      this->_cellY = this->_y / 40;
-      // this->_cellX = this->_cellY;
-    }
-  else
-    {
-      this->_y = size.y;
-      this->_x = size.y;
-      // this->_cellY = this->_cellX;
-      this->_cellX = this->_x / 40;
-      this->_cellY = this->_y / 40;
-      // this->_cellX = this->_cellY;
-    }
-  std::cout << "size.x = " << size.x << " | size.y = " << size.y << std::endl;
-  std::cout << "Cellx = " << this->_cellX * 40 << " | Celly = " << this->_cellY * 40
-	    << std::endl << std::endl;;
+
+  this->_x = size.x;
+  this->_y = size.x;
+  // this->_cellY = this->_cellX;
+  this->_cellX = this->_x / 40;
+  this->_cellY = this->_y / 40;
+  
+  // if (size.y > size.x)
+  //   {
+  //     this->_x = size.x;
+  //     this->_y = size.x;
+  //     // this->_cellY = this->_cellX;
+  //     this->_cellX = this->_x / 40;
+  //     this->_cellY = this->_y / 40;
+  //     // this->_cellX = this->_cellY;
+  //   }
+  // else
+  //   {
+  //     this->_y = size.y;
+  //     this->_x = size.y;
+  //     // this->_cellY = this->_cellX;
+  //     this->_cellX = this->_x / 40;
+  //     this->_cellY = this->_y / 40;
+  //     // this->_cellX = this->_cellY;
+  //   }
+  // std::cout << "size.x = " << size.x << " | size.y = " << size.y << std::endl;
+  // std::cout << "Cellx = " << this->_cellX * 40 << " | Celly = " << this->_cellY * 40
+  // 	    << std::endl << std::endl;;
   this->_wd.pollEvent(this->_event);
   return (0);
 }
