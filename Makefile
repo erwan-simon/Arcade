@@ -5,7 +5,7 @@
 ## Login   <erwan.simon@epitech.eu>
 ## 
 ## Started on  Thu Mar 30 11:17:19 2017 Simon
-## Last update Fri Mar 31 17:21:54 2017 Simon
+## Last update Fri Mar 31 18:13:27 2017 Selim Rinaz
 ##
 
 NAME_EXE	= arcade
@@ -25,7 +25,7 @@ OBJS_SF		= $(SRCS_SF:.cpp=.o)
 # SRCS_LA		= ./lib/lapin/myLibLapin.cpp
 # OBJS_LA		= $(SRCS_LA:.cpp=.o)
 
-CXXFLAGS	+= -Wall -Wextra -fPIC -std=c++11 -Igraphic
+CXXFLAGS	+= -Wall -Wextra -fPIC -std=c++11 -Igraphic -g -g3
 LDFLAGS		+= -ldl							\
 		   # -L/home/${USER}/.froot/lib/ -llapin			\
 		   # -L/usr/local/lib					\
