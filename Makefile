@@ -5,7 +5,7 @@
 ## Login   <erwan.simon@epitech.eu>
 ## 
 ## Started on  Thu Mar 30 11:17:19 2017 Simon
-## Last update Mon Apr  3 11:27:12 2017 Simon
+## Last update Mon Apr  3 13:27:27 2017 Simon
 ##
 
 NAME_EXE	= arcade
@@ -46,14 +46,14 @@ $(NAME_NC):	$(OBJS_NC)
 $(NAME_SF):	$(OBJS_SF)
 		$(CXX) -shared -o $(NAME_SF) $(OBJS_SF) -lsfml-graphics -lsfml-window -lsfml-system
 
-# $(NAME_LA):	$(OBJS_LA)
-# 		$(CXX) -shared -o $(NAME_LA) $(OBJS_LA) -lsfml-graphics -lsfml-window -lsfml-system
+$(NAME_LA):	$(OBJS_LA)
+		$(CXX) -shared -o $(NAME_LA) $(OBJS_LA) -lsfml-graphics -lsfml-window -lsfml-system
 
 clean:
-		$(RM) $(OBJS_EXE) $(OBJS_NC) $(OBJS_SF) #$(OBJS_LA)
+		$(RM) $(OBJS_EXE) $(OBJS_NC) $(OBJS_SF) $(OBJS_LA)
 
 fclean: 	clean
-		$(RM) $(NAME_EXE) $(NAME_NC) $(NAME_SF) # $(NAME_LA)
+		$(RM) $(NAME_EXE) $(NAME_NC) $(NAME_SF) $(NAME_LA)
 
 re:		fclean all
 
