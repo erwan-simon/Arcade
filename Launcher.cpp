@@ -5,7 +5,7 @@
 // Login   <erwan.simon@epitech.eu>
 // 
 // Started on  Wed Mar 29 17:30:33 2017 Simon
-// Last update Mon Apr  3 16:58:13 2017 Antoine
+// Last update Mon Apr  3 17:08:58 2017 Simon
 //
 
 #include <signal.h>
@@ -112,7 +112,7 @@ void			Launcher::writeMenu()
   int			a = 0;
   int			y = 11;
   std::string		s;
-
+  
   s = "Welcome in the Arcade!";
   this->_lib->writeStuff((40 - s.size()) / 2, 3, s);
   s = "Choose your graphic library below:";
