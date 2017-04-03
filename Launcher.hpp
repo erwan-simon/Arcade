@@ -5,7 +5,7 @@
 // Login   <erwan.simon@epitech.eu>
 // 
 // Started on  Fri Mar 31 13:51:50 2017 Simon
-// Last update Mon Apr  3 13:36:16 2017 Simon
+// Last update Mon Apr  3 14:39:16 2017 Simon
 //
 
 #ifndef LAUNCHER_HPP_
@@ -19,7 +19,7 @@ public:
   ~Launcher();
 
   void		launch();
-  void		changeLib();
+  void		changeLib(IGraphic::e_key key);
   void		writeMenu();
   void		buildFrame();
   int		interact();

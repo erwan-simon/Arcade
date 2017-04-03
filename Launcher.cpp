@@ -5,7 +5,7 @@
 // Login   <erwan.simon@epitech.eu>
 // 
 // Started on  Wed Mar 29 17:30:33 2017 Simon
-// Last update Mon Apr  3 13:48:28 2017 Simon
+// Last update Mon Apr  3 14:49:36 2017 Simon
 //
 
 #include <signal.h>
@@ -73,12 +73,23 @@ Launcher::~Launcher()
   dlclose(this->_dh_lib);
 }
 
-void		Launcher::changeLib()
+void		Launcher::changeLib(IGraphic::e_key key)
 {
   IGraphic* (*launch)();
   this->_lib->closeWindow();
   dlclose(this->_dh_lib);
-  this->_current = (this->_current == 0 ? 1 : 0);
+  if (key == IGraphic::E_2)
+    {
+      if (this->_current == 0)
+	{
+	  while (this->_lib_name[this->_current + 1] != "")
+	    this->_current += 1;
+	}
+      else
+	this->_current -= 1;
+    }
+  else
+    this->_current = (this->_lib_name[this->_current + 1] != "" ? this->_current + 1 : 0);
   this->_dh_lib = dlopen(this->_lib_name[this->_current].c_str(), RTLD_LAZY);
   if (this->_dh_lib == NULL)
     {
@@ -122,8 +133,6 @@ void			Launcher::writeMenu()
   this->_lib->writeStuff(5, 24, s);
   s = "Truc";
   this->_lib->writeStuff(5, 26, s);
-  s = "Muche";
-  this->_lib->writeStuff(5, 28, s);  
 }
 
 void		Launcher::buildFrame()
@@ -151,11 +160,11 @@ void		Launcher::buildFrame()
   for (i = 2; i != 5; i++)
     this->_lib->buildCell(38, i, IGraphic::E_RED);
 
-  // Other frame  
+  // Other frame
   for (i = 1; i != 39; i++)
     this->_lib->buildCell(i, 18, IGraphic::E_WHITE);
   for (i = 1; i != 39; i++)
-    this->_lib->buildCell(i, 31, IGraphic::E_WHITE);
+    this->_lib->buildCell(i, 29, IGraphic::E_WHITE);
 }
 
 static void	sigIntHandler(int s)
@@ -167,8 +176,11 @@ int		Launcher::interact()
 {
   switch (this->_lib->getKey())
     {
-    case IGraphic::E_UP:
-      this->changeLib();
+    case IGraphic::E_2:
+      this->changeLib(IGraphic::E_2);
+      break ;
+    case IGraphic::E_3:
+      this->changeLib(IGraphic::E_3);
       break ;
     case IGraphic::E_ESC:
       return (-1);
