@@ -5,7 +5,7 @@
 // Login   <antoine@epitech.eu>
 // 
 // Started on  Thu Mar 30 15:11:07 2017 Antoine
-// Last update Mon Apr  3 16:35:56 2017 Simon
+// Last update Mon Apr  3 17:01:05 2017 Antoine
 //
 
 #include <SFML/Window.hpp>
@@ -143,28 +143,26 @@ int	mySfml::buildCell(int x, int y, IGraphic::e_color col)
 
 int	mySfml::writeStuff(int x, int y, std::string& text)
 {
-
-  unsigned int  i = 0;
   sf::Text      tx;
   sf::Font      font;
   std::string   s;
 
-  if (!font.loadFromFile("Roboto.ttf"))
-    {
-      // erreur...
-      exit (84);
-    }
+  if (!font.loadFromFile("./lib/sfml/Roboto.ttf"))
+    exit (84);
   tx.setFont(font);
   tx.setCharacterSize(30);
   tx.setColor(sf::Color::Red);
-  while(i < text.size())
-    {
-      s = text.at(i);
-      std::cout << s <<std::endl;
-      tx.setString(s);
-      tx.setPosition(sf::Vector2f((x * this->_cellX) + (i * this->_cellX), y * this->_cellY));
-      i += 1;
-    }
+  tx.setString(text);
+  tx.setPosition(sf::Vector2f(x * this->_cellX, y * this->_cellY));
+  // unsigned int  i = 0;
+  // while(i < text.size())
+  //   {
+  //     s = text.at(i);
+  //     std::cout << s <<std::endl;
+  //     tx.setString(s);
+  //     tx.setPosition(sf::Vector2f((x * this->_cellX) + (i * this->_cellX), y * this->_cellY));
+  //     i += 1;
+  //   }
   this->_wd.draw(tx);
   return (0);
 }

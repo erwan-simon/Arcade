@@ -5,7 +5,7 @@
 // Login   <erwan.simon@epitech.eu>
 // 
 // Started on  Wed Mar 29 17:30:33 2017 Simon
-// Last update Mon Apr  3 16:22:11 2017 Antoine
+// Last update Mon Apr  3 16:58:13 2017 Antoine
 //
 
 #include <signal.h>
@@ -193,7 +193,7 @@ void		Launcher::launch()
   signal(SIGINT, sigIntHandler);
   while (1)
     {
-      // this->writeMenu();
+      this->writeMenu();
       this->buildFrame();
       if (this->interact() == -1)
 	break ;
