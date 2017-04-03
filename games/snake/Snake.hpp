@@ -5,7 +5,7 @@
 // Login   <erwan.simon@epitech.eu>
 // 
 // Started on  Wed Mar 29 17:18:01 2017 Simon
-// Last update Mon Apr  3 11:49:24 2017 Antoine
+// Last update Mon Apr  3 11:55:18 2017 Simon
 //
 
 #ifndef SNAKE_HPP_
@@ -13,7 +13,7 @@
 
 #include "./../include/IGame.hpp"
 
-class					Snake : public Igame
+class					Snake : public IGame
 {
 public:
   Snake(int width, int height);

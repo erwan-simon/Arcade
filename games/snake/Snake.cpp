@@ -5,7 +5,7 @@
 // Login   <erwan.simon@epitech.eu>
 // 
 // Started on  Wed Mar 29 17:22:12 2017 Simon
-// Last update Mon Apr  3 11:50:58 2017 Antoine
+// Last update Mon Apr  3 12:04:58 2017 Simon
 //
 
 #include "Snake.hpp"
@@ -33,6 +33,11 @@ void		Snake::_goDown()
 }
 
 void		Snake::_goRight()
+{
+
+}
+
+void		Snake::_goLeft()
 {
 
 }

@@ -5,7 +5,7 @@
 // Login   <erwan.simon@epitech.eu>
 // 
 // Started on  Wed Mar 29 17:30:33 2017 Simon
-// Last update Mon Apr  3 11:25:11 2017 Simon
+// Last update Mon Apr  3 11:54:52 2017 Simon
 //
 
 #include <iostream>
@@ -94,26 +94,54 @@ void		Launcher::changeLib(int *a)
   this->_lib->openWindow(40, 40);
 }
 
-void		Launcher::launch()
+void		Launcher::writeMenu()
+{
+  std::string	s;
+
+  s = "Welcome in the Arcade!";
+  this->_lib->writeStuff((40 - s.size()) / 2, 3, s);
+  s = "Choose your lib below:";
+  this->_lib->writeStuff(2, 8, s);
+  while ()
+}
+
+void		Launcher::buildFrame()
 {
   int		i;
-  int		a;
   std::string	s;
+
+  // Base frame
+  for (i = 1; i != 40; i++)
+    this->_lib->buildCell(0, i, IGraphic::E_WHITE);
+  for (i = 0; i != 39; i++)
+    this->_lib->buildCell(i, 0, IGraphic::E_WHITE);
+  for (i = 0; i != 39; i++)
+    this->_lib->buildCell(39, i, IGraphic::E_WHITE);
+  for (i = 1; i != 40; i++)
+    this->_lib->buildCell(i, 39, IGraphic::E_WHITE);
+
+  // Title frame
+  for (i = 1; i != 39; i++)
+    this->_lib->buildCell(i, 1, IGraphic::E_RED);
+  for (i = 1; i != 39; i++)
+    this->_lib->buildCell(i, 5, IGraphic::E_RED);
+  for (i = 2; i != 5; i++)
+    this->_lib->buildCell(1, i, IGraphic::E_RED);
+  for (i = 2; i != 5; i++)
+    this->_lib->buildCell(38, i, IGraphic::E_RED);
+  
+}
+
+void		Launcher::launch()
+{
+  int		a;
 
   a = 1;
   this->_lib->openWindow(40, 40);
-  s = "Hello World!!";
   while (1)
     {
-      this->_lib->writeStuff(1, 1, s);
-      for (i = 1; i != 40; i++)
-      	this->_lib->buildCell(0, i, IGraphic::E_RED);
-      for (i = 0; i != 39; i++)
-      	this->_lib->buildCell(i, 0, IGraphic::E_BLUE);
-      for (i = 0; i != 39; i++)
-      	this->_lib->buildCell(39, i, IGraphic::E_GREEN);
-      for (i = 1; i != 40; i++)
-      	this->_lib->buildCell(i, 39, IGraphic::E_YELLOW);
+      this->writeMenu();
+      this->buildFrame();
       if (this->_lib->getKey() == IGraphic::E_UP)
 	this->changeLib(&a);
       this->_lib->refreshWindow();

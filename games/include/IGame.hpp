@@ -5,7 +5,7 @@
 // Login   <antoine@epitech.eu>
 // 
 // Started on  Tue Mar 28 14:24:06 2017 Antoine
-// Last update Fri Mar 31 16:42:09 2017 Antoine
+// Last update Mon Apr  3 12:04:11 2017 Simon
 //
 
 #ifndef IGAME_HPP_
@@ -22,8 +22,8 @@ public:
   }	e_end;
 
   // Getters
-  virtual struct WhereAmI	_whereAmI() const = 0;
-  virtual struct GetMap		_getMap() const = 0;
+  virtual arcade::WhereAmI	_whereAmI() const = 0;
+  virtual arcade::GetMap	_getMap() const = 0;
 
   // Input
   virtual void			_goUp() = 0;
@@ -38,10 +38,6 @@ public:
   virtual void			_play() = 0;
   virtual void			_pause() = 0;
   virtual void			_gameOver(e_end) = 0;
-
-private:
-  struct arcade::GetMap		_map;
-  struct arcade::WhereAmI	_position;
 };
 
 #endif /* !IGAME_HPP_ */
