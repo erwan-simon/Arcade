@@ -1,12 +1,12 @@
-/*
-** Launcher.cpp for Launcher in /home/selimrinaz/repo/tek2/B4-CPP/cpp_arcade
-** 
-** Made by Selim Rinaz
-** Login   <selimrinaz@epitech.net>
-** 
-** Started on  Mon Apr  3 17:32:50 2017 Selim Rinaz
-** Last update Mon Apr  3 17:33:08 2017 Selim Rinaz
-*/
+//
+// launcher.cpp for arcade in /home/erwan/Code/teck/Cpp/cpp_arcade
+// 
+// Made by Simon
+// Login   <erwan.simon@epitech.eu>
+// 
+// Started on  Wed Mar 29 17:30:33 2017 Simon
+// Last update Mon Apr  3 17:41:29 2017 Simon
+//
 
 #include <signal.h>
 #include <iostream>
@@ -28,7 +28,6 @@ Launcher::Launcher(std::string &lib)
   static const std::regex r("lib_arcade_[^_.]+.so");
   this->_lib_name = new std::string[4];
   this->_current = -1;
-
   if ((dir = opendir("./lib")) != NULL)
     {
     while (a != 3 && (ent = readdir(dir)) != NULL)
@@ -79,18 +78,10 @@ void		Launcher::changeLib(IGraphic::e_key key)
   IGraphic* (*launch)();
   this->_lib->closeWindow();
   dlclose(this->_dh_lib);
-  if (key == IGraphic::E_2)
-    {
-      if (this->_current == 0)
-	{
-	  while (this->_lib_name[this->_current + 1] != "")
-	    this->_current += 1;
-	}
-      else
-	this->_current -= 1;
-    }
-  else
-    this->_current = (this->_lib_name[this->_current + 1] != "" ? this->_current + 1 : 0);
+  if (key == IGraphic::E_2 && this->_current != 0)
+    this->_current -= 1;
+  else if (key == IGraphic::E_3 && this->_lib_name[this->_current + 1] != "")
+    this->_current += 1;
   this->_dh_lib = dlopen(this->_lib_name[this->_current].c_str(), RTLD_LAZY);
   if (this->_dh_lib == NULL)
     {
@@ -124,8 +115,6 @@ void			Launcher::writeMenu()
       a++;
       y += 2;
     }
-  s = "Bidule";
-  this->_lib->writeStuff(5, 15, s);
   s = "Choose your game below:";
   this->_lib->writeStuff(2, 21, s);
   s = "Machin";
@@ -193,7 +182,7 @@ void		Launcher::launch()
   signal(SIGINT, sigIntHandler);
   while (1)
     {
-      // this->writeMenu();
+      this->writeMenu();
       this->buildFrame();
       if (this->interact() == -1)
 	break ;
@@ -201,5 +190,4 @@ void		Launcher::launch()
       // this->_lib->clearWindow();
     }
   this->_lib->closeWindow();
-
 }

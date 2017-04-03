@@ -5,7 +5,7 @@
 // Login   <erwan.simon@epitech.eu>
 // 
 // Started on  Fri Mar 31 13:51:50 2017 Simon
-// Last update Mon Apr  3 14:39:16 2017 Simon
+// Last update Mon Apr  3 17:22:02 2017 Simon
 //
 
 #ifndef LAUNCHER_HPP_
@@ -30,6 +30,7 @@ private:
   void*		_dh_lib;
   std::string*	_lib_name;
   std::string*	_game_name;
+  int		_menu;
 };
 
 #endif
