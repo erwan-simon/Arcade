@@ -5,7 +5,7 @@
 ** Login   <selimrinaz@epitech.net>
 ** 
 ** Started on  Tue Mar 28 17:42:54 2017 Selim Rinaz
-** Last update Fri Mar 31 18:18:16 2017 Selim Rinaz
+** Last update Mon Apr  3 14:36:21 2017 Selim Rinaz
 */
 
 #include <unistd.h>
@@ -42,12 +42,33 @@ int			myLibLapin::closeWindow()
 int			myLibLapin::clearWindow()
 {
   bunny_clear(&this->window->buffer, BLACK);
-  bunny_display(this->window);
   return (0);
 }
 
 myLibLapin::e_key	myLibLapin::getKey()
 {
+  if (bunny_get_keyboard()[BKS_LEFT])
+    return (E_LEFT);
+  if (bunny_get_keyboard()[BKS_RIGHT])
+    return (E_RIGHT);
+  if (bunny_get_keyboard()[BKS_DOWN])
+    return (E_DOWN);
+  if (bunny_get_keyboard()[BKS_UP])
+    return (E_UP);
+  if (bunny_get_keyboard()[BKS_LEFT])
+    return (E_2);
+  if (bunny_get_keyboard()[BKS_LEFT])
+    return (E_3);
+  if (bunny_get_keyboard()[BKS_LEFT])
+    return (E_4);
+  if (bunny_get_keyboard()[BKS_LEFT])
+    return (E_5);
+  if (bunny_get_keyboard()[BKS_LEFT])
+    return (E_8);
+  if (bunny_get_keyboard()[BKS_LEFT])
+    return (E_9);
+  if (bunny_get_keyboard()[BKS_LEFT])
+    return (E_ESC);
   return (E_NONE);
 }
 
@@ -96,23 +117,36 @@ int			myLibLapin::buildCell(int x, int y, e_color col)
   return (0);
 }
 
-int		main()
+int			myLibLapin::writeStuff(int x, int y, std::string &text)
 {
-  myLibLapin	Lapin;
-  int		i;
-  Lapin.openWindow(40, 40);
-  while (1)
-    {
-      for (i = 1; i != 40; i++)
-      	Lapin.buildCell(0, i, IGraphic::E_RED);
-      for (i = 0; i != 39; i++)
-      	Lapin.buildCell(i, 0, IGraphic::E_BLUE);
-      for (i = 0; i != 39; i++)
-      	Lapin.buildCell(39, i, IGraphic::E_GREEN);
-      for (i = 1; i != 40; i++)
-      	Lapin.buildCell(i, 39, IGraphic::E_YELLOW);
-      Lapin.refreshWindow();
-    }
-  Lapin.closeWindow();
-  return (EXIT_SUCCESS);
+  return (0);
 }
+
+extern "C"
+{
+  IGraphic* launch_lib()
+  {
+    return new myLibLapin();
+  }
+}
+
+// int		main()
+// {
+//   myLibLapin	Lapin;
+//   int		i;
+//   Lapin.openWindow(40, 40);
+//   while (1)
+//     {
+//       for (i = 1; i != 40; i++)
+//       	Lapin.buildCell(0, i, IGraphic::E_RED);
+//       for (i = 0; i != 39; i++)
+//       	Lapin.buildCell(i, 0, IGraphic::E_BLUE);
+//       for (i = 0; i != 39; i++)
+//       	Lapin.buildCell(39, i, IGraphic::E_GREEN);
+//       for (i = 1; i != 40; i++)
+//       	Lapin.buildCell(i, 39, IGraphic::E_YELLOW);
+//       Lapin.refreshWindow();
+//     }
+//   Lapin.closeWindow();
+//   return (EXIT_SUCCESS);
+// }

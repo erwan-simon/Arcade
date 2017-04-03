@@ -5,7 +5,7 @@
 ** Login   <selimrinaz@epitech.net>
 ** 
 ** Started on  Tue Mar 28 17:44:50 2017 Selim Rinaz
-** Last update Fri Mar 31 17:06:01 2017 Selim Rinaz
+** Last update Mon Apr  3 12:07:07 2017 Selim Rinaz
 */
 
 #ifndef MYLIBLAPIN_HPP_
@@ -27,6 +27,7 @@ public:
   virtual e_key		getKey();
   virtual int		clearWindow();
   virtual int		buildCell(int x, int y, e_color col);
+  virtual int		writeStuff(int x, int y, std::string &text);
 };
 
 #endif /* !MYLIBLAPIN_HPP_ */
