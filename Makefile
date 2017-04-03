@@ -5,7 +5,7 @@
 ## Login   <erwan.simon@epitech.eu>
 ## 
 ## Started on  Thu Mar 30 11:17:19 2017 Simon
-## Last update Mon Apr  3 13:27:27 2017 Simon
+## Last update Mon Apr  3 15:31:59 2017 Antoine
 ##
 
 NAME_EXE	= arcade
@@ -21,21 +21,21 @@ NAME_SF		= ./lib/lib_arcade_sfml.so
 SRCS_SF		= ./lib/sfml/mySfml.cpp
 OBJS_SF		= $(SRCS_SF:.cpp=.o)
 
-# NAME_LA		= ./lib/lib_arcade_lapin.so
-# SRCS_LA		= ./lib/lapin/myLibLapin.cpp
-# OBJS_LA		= $(SRCS_LA:.cpp=.o)
+NAME_LA		= ./lib/lib_arcade_lapin.so
+SRCS_LA		= ./lib/lapin/myLibLapin.cpp
+OBJS_LA		= $(SRCS_LA:.cpp=.o)
 
 CXXFLAGS	+= -Wall -Wextra -fPIC -std=c++11 -Igraphic -g -g3
 LDFLAGS		+= -ldl							\
-		   # -L/home/${USER}/.froot/lib/ -llapin			\
-		   # -L/usr/local/lib					\
-		   # -lm							\
-		   # -I../../graphic/ -I/home/${USER}/.froot/include/
+		   -L/home/${USER}/.froot/lib/ -llapin			\
+		   -L/usr/local/lib					\
+		   -lm							\
+		   -I../../graphic/ -I/home/${USER}/.froot/include/
 
 CXX		= g++
 RM		= rm -f
 
-all:		$(NAME_EXE) $(NAME_NC) $(NAME_SF) # $(NAME_LA)
+all:		$(NAME_EXE) $(NAME_NC) $(NAME_SF) $(NAME_LA)
 
 $(NAME_EXE):	$(OBJS_EXE)
 		$(CXX) -o $(NAME_EXE) $(OBJS_EXE) $(LDFLAGS)

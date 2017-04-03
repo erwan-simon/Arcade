@@ -5,7 +5,7 @@
 // Login   <antoine@epitech.eu>
 // 
 // Started on  Thu Mar 30 15:11:07 2017 Antoine
-// Last update Mon Apr  3 13:45:47 2017 Simon
+// Last update Mon Apr  3 15:20:02 2017 Antoine
 //
 
 #include <SFML/Window.hpp>
@@ -143,6 +143,16 @@ int	mySfml::buildCell(int x, int y, IGraphic::e_color col)
 
 int	mySfml::writeStuff(int x, int y, std::string& text)
 {
+  // std::cout << "ookkkkkkk" << std::endl;
+  // sf::Font font;
+  // sf::Text tx;
+  // font.loadFromFile("arial.ttf");
+  // tx.setFont(font);
+  // tx.setString(text);
+  // tx.setCharacterSize(2);
+  // text.setColor(sf::Color::Black);                                                                  
+  // tx.setPosition(sf::Vector2f(x, y));
+  // this->_wd.draw(tx);
   return (0);
 }
 

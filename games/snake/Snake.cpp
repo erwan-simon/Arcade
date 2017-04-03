@@ -5,7 +5,7 @@
 // Login   <erwan.simon@epitech.eu>
 // 
 // Started on  Wed Mar 29 17:22:12 2017 Simon
-// Last update Mon Apr  3 12:04:58 2017 Simon
+// Last update Mon Apr  3 14:35:07 2017 Antoine
 //
 
 #include "Snake.hpp"
@@ -66,21 +66,22 @@ void		Snake::_initMap()
   int			total = (this->_map.width * this->_map.height * sizeof(arcade::TileType));
   int			i = 0;
   int			save = 0;
-  arcade::TileType	_tile[total];
+  // arcade::TileType	_tile[total];
 
+  this->_map.tile = new arcade::TileType[total];
   while (i < total)
     {
       if (i == 0 && i == (total - this->_map.width))
 	{
 	  for (int y = 0; y < this->_map.width; y++)
 	    {
-	      // _tile[i] = static_cast<int16_t>(1); //BLOCK
+	      this->_map.tile[i] = static_cast<arcade::TileType>(1); //BLOCK
 	      i = i + 1;
 	    }
 	}
-      // _tile[i] = static_cast<int16_t>(0);  //EMPTY
+      this->_map.tile[i] = static_cast<arcade::TileType>(0);  //EMPTY
+      i = i + 1;
     }
-  // this->_map.tile = _tile;
 }
 
 Snake::Snake(int width, int height)

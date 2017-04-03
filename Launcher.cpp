@@ -5,7 +5,7 @@
 // Login   <erwan.simon@epitech.eu>
 // 
 // Started on  Wed Mar 29 17:30:33 2017 Simon
-// Last update Mon Apr  3 14:49:36 2017 Simon
+// Last update Mon Apr  3 16:22:11 2017 Antoine
 //
 
 #include <signal.h>
@@ -27,6 +27,7 @@ Launcher::Launcher(std::string &lib)
   struct dirent *ent;
   static const std::regex r("lib_arcade_[^_.]+.so");
   this->_lib_name = new std::string[3];
+  this->_current = -1;
 
   if ((dir = opendir("./lib")) != NULL)
     {
@@ -104,8 +105,6 @@ void		Launcher::changeLib(IGraphic::e_key key)
     }
   this->_lib = launch();
   this->_lib->openWindow(40, 40);
-  this->writeMenu();
-  this->buildFrame();
 }
 
 void			Launcher::writeMenu()
@@ -194,12 +193,13 @@ void		Launcher::launch()
   signal(SIGINT, sigIntHandler);
   while (1)
     {
-  this->writeMenu();
-  this->buildFrame();
+      // this->writeMenu();
+      this->buildFrame();
       if (this->interact() == -1)
 	break ;
       this->_lib->refreshWindow();
       // this->_lib->clearWindow();
     }
   this->_lib->closeWindow();
+
 }
