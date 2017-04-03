@@ -1,12 +1,12 @@
-//
-// launcher.cpp for arcade in /home/erwan/Code/teck/Cpp/cpp_arcade
-// 
-// Made by Simon
-// Login   <erwan.simon@epitech.eu>
-// 
-// Started on  Wed Mar 29 17:30:33 2017 Simon
-// Last update Mon Apr  3 17:08:58 2017 Simon
-//
+/*
+** Launcher.cpp for Launcher in /home/selimrinaz/repo/tek2/B4-CPP/cpp_arcade
+** 
+** Made by Selim Rinaz
+** Login   <selimrinaz@epitech.net>
+** 
+** Started on  Mon Apr  3 17:32:50 2017 Selim Rinaz
+** Last update Mon Apr  3 17:33:08 2017 Selim Rinaz
+*/
 
 #include <signal.h>
 #include <iostream>
@@ -26,7 +26,7 @@ Launcher::Launcher(std::string &lib)
   int	a = 0;
   struct dirent *ent;
   static const std::regex r("lib_arcade_[^_.]+.so");
-  this->_lib_name = new std::string[3];
+  this->_lib_name = new std::string[4];
   this->_current = -1;
 
   if ((dir = opendir("./lib")) != NULL)
@@ -193,7 +193,7 @@ void		Launcher::launch()
   signal(SIGINT, sigIntHandler);
   while (1)
     {
-      this->writeMenu();
+      // this->writeMenu();
       this->buildFrame();
       if (this->interact() == -1)
 	break ;
