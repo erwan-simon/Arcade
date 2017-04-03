@@ -5,7 +5,7 @@
 ** Login   <selimrinaz@epitech.net>
 ** 
 ** Started on  Tue Mar 28 17:42:54 2017 Selim Rinaz
-** Last update Fri Mar 31 17:17:40 2017 Selim Rinaz
+** Last update Fri Mar 31 18:18:16 2017 Selim Rinaz
 */
 
 #include <unistd.h>
@@ -96,17 +96,23 @@ int			myLibLapin::buildCell(int x, int y, e_color col)
   return (0);
 }
 
-// int		main()
-// {
-//   myLibLapin	lapin;
-
-//   lapin.openWindow(40, 40);
-//   while (1)
-//     {
-//       lapin.clearWindow();
-//       lapin.buildCell(3, 3, myLibLapin::E_BLUE);
-//       lapin.refreshWindow();
-//     }
-//   lapin.closeWindow();
-//   return (EXIT_SUCCESS);
-// }
+int		main()
+{
+  myLibLapin	Lapin;
+  int		i;
+  Lapin.openWindow(40, 40);
+  while (1)
+    {
+      for (i = 1; i != 40; i++)
+      	Lapin.buildCell(0, i, IGraphic::E_RED);
+      for (i = 0; i != 39; i++)
+      	Lapin.buildCell(i, 0, IGraphic::E_BLUE);
+      for (i = 0; i != 39; i++)
+      	Lapin.buildCell(39, i, IGraphic::E_GREEN);
+      for (i = 1; i != 40; i++)
+      	Lapin.buildCell(i, 39, IGraphic::E_YELLOW);
+      Lapin.refreshWindow();
+    }
+  Lapin.closeWindow();
+  return (EXIT_SUCCESS);
+}
