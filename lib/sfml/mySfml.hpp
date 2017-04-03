@@ -5,7 +5,7 @@
 // Login   <antoine@epitech.eu>
 // 
 // Started on  Thu Mar 30 15:07:11 2017 Antoine
-// Last update Thu Mar 30 22:05:33 2017 Antoine
+// Last update Mon Apr  3 11:13:50 2017 Simon
 //
 
 #ifndef MYSFML_HPP_
@@ -22,9 +22,11 @@ public:
   virtual int			closeWindow();
   virtual IGraphic::e_key	getKey();
 
-  // BuildCell                                                               
+  // Draw
   virtual int			buildCell(int x, int y, e_color col);
+  virtual int			writeStuff(int x, int y, std::string& text);
   int				setCell();
+
   // private:
 public:
   sf::RenderWindow		_wd;

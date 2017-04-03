@@ -5,7 +5,7 @@
 ** Login   <selimrinaz@epitech.net>
 ** 
 ** Started on  Wed Mar 29 15:05:04 2017 Selim Rinaz
-// Last update Fri Mar 31 18:03:41 2017 Simon
+// Last update Mon Apr  3 11:16:43 2017 Simon
 */
 
 #ifndef IGRAPHIC_HPP_
@@ -51,6 +51,7 @@ public:
   virtual e_key		getKey() = 0;
 
   // Draw
+  virtual int		writeStuff(int x, int y, std::string& text) = 0;
   virtual int		buildCell(int x, int y, e_color col) = 0;
 };
 

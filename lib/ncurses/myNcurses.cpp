@@ -5,7 +5,7 @@
 // Login   <erwan.simon@epitech.eu>
 // 
 // Started on  Tue Mar 28 19:02:29 2017 Simon
-// Last update Fri Mar 31 17:33:35 2017 Simon
+// Last update Mon Apr  3 11:25:00 2017 Simon
 //
 
 #include <ncurses.h>
@@ -104,6 +104,17 @@ int	myNcurses::buildCell(int x, int y, IGraphic::e_color col)
   return (0);
 }
 
+int		myNcurses::writeStuff(int x, int y, std::string &text)
+{
+  unsigned int	a = 0;
+
+  while (a < text.size() * 2)
+    {
+      mvprintw((y * this->size_cell_y), (x * this->size_cell_x) + a, "%c", text.at(a / 2));
+      a += 2;
+    }
+  return (0);
+}
 
 extern "C"
 {

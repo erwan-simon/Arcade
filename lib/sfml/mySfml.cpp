@@ -5,11 +5,12 @@
 // Login   <antoine@epitech.eu>
 // 
 // Started on  Thu Mar 30 15:11:07 2017 Antoine
-// Last update Fri Mar 31 17:40:03 2017 Antoine
+// Last update Mon Apr  3 10:54:30 2017 Simon
 //
 
 #include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>
+#include <string>
 #include "mySfml.hpp"
 
 static sf::Color	colorCell(IGraphic::e_color col)
@@ -133,6 +134,11 @@ int	mySfml::buildCell(int x, int y, IGraphic::e_color col)
   rectangle.setFillColor(colorCell(col));
   rectangle.setPosition(x * this->_cellX, y * this->_cellY);
   this->_wd.draw(rectangle);
+  return (0);
+}
+
+int	mySfml::writeStuff(int x, int y, std::string& text)
+{
   return (0);
 }
 

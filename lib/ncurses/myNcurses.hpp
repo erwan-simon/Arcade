@@ -5,7 +5,7 @@
 // Login   <erwan.simon@epitech.eu>
 // 
 // Started on  Tue Mar 28 19:03:04 2017 Simon
-// Last update Thu Mar 30 16:40:55 2017 Simon
+// Last update Mon Apr  3 11:13:24 2017 Simon
 //
 
 #ifndef MYNCURSES_HPP_
@@ -23,8 +23,9 @@ public:
   virtual int			closeWindow();
   virtual IGraphic::e_key	getKey();
 
-  // BuildCell
+  // Draw
   virtual int			buildCell(int x, int y, e_color col);
+  virtual int			writeStuff(int x, int y, std::string& text);
 
 private:
   WINDOW			*win;

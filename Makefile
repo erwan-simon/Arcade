@@ -5,7 +5,7 @@
 ## Login   <erwan.simon@epitech.eu>
 ## 
 ## Started on  Thu Mar 30 11:17:19 2017 Simon
-## Last update Fri Mar 31 17:21:54 2017 Simon
+## Last update Mon Apr  3 10:56:47 2017 Simon
 ##
 
 NAME_EXE	= arcade
@@ -35,7 +35,7 @@ LDFLAGS		+= -ldl							\
 CXX		= g++
 RM		= rm -f
 
-all:		$(NAME_EXE) $(NAME_NC) $(NAME_SF) $(NAME_LA)
+all:		$(NAME_EXE) $(NAME_NC) $(NAME_SF) # $(NAME_LA)
 
 $(NAME_EXE):	$(OBJS_EXE)
 		$(CXX) -o $(NAME_EXE) $(OBJS_EXE) $(LDFLAGS)
@@ -46,14 +46,14 @@ $(NAME_NC):	$(OBJS_NC)
 $(NAME_SF):	$(OBJS_SF)
 		$(CXX) -shared -o $(NAME_SF) $(OBJS_SF) -lsfml-graphics -lsfml-window -lsfml-system
 
-$(NAME_LA):	$(OBJS_LA)
-		$(CXX) -shared -o $(NAME_LA) $(OBJS_LA) -lsfml-graphics -lsfml-window -lsfml-system
+# $(NAME_LA):	$(OBJS_LA)
+# 		$(CXX) -shared -o $(NAME_LA) $(OBJS_LA) -lsfml-graphics -lsfml-window -lsfml-system
 
 clean:
-		$(RM) $(OBJS_EXE) $(OBJS_NC) $(OBJS_SF) $(OBJS_LA)
+		$(RM) $(OBJS_EXE) $(OBJS_NC) $(OBJS_SF) #$(OBJS_LA)
 
 fclean: 	clean
-		$(RM) $(NAME_EXE) $(NAME_NC) $(NAME_SF) $(NAME_LA)
+		$(RM) $(NAME_EXE) $(NAME_NC) $(NAME_SF) # $(NAME_LA)
 
 re:		fclean all
 

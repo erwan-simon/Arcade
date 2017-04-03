@@ -5,7 +5,7 @@
 // Login   <erwan.simon@epitech.eu>
 // 
 // Started on  Wed Mar 29 17:30:33 2017 Simon
-// Last update Fri Mar 31 17:28:11 2017 Simon
+// Last update Mon Apr  3 11:25:11 2017 Simon
 //
 
 #include <iostream>
@@ -44,7 +44,7 @@ Launcher::Launcher(std::string &lib)
     }
   else
     {
-      std::cerr << "no file lib" << std::endl;
+      std::cerr << lib << ": no such file" << std::endl;
       exit(84);
     }
   if (chose == -1)
@@ -55,13 +55,13 @@ Launcher::Launcher(std::string &lib)
   this->_dh_lib = dlopen(this->_lib_name[chose].c_str(), RTLD_LAZY);
   if (this->_dh_lib == NULL)
     {
-      std::cerr << "dhandle error" << std::endl;
+      std::cerr << this->_lib_name[chose] << ": dhandle error" << std::endl;
       exit(84);
     }
   launch = reinterpret_cast<IGraphic* (*)()>(dlsym(this->_dh_lib, "launch_lib"));
   if (launch == NULL)
     {
-      std::cerr << "launch lib error" << std::endl;
+      std::cerr << this->_lib_name[chose] << ": launch lib error" << std::endl;
       exit(84);
     }
   this->_lib = launch();
@@ -81,13 +81,13 @@ void		Launcher::changeLib(int *a)
   this->_dh_lib = dlopen(this->_lib_name[*a].c_str(), RTLD_LAZY);
   if (this->_dh_lib == NULL)
     {
-      std::cerr << "dhandle error" << std::endl;
+      std::cerr << this->_lib_name[*a] << ": dhandle error" << std::endl;
       return ;
     }
   launch = reinterpret_cast<IGraphic* (*)()>(dlsym(this->_dh_lib, "launch_lib"));
   if (launch == NULL)
     {
-      std::cerr << "launch lib error" << std::endl;
+      std::cerr << this->_lib_name[*a] << ": launch lib error" << std::endl;
       return ;
     }
   this->_lib = launch();
@@ -98,11 +98,14 @@ void		Launcher::launch()
 {
   int		i;
   int		a;
+  std::string	s;
 
   a = 1;
   this->_lib->openWindow(40, 40);
+  s = "Hello World!!";
   while (1)
     {
+      this->_lib->writeStuff(1, 1, s);
       for (i = 1; i != 40; i++)
       	this->_lib->buildCell(0, i, IGraphic::E_RED);
       for (i = 0; i != 39; i++)
