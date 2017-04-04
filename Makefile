@@ -5,7 +5,7 @@
 ## Login   <erwan.simon@epitech.eu>
 ## 
 ## Started on  Thu Mar 30 11:17:19 2017 Simon
-## Last update Tue Apr  4 15:21:17 2017 Simon
+## Last update Tue Apr  4 17:08:38 2017 Simon
 ##
 
 NAME_EXE	= arcade
@@ -33,7 +33,7 @@ NAME_PA		= ./games/libarcade_pacman.so
 SRCS_PA		= ./games/pacman/Pacman.cpp
 OBJS_PA		= $(SRCS_PA:.cpp=.o)
 
-CXXFLAGS	+= -Wall -Wextra -fPIC -std=c++11 -Igraphic -g -g3
+CXXFLAGS	+= -Wall -Wextra -fPIC -std=c++11 -Igraphic -g -g3 -Wfatal-errors
 LDFLAGS		+= -ldl
 
 LAFLAGS		=  -L/home/${USER}/.froot/lib/ -llapin			\

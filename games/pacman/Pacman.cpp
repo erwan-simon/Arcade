@@ -5,7 +5,7 @@
 // Login   <erwan.simon@epitech.eu>
 // 
 // Started on  Mon Apr  3 14:51:47 2017 Simon
-// Last update Tue Apr  4 17:01:48 2017 Simon
+// Last update Tue Apr  4 17:19:12 2017 Simon
 //
 
 #include "../../Launcher.hpp"
@@ -13,6 +13,7 @@
 #include "../include/Protocol.hpp"
 #include <iostream>
 #include <fstream>
+#include <iostream>
 #include <string>
 #include "Pacman.hpp"
 
@@ -51,23 +52,24 @@ void		Pacman::_gameOver(IGame::e_end)
   
 }
 
-static std::string&	getFile()
+static std::string*	getFile()
 {
-  struct stat		stat;
-  int			rc = stat("./games/pacman/map.txt", &sta);
   std::string		line;
   std::string*		res = new std::string;
+  std::ifstream		myfile("./games/pacman/map.txt");
 
-  if (rc == 0 || (statst_size != 1639 && stat.st_size != 1640))
+  if (myfile.is_open())
+    {
+      while (getline(myfile, line))
+	*res += line;
+      myfile.close();
+      std::cout << res << std::endl;
+    }
+  else
     {
       std::cerr << "A problem occured with map.txt" << std::endl;
       exit(84);
     }
-  ifstream myfile("./games/pacman/map.txt");
-  while (getline(myfile, line))
-    res << line;
-  myfile.close();
-  std::cout << res << std::endl;
   return (res);
 }
 
@@ -93,6 +95,7 @@ void		Pacman::_initMap()
 	}
       i = i + 1;
     }
+  delete map;
 }
 
 Pacman::Pacman(int width, int height, Launcher& launcher)
