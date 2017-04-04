@@ -5,13 +5,14 @@
 // Login   <erwan.simon@epitech.eu>
 // 
 // Started on  Mon Apr  3 14:51:47 2017 Simon
-// Last update Tue Apr  4 15:11:43 2017 Simon
+// Last update Tue Apr  4 16:20:30 2017 Simon
 //
 
-#include "Pacman.hpp"
 
+#include "../../Launcher.hpp"
 #include "../../graphic/IGraphic.hpp"
 #include "../include/Protocol.hpp"
+#include "Pacman.hpp"
 
 struct arcade::WhereAmI&		Pacman::_whereAmI() const
 {
@@ -62,11 +63,12 @@ void		Pacman::_gameOver(IGame::e_end)
 {
   
 }
+
 void		Pacman::_initMap()
 {
-  int			total = (this->_map->width * this->_map->height * sizeof(arcade::TileType));
-  int			i = 0;
-  int			save = 0;
+  int		total = (this->_map->width * this->_map->height * sizeof(arcade::TileType));
+  int		i = 0;
+  int		save = 0;
 
   while (i < total)
     {
@@ -84,19 +86,15 @@ void		Pacman::_initMap()
     }
 }
 
-Pacman::Pacman(int width, int height)
+Pacman::Pacman(int width, int height, Launcher& launcher)
 {
   int			total = (width * height * sizeof(arcade::TileType));
-  
+
+  this->_launch = &launcher;
   this->_map = (struct arcade::GetMap *) malloc(sizeof (struct arcade::GetMap) + total);
   this->_map->width = width;
   this->_map->height = height;
-  std::cout << "map->width == " << width << " | map->height == "<< height << " | total == "<< total <<std::endl;
-  
+  std::cout << "map->width == " << width << " | map->height == "
+	    << height << " | total == "<< total <<std::endl;  
   this->_initMap();
-}
-
-int		main()
-{
-  Pacman		snake(40, 40);
 }

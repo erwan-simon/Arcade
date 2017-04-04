@@ -5,12 +5,13 @@
 // Login   <antoine@epitech.eu>
 // 
 // Started on  Tue Mar 28 14:24:06 2017 Antoine
-// Last update Tue Apr  4 14:07:06 2017 Antoine
+// Last update Tue Apr  4 16:26:34 2017 Simon
 //
 
 #ifndef IGAME_HPP_
 # define IGAME_HPP_
 
+#include "./../../graphic/IGraphic.hpp"
 #include "Protocol.hpp"
 
 class				IGame
@@ -26,10 +27,7 @@ public:
   virtual arcade::GetMap&	_getMap() const = 0;
 
   // Input
-  virtual void			_goUp() = 0;
-  virtual void			_goDown() = 0;
-  virtual void			_goLeft() = 0;
-  virtual void			_goRight() = 0;
+  virtual void			_move(IGraphic::e_key) = 0;
   // virtual void			_goForward() = 0;
   // virtual void			_shoot() = 0;
   // virtual void			_illegal() = 0;

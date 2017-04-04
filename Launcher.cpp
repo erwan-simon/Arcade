@@ -5,7 +5,7 @@
 // Login   <erwan.simon@epitech.eu>
 // 
 // Started on  Wed Mar 29 17:30:33 2017 Simon
-// Last update Tue Apr  4 15:04:49 2017 Simon
+// Last update Tue Apr  4 15:34:03 2017 Simon
 //
 
 #include <signal.h>
@@ -25,14 +25,16 @@ Launcher::Launcher(std::string &lib)
   DIR *dir;
   int	a = 0;
   struct dirent *ent;
-  static const std::regex r("lib_arcade_[^_.]+.so");
+  static const std::regex graph("lib_arcade_[^_.]+.so");
+  static const std::regex game("libarcade_[^_.]+.so");
   this->_lib_name = new std::string[4];
+  this->_game_name = new std::string[3];
   this->_current = -1;
   if ((dir = opendir("./lib")) != NULL)
     {
     while (a != 3 && (ent = readdir(dir)) != NULL)
       {
-	if (regex_match(ent->d_name, r))
+	if (regex_match(ent->d_name, graph))
 	  {
 	    this->_lib_name[a] = "./lib/";
 	    this->_lib_name[a] += ent->d_name;
@@ -45,7 +47,26 @@ Launcher::Launcher(std::string &lib)
     }
   else
     {
-      std::cerr << lib << ": no such file" << std::endl;
+      std::cerr << "lib: no such directory" << std::endl;
+      exit(84);
+    }
+  a = 0;
+  if ((dir = opendir("./games")) != NULL)
+    {
+    while (a != 2 && (ent = readdir(dir)) != NULL)
+      {
+	if (regex_match(ent->d_name, game))
+	  {
+	    this->_game_name[a] = "./games/";
+	    this->_game_name[a] += ent->d_name;
+	    a++;
+	  }
+      }
+    closedir(dir);
+    }
+  else
+    {
+      std::cerr << "games: no such directory" << std::endl;
       exit(84);
     }
   if (this->_current == -1)
@@ -117,10 +138,15 @@ void			Launcher::writeMenu()
     }
   s = "Choose your game below:";
   this->_lib->writeStuff(3, 21, s);
-  s = "Machin";
-  this->_lib->writeStuff(6, 24, s);
-  s = "Truc";
-  this->_lib->writeStuff(6, 26, s);
+  y = 24;
+  a = 0;
+  while (this->_game_name[a] != "")
+    {
+      s = this->_game_name[a];
+      this->_lib->writeStuff(6, y, s);
+      a++;
+      y += 2;
+    }
 }
 
 void		Launcher::buildFrame()
