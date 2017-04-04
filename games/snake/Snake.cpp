@@ -5,97 +5,99 @@
 // Login   <erwan.simon@epitech.eu>
 // 
 // Started on  Wed Mar 29 17:22:12 2017 Simon
-// Last update Tue Apr  4 14:09:13 2017 Antoine
+// Last update Tue Apr  4 16:32:36 2017 Antoine
 //
 
 #include "Snake.hpp"
-#include "../../graphic/IGraphic.hpp"
-#include "../include/Protocol.hpp"
 
-struct arcade::WhereAmI&		Snake::_whereAmI() const
+struct arcade::WhereAmI&                Snake::_whereAmI() const
 {
   return (*this->_position);
 }
 
-struct arcade::GetMap&		Snake::_getMap() const
+struct arcade::GetMap&          Snake::_getMap() const
 {
   return (*this->_map);
 }
 
-void		Snake::_goUp()
-{
-  
-}
-
-void		Snake::_goDown()
+void            Snake::_play()
 {
 
 }
 
-void		Snake::_goRight()
+void            Snake::_pause()
 {
 
 }
 
-void		Snake::_goLeft()
+void            Snake::_gameOver(IGame::e_end)
 {
 
 }
 
-// void		Snake::_goForward()
-// {
-
-// }
-
-void		Snake::_play()
+void            Snake::_printMap()
 {
-  
-}
+  int           i = 0;
+  int           y = 1;
 
-void		Snake::_pause()
-{
-
-}
-
-void		Snake::_gameOver(IGame::e_end)
-{
-  
-}
-void		Snake::_initMap()
-{
-  int			total = (this->_map->width * this->_map->height * sizeof(arcade::TileType));
-  int			i = 0;
-  int			save = 0;
-
-  while (i < total)
+  while (i < 40)
     {
-      std::cout << "itération == " << i << std::endl;
-      if (i == 0 && i == (total - this->_map->width))
-  	{
-  	  for (int y = 0; y < this->_map->width; y++)
-  	    {
-  	      this->_map->tile[i] = static_cast<arcade::TileType>(1); //BLOCK
-  	      i = i + 1;
-  	    }
-  	}
-      this->_map->tile[i] = static_cast<arcade::TileType>(0);  //EMPTY
-      i = i + 1;
+      if (i >= 10)
+        std::cout << " |" << i;
+      else
+        std::cout << " | " << i;
+      i += 1;
+    }
+  std::cout << std::endl << std::endl;
+  i = 0;
+  while (i < 1600)
+    {
+      std::cout << " | "  << static_cast<int>(this->_map->tile[i]);
+      if (y == 40)
+	{
+          y = 0;
+          std::cout << std::endl;
+	}
+      i += 1;
+      y += 1;
+    }
+}
+void            Snake::_initMap()
+{
+  int           i = 0;
+  int           y = 1;
+  int           total = this->_map->width * this->_map->height;
+
+  while (i <= total)
+    {
+      if (y == this->_map->width)
+        {
+          this->_map->tile[i] = static_cast<arcade::TileType>(1); //BLOCK                               
+          y = 0;
+        }
+      else if (y == 1 || i <= (this->_map->width - 1) || i > (total - this->_map->width))
+        this->_map->tile[i] = static_cast<arcade::TileType>(1); //BLOCK                                 
+      else
+	this->_map->tile[i] = static_cast<arcade::TileType>(0);  //EMPTY                                
+      i += 1;
+      y += 1;
     }
 }
 
-Snake::Snake(int width, int height)
+Snake::Snake(int width, int height, Launcher &launch)
 {
-  int			total = (width * height * sizeof(arcade::TileType));
-  
+  int   total = (width * height * sizeof(arcade::TileType));
+
   this->_map = (struct arcade::GetMap *) malloc(sizeof (struct arcade::GetMap) + total);
   this->_map->width = width;
   this->_map->height = height;
-  std::cout << "map->width == " << width << " | map->height == "<< height << " | total == "<< total <<std::endl;
-  
   this->_initMap();
+
 }
 
-int		main()
+int             main()
 {
-  Snake		snake(40, 40);
+  Snake         snake(40, 40);
+  snake._printMap();
+  // snake._getKey();                                                                                   
 }

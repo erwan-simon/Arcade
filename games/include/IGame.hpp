@@ -5,7 +5,7 @@
 // Login   <antoine@epitech.eu>
 // 
 // Started on  Tue Mar 28 14:24:06 2017 Antoine
-// Last update Tue Apr  4 16:26:34 2017 Simon
+// Last update Tue Apr  4 16:35:19 2017 Antoine
 //
 
 #ifndef IGAME_HPP_
@@ -36,6 +36,9 @@ public:
   virtual void			_play() = 0;
   virtual void			_pause() = 0;
   virtual void			_gameOver(e_end) = 0;
+
+  virtual void                  _initMap() = 0;
+
 };
 
 #endif /* !IGAME_HPP_ */
