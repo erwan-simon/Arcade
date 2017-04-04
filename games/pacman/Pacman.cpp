@@ -5,7 +5,7 @@
 // Login   <erwan.simon@epitech.eu>
 // 
 // Started on  Mon Apr  3 14:51:47 2017 Simon
-// Last update Tue Apr  4 17:19:12 2017 Simon
+// Last update Tue Apr  4 17:55:12 2017 Simon
 //
 
 #include "../../Launcher.hpp"
@@ -109,4 +109,20 @@ Pacman::Pacman(int width, int height, Launcher& launcher)
   std::cout << "map->width == " << width << " | map->height == "
 	    << height << " | total == "<< total <<std::endl;  
   this->_initMap();
+}
+
+void	Pacman::_graphPlay()
+{
+  while (1)
+    {
+      
+    }
+}
+
+extern "C"
+{
+  IGame*	launch_game(int x, int y, Launcher& launcher)
+  {
+    return new Pacman(x, y, launcher);
+  }
 }

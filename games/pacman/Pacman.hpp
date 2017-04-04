@@ -5,7 +5,7 @@
 // Login   <erwan.simon@epitech.eu>
 // 
 // Started on  Mon Apr  3 15:01:55 2017 Simon
-// Last update Tue Apr  4 17:00:59 2017 Simon
+// Last update Tue Apr  4 17:42:44 2017 Simon
 //
 
 #ifndef PACMAN_HPP_
@@ -29,11 +29,13 @@ public:
   // virtual void                       _illegal();
 
   // the game
+  virtual void				_graphPlay();
   virtual void				Play();
   virtual void				_pause();
   virtual void				_gameOver(IGame::e_end);
 
   void					_initMap();
+
 private:
   Launcher				*_launch;
   struct arcade::GetMap			*_map;

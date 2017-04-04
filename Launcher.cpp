@@ -5,7 +5,7 @@
 // Login   <erwan.simon@epitech.eu>
 // 
 // Started on  Wed Mar 29 17:30:33 2017 Simon
-// Last update Tue Apr  4 15:34:03 2017 Simon
+// Last update Tue Apr  4 17:55:49 2017 Simon
 //
 
 #include <signal.h>
@@ -29,7 +29,7 @@ Launcher::Launcher(std::string &lib)
   static const std::regex game("libarcade_[^_.]+.so");
   this->_lib_name = new std::string[4];
   this->_game_name = new std::string[3];
-  this->_current = -1;
+  this->_current_lib = -1;
   if ((dir = opendir("./lib")) != NULL)
     {
     while (a != 3 && (ent = readdir(dir)) != NULL)
@@ -39,7 +39,7 @@ Launcher::Launcher(std::string &lib)
 	    this->_lib_name[a] = "./lib/";
 	    this->_lib_name[a] += ent->d_name;
 	    if (lib == this->_lib_name[a])
-	      this->_current = a;
+	      this->_current_lib = a;
 	    a++;
 	  }
       }
@@ -69,21 +69,21 @@ Launcher::Launcher(std::string &lib)
       std::cerr << "games: no such directory" << std::endl;
       exit(84);
     }
-  if (this->_current == -1)
+  if (this->_current_lib == -1)
     {
       std::cerr << "lib " << lib << "does not exists" << std::endl;
       exit(84);
     }
-  this->_dh_lib = dlopen(this->_lib_name[this->_current].c_str(), RTLD_LAZY);
+  this->_dh_lib = dlopen(this->_lib_name[this->_current_lib].c_str(), RTLD_LAZY);
   if (this->_dh_lib == NULL)
     {
-      std::cerr << this->_lib_name[this->_current] << ": dhandle error" << std::endl;
+      std::cerr << this->_lib_name[this->_current_lib] << ": dhandle error" << std::endl;
       exit(84);
     }
   launch = reinterpret_cast<IGraphic* (*)()>(dlsym(this->_dh_lib, "launch_lib"));
   if (launch == NULL)
     {
-      std::cerr << this->_lib_name[this->_current] << ": launch lib error" << std::endl;
+      std::cerr << this->_lib_name[this->_current_lib] << ": launch lib error" << std::endl;
       exit(84);
     }
   this->_lib = launch();
@@ -96,27 +96,51 @@ Launcher::~Launcher()
 
 void		Launcher::changeLib(IGraphic::e_key key)
 {
-  IGraphic* (*launch)();
+  IGraphic*	(*launch)();
   this->_lib->closeWindow();
   dlclose(this->_dh_lib);
-  if (key == IGraphic::E_2 && this->_current != 0)
-    this->_current -= 1;
-  else if (key == IGraphic::E_3 && this->_lib_name[this->_current + 1] != "")
-    this->_current += 1;
-  this->_dh_lib = dlopen(this->_lib_name[this->_current].c_str(), RTLD_LAZY);
+  if (key == IGraphic::E_2 && this->_current_lib != 0)
+    this->_current_lib -= 1;
+  else if (key == IGraphic::E_3 && this->_lib_name[this->_current_lib + 1] != "")
+    this->_current_lib += 1;
+  this->_dh_lib = dlopen(this->_lib_name[this->_current_lib].c_str(), RTLD_LAZY);
   if (this->_dh_lib == NULL)
     {
-      std::cerr << this->_lib_name[this->_current] << ": dhandle error" << std::endl;
+      std::cerr << this->_lib_name[this->_current_lib] << ": dhandle error" << std::endl;
       return ;
     }
   launch = reinterpret_cast<IGraphic* (*)()>(dlsym(this->_dh_lib, "launch_lib"));
   if (launch == NULL)
     {
-      std::cerr << this->_lib_name[this->_current] << ": launch lib error" << std::endl;
+      std::cerr << this->_lib_name[this->_current_lib] << ": launch lib error" << std::endl;
       return ;
     }
   this->_lib = launch();
   this->_lib->openWindow(40, 40);
+}
+
+void		Launcher::changeGame(IGraphic::e_key key)
+{
+  IGame*	(*launch)(int, int, Launcher&);
+  dlclose(this->_dh_game);
+  if (key == IGraphic::E_2 && this->_current_game != 0)
+    this->_current_game -= 1;
+  else if (key == IGraphic::E_3 && this->_game_name[this->_current_game + 1] != "")
+    this->_current_game += 1;
+  this->_dh_lib = dlopen(this->_lib_name[this->_current_lib].c_str(), RTLD_LAZY);
+  if (this->_dh_game == NULL)
+    {
+      std::cerr << this->_game_name[this->_current_game] << ": dhandle error" << std::endl;
+      return ;
+    }
+  launch = reinterpret_cast<IGame* (*)(int, int, Launcher&)>(dlsym(this->_dh_game, "launch_game"));
+  if (launch == NULL)
+    {
+      std::cerr << this->_game_name[this->_current_game] << ": launch game error" << std::endl;
+      return ;
+    }
+  this->_game = launch(40, 40, *this);
+  this->_game->_graphPlay();
 }
 
 void			Launcher::writeMenu()
@@ -182,9 +206,28 @@ void		Launcher::buildFrame()
 
   // Selector
   for (i = 3; i != 5; i++)
-    this->_lib->buildCell(i, 12 + (2 * this->_current), IGraphic::E_YELLOW);
+    this->_lib->buildCell(i, 12 + (2 * this->_current_lib), IGraphic::E_YELLOW);
   for (i = 3; i != 5; i++)
-    this->_lib->buildCell(i, 24 + (2 * this->_game), IGraphic::E_YELLOW);  
+    this->_lib->buildCell(i, 24 + (2 * this->_current_game), IGraphic::E_YELLOW);  
+}
+
+void		Launcher::play()
+{
+  IGame*	(*launch)(int, int, Launcher&);
+  this->_dh_game = dlopen(this->_game_name[this->_current_game].c_str(), RTLD_LAZY);
+  if (this->_dh_game == NULL)
+    {
+      std::cerr << this->_game_name[this->_current_game] << ": dhandle error" << std::endl;
+      exit(84);
+    }
+  launch = reinterpret_cast<IGame* (*)(int, int, Launcher&)>(dlsym(this->_dh_game, "launch_game"));
+  if (launch == NULL)
+    {
+      std::cerr << this->_game_name[this->_current_game] << ": launch game error" << std::endl;
+      exit(84);
+    }
+  this->_game = launch(40, 40, *this);
+  this->_game->_graphPlay();
 }
 
 static void	sigIntHandler(int s)
@@ -205,13 +248,14 @@ int		Launcher::interact()
     case IGraphic::E_ESC:
       return (-1);
     case IGraphic::E_4:
-      this->_game -= (this->_game == 0 ? 0 : 1);
+      this->_current_game -= (this->_current_game == 0 ? 0 : 1);
       break ;
     case IGraphic::E_5:
-      this->_game += (this->_game == 0 ? 1 : 0);
+      this->_current_game += (this->_current_game == 0 ? 1 : 0);
       break ;
     case IGraphic::E_ENT:
-      exit(0);
+      this->play();
+      break ;
     case IGraphic::E_NONE:
     case IGraphic::E_RIGHT:
     case IGraphic::E_LEFT:
@@ -219,7 +263,7 @@ int		Launcher::interact()
     case IGraphic::E_DOWN:
     case IGraphic::E_8:
     case IGraphic::E_9:
-      break;
+      break ;
     }
   return (0);
 }
