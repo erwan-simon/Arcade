@@ -5,13 +5,18 @@
 // Login   <antoine@epitech.eu>
 // 
 // Started on  Thu Mar 30 15:11:07 2017 Antoine
-// Last update Mon Apr  3 17:01:05 2017 Antoine
+// Last update Tue Apr  4 11:08:14 2017 Antoine
 //
 
 #include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>
 #include <string>
 #include "mySfml.hpp"
+
+mySfml::mySfml()
+  : _wd(), _event(), _y(), _x(), _cellY(), _cellX()
+{
+}
 
 static sf::Color	colorCell(IGraphic::e_color col)
 {
@@ -34,6 +39,7 @@ int	mySfml::openWindow(int x, int y)
 {
   this->_cellX = 0;
   this->_cellY = 0;
+  std::cout << "x == " << x << "y == " << y << std::endl;
   this->_wd.create(sf::VideoMode(x * 20, y * 20), "Arcade", sf::Style::Close);
   this->setCell();
   this->_wd.display();
@@ -154,15 +160,15 @@ int	mySfml::writeStuff(int x, int y, std::string& text)
   tx.setColor(sf::Color::Red);
   tx.setString(text);
   tx.setPosition(sf::Vector2f(x * this->_cellX, y * this->_cellY));
-  // unsigned int  i = 0;
-  // while(i < text.size())
-  //   {
-  //     s = text.at(i);
-  //     std::cout << s <<std::endl;
-  //     tx.setString(s);
-  //     tx.setPosition(sf::Vector2f((x * this->_cellX) + (i * this->_cellX), y * this->_cellY));
-  //     i += 1;
-  //   }
+  unsigned int  i = 0;
+  while(i < text.size())
+    {
+      s = text.at(i);
+      std::cout << s <<std::endl;
+      tx.setString(s);
+      tx.setPosition(sf::Vector2f((x * this->_cellX) + (i * this->_cellX), y * this->_cellY));
+      i += 1;
+    }
   this->_wd.draw(tx);
   return (0);
 }

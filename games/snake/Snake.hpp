@@ -5,12 +5,13 @@
 // Login   <erwan.simon@epitech.eu>
 // 
 // Started on  Wed Mar 29 17:18:01 2017 Simon
-// Last update Mon Apr  3 11:55:18 2017 Simon
+// Last update Tue Apr  4 14:07:47 2017 Antoine
 //
 
 #ifndef SNAKE_HPP_
 # define SNAKE_HPP_
 
+#include <cstdlib>
 #include "./../include/IGame.hpp"
 
 class					Snake : public IGame
@@ -19,8 +20,8 @@ public:
   Snake(int width, int height);
   
   // Getters
-  virtual struct arcade::WhereAmI	_whereAmI() const;
-  virtual struct arcade::GetMap		_getMap() const;
+  virtual struct arcade::WhereAmI&	_whereAmI() const;
+  virtual struct arcade::GetMap&	_getMap() const;
 
   // Input
   virtual void				_goUp();
@@ -38,8 +39,8 @@ public:
 
   void					_initMap();
 private:
-  struct arcade::GetMap			_map;
-  struct arcade::WhereAmI		_position;
+  struct arcade::GetMap			*_map;
+  struct arcade::WhereAmI		*_position;
 };
 
 #endif
