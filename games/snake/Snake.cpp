@@ -5,7 +5,7 @@
 // Login   <erwan.simon@epitech.eu>
 // 
 // Started on  Wed Mar 29 17:22:12 2017 Simon
-// Last update Tue Apr  4 16:55:26 2017 Antoine
+// Last update Tue Apr  4 16:58:43 2017 Antoine
 //
 
 #include "Snake.hpp"
@@ -122,11 +122,4 @@ Snake::Snake(int width, int height, Launcher &launch)
   this->_map->height = height;
   this->_initMap();
 
-}
-
-int             main()
-{
-  Snake         snake(40, 40);
-  snake._printMap();
-  // snake._getKey();                                                                                   
 }
