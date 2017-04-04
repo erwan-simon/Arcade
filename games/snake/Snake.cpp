@@ -5,7 +5,7 @@
 // Login   <erwan.simon@epitech.eu>
 // 
 // Started on  Wed Mar 29 17:22:12 2017 Simon
-// Last update Tue Apr  4 16:58:43 2017 Antoine
+// Last update Tue Apr  4 17:01:43 2017 Antoine
 //
 
 #include "Snake.hpp"
@@ -20,7 +20,7 @@ struct arcade::GetMap&          Snake::_getMap() const
   return (*this->_map);
 }
 
-void            Snake::_play()
+void            Snake::Play()
 {
 
 }
