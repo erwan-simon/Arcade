@@ -5,13 +5,15 @@
 // Login   <erwan.simon@epitech.eu>
 // 
 // Started on  Mon Apr  3 14:51:47 2017 Simon
-// Last update Tue Apr  4 16:20:30 2017 Simon
+// Last update Tue Apr  4 16:48:02 2017 Simon
 //
-
 
 #include "../../Launcher.hpp"
 #include "../../graphic/IGraphic.hpp"
 #include "../include/Protocol.hpp"
+#include <iostream>
+#include <fstream>
+#include <string>
 #include "Pacman.hpp"
 
 struct arcade::WhereAmI&		Pacman::_whereAmI() const
@@ -64,12 +66,27 @@ void		Pacman::_gameOver(IGame::e_end)
   
 }
 
+static std::string&	getFile()
+{
+  struct stat		stat;
+  int			rc = stat("./games/pacman/map.txt", &sta);
+
+  if (rc == 0 || (statst_size != 1639 && stat.st_size != 1640))
+    {
+      std::cerr << "A problem occured with map.txt" << std::endl;
+      exit(84);
+    }
+  
+}
+
 void		Pacman::_initMap()
 {
   int		total = (this->_map->width * this->_map->height * sizeof(arcade::TileType));
   int		i = 0;
   int		save = 0;
+  std::string	map;
 
+  map = getFile();
   while (i < total)
     {
       std::cout << "itération == " << i << std::endl;
@@ -88,7 +105,7 @@ void		Pacman::_initMap()
 
 Pacman::Pacman(int width, int height, Launcher& launcher)
 {
-  int			total = (width * height * sizeof(arcade::TileType));
+  int	total = (width * height * sizeof(arcade::TileType));
 
   this->_launch = &launcher;
   this->_map = (struct arcade::GetMap *) malloc(sizeof (struct arcade::GetMap) + total);

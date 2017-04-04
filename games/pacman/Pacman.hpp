@@ -5,7 +5,7 @@
 // Login   <erwan.simon@epitech.eu>
 // 
 // Started on  Mon Apr  3 15:01:55 2017 Simon
-// Last update Tue Apr  4 16:24:53 2017 Simon
+// Last update Tue Apr  4 16:50:16 2017 Simon
 //
 
 #ifndef PACMAN_HPP_
@@ -23,6 +23,7 @@ public:
 
   // Input
   virtual void				_move(IGraphic::e_key);
+  virtual void				_getKey(IGraphic::e_key);
   // virtual void			_goForward();
   // virtual void                       _shoot();
   // virtual void                       _illegal();
