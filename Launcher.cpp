@@ -5,7 +5,7 @@
 // Login   <erwan.simon@epitech.eu>
 // 
 // Started on  Wed Mar 29 17:30:33 2017 Simon
-// Last update Mon Apr  3 17:41:29 2017 Simon
+// Last update Tue Apr  4 15:04:49 2017 Simon
 //
 
 #include <signal.h>
@@ -101,33 +101,31 @@ void		Launcher::changeLib(IGraphic::e_key key)
 void			Launcher::writeMenu()
 {
   int			a = 0;
-  int			y = 11;
+  int			y = 12;
   std::string		s;
   
   s = "Welcome in the Arcade!";
   this->_lib->writeStuff((40 - s.size()) / 2, 3, s);
   s = "Choose your graphic library below:";
-  this->_lib->writeStuff(2, 8, s);
+  this->_lib->writeStuff(3, 9, s);
   while (this->_lib_name[a] != "")
     {
       s = this->_lib_name[a];
-      this->_lib->writeStuff(5, y, s);
+      this->_lib->writeStuff(6, y, s);
       a++;
       y += 2;
     }
   s = "Choose your game below:";
-  this->_lib->writeStuff(2, 21, s);
+  this->_lib->writeStuff(3, 21, s);
   s = "Machin";
-  this->_lib->writeStuff(5, 24, s);
+  this->_lib->writeStuff(6, 24, s);
   s = "Truc";
-  this->_lib->writeStuff(5, 26, s);
+  this->_lib->writeStuff(6, 26, s);
 }
 
 void		Launcher::buildFrame()
 {
   int		i;
-  std::string	s;
-
   // Base frame
   for (i = 1; i != 40; i++)
     this->_lib->buildCell(0, i, IGraphic::E_WHITE);
@@ -148,11 +146,19 @@ void		Launcher::buildFrame()
   for (i = 2; i != 5; i++)
     this->_lib->buildCell(38, i, IGraphic::E_RED);
 
-  // Other frame
+  // Separation frame
+  for (i = 1; i != 39; i++)
+    this->_lib->buildCell(i, 6, IGraphic::E_WHITE);
   for (i = 1; i != 39; i++)
     this->_lib->buildCell(i, 18, IGraphic::E_WHITE);
   for (i = 1; i != 39; i++)
     this->_lib->buildCell(i, 29, IGraphic::E_WHITE);
+
+  // Selector
+  for (i = 3; i != 5; i++)
+    this->_lib->buildCell(i, 12 + (2 * this->_current), IGraphic::E_YELLOW);
+  for (i = 3; i != 5; i++)
+    this->_lib->buildCell(i, 24 + (2 * this->_game), IGraphic::E_YELLOW);  
 }
 
 static void	sigIntHandler(int s)
@@ -172,12 +178,29 @@ int		Launcher::interact()
       break ;
     case IGraphic::E_ESC:
       return (-1);
+    case IGraphic::E_4:
+      this->_game -= (this->_game == 0 ? 0 : 1);
+      break ;
+    case IGraphic::E_5:
+      this->_game += (this->_game == 0 ? 1 : 0);
+      break ;
+    case IGraphic::E_ENT:
+      exit(0);
+    case IGraphic::E_NONE:
+    case IGraphic::E_RIGHT:
+    case IGraphic::E_LEFT:
+    case IGraphic::E_UP:
+    case IGraphic::E_DOWN:
+    case IGraphic::E_8:
+    case IGraphic::E_9:
+      break;
     }
   return (0);
 }
 
 void		Launcher::launch()
 {
+  this->_game = 0;
   this->_lib->openWindow(40, 40);
   signal(SIGINT, sigIntHandler);
   while (1)
@@ -187,7 +210,7 @@ void		Launcher::launch()
       if (this->interact() == -1)
 	break ;
       this->_lib->refreshWindow();
-      // this->_lib->clearWindow();
+      this->_lib->clearWindow();
     }
   this->_lib->closeWindow();
 }

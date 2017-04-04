@@ -5,7 +5,7 @@
 // Login   <erwan.simon@epitech.eu>
 // 
 // Started on  Tue Mar 28 19:02:29 2017 Simon
-// Last update Mon Apr  3 13:50:16 2017 Simon
+// Last update Tue Apr  4 15:03:50 2017 Simon
 //
 
 #include <ncurses.h>
@@ -87,8 +87,6 @@ IGraphic::e_key	myNcurses::getKey()
     return (IGraphic::E_ESC);
   case KEY_ENTER:
     return (IGraphic::E_ENT);
-  case KEY_BTAB:
-    return (IGraphic::E_TAB);
   }
   return (IGraphic::E_NONE);
 }

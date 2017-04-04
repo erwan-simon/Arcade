@@ -5,7 +5,7 @@
 // Login   <antoine@epitech.eu>
 // 
 // Started on  Thu Mar 30 15:11:07 2017 Antoine
-// Last update Tue Apr  4 11:08:14 2017 Antoine
+// Last update Tue Apr  4 15:04:17 2017 Simon
 //
 
 #include <SFML/Window.hpp>
@@ -39,7 +39,6 @@ int	mySfml::openWindow(int x, int y)
 {
   this->_cellX = 0;
   this->_cellY = 0;
-  std::cout << "x == " << x << "y == " << y << std::endl;
   this->_wd.create(sf::VideoMode(x * 20, y * 20), "Arcade", sf::Style::Close);
   this->setCell();
   this->_wd.display();
@@ -95,8 +94,6 @@ IGraphic::e_key	mySfml::getKey()
   if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
     return (E_ESC);
   if (sf::Keyboard::isKeyPressed(sf::Keyboard::Return))
-    return (E_ENT);
-  if (sf::Keyboard::isKeyPressed(sf::Keyboard::Tab))
     return (E_ENT);
   return (E_NONE);
 }
@@ -156,7 +153,7 @@ int	mySfml::writeStuff(int x, int y, std::string& text)
   if (!font.loadFromFile("./lib/sfml/Roboto.ttf"))
     exit (84);
   tx.setFont(font);
-  tx.setCharacterSize(30);
+  tx.setCharacterSize(20);
   tx.setColor(sf::Color::Red);
   tx.setString(text);
   tx.setPosition(sf::Vector2f(x * this->_cellX, y * this->_cellY));
@@ -164,12 +161,11 @@ int	mySfml::writeStuff(int x, int y, std::string& text)
   while(i < text.size())
     {
       s = text.at(i);
-      std::cout << s <<std::endl;
       tx.setString(s);
       tx.setPosition(sf::Vector2f((x * this->_cellX) + (i * this->_cellX), y * this->_cellY));
+      this->_wd.draw(tx);
       i += 1;
     }
-  this->_wd.draw(tx);
   return (0);
 }
 
