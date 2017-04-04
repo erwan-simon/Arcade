@@ -5,7 +5,7 @@
 // Login   <erwan.simon@epitech.eu>
 // 
 // Started on  Wed Mar 29 17:22:12 2017 Simon
-// Last update Tue Apr  4 16:32:36 2017 Antoine
+// Last update Tue Apr  4 16:53:29 2017 Antoine
 //
 
 #include "Snake.hpp"
@@ -23,6 +23,29 @@ struct arcade::GetMap&          Snake::_getMap() const
 void            Snake::_play()
 {
 
+}
+
+
+void            Snake::_move(IGraphic::e_key key)
+{
+  if (key == E_UP)
+    {
+
+    }
+  else if (key == E_DOWN)
+    {
+
+    }
+  else if (key == E_RIGHT)
+    {
+
+    }
+  else if (key == E_LEFT)
+    {
+
+    }
+  else
+    
 }
 
 void            Snake::_pause()

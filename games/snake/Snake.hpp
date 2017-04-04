@@ -5,7 +5,7 @@
 // Login   <erwan.simon@epitech.eu>
 // 
 // Started on  Wed Mar 29 17:18:01 2017 Simon
-// Last update Tue Apr  4 16:36:31 2017 Antoine
+// Last update Tue Apr  4 16:53:27 2017 Antoine
 //
 
 #ifndef SNAKE_HPP_
@@ -41,7 +41,6 @@ private:
   Launcher                              *_launch;
   struct arcade::GetMap                 *_map;
   struct arcade::WhereAmI               *_position;
-
 };
 
 #endif
