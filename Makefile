@@ -5,7 +5,7 @@
 ## Login   <erwan.simon@epitech.eu>
 ## 
 ## Started on  Thu Mar 30 11:17:19 2017 Simon
-## Last update Mon Apr  3 17:31:33 2017 Selim Rinaz
+## Last update Tue Apr  4 15:21:17 2017 Simon
 ##
 
 NAME_EXE	= arcade
@@ -25,6 +25,14 @@ NAME_LA		= ./lib/lib_arcade_lapin.so
 SRCS_LA		= ./lib/lapin/myLibLapin.cpp
 OBJS_LA		= $(SRCS_LA:.cpp=.o)
 
+NAME_SN		= ./games/libarcade_snake.so
+SRCS_SN		= ./games/snake/Snake.cpp
+OBJS_SN		= $(SRCS_SN:.cpp=.o)
+
+NAME_PA		= ./games/libarcade_pacman.so
+SRCS_PA		= ./games/pacman/Pacman.cpp
+OBJS_PA		= $(SRCS_PA:.cpp=.o)
+
 CXXFLAGS	+= -Wall -Wextra -fPIC -std=c++11 -Igraphic -g -g3
 LDFLAGS		+= -ldl
 
@@ -36,10 +44,16 @@ LAFLAGS		=  -L/home/${USER}/.froot/lib/ -llapin			\
 CXX		= g++
 RM		= rm -f
 
-all:		$(NAME_EXE) $(NAME_NC) $(NAME_SF) # $(NAME_LA)
+all:		$(NAME_EXE) $(NAME_SN) $(NAME_PA) $(NAME_NC) $(NAME_SF) # $(NAME_LA)
 
 $(NAME_EXE):	$(OBJS_EXE)
 		$(CXX) -o $(NAME_EXE) $(OBJS_EXE) $(LDFLAGS)
+
+$(NAME_SN):	$(OBJS_SN)
+		$(CXX) -shared -o $(NAME_SN) $(OBJS_SN)
+
+$(NAME_PA):	$(OBJS_PA)
+		$(CXX) -shared -o $(NAME_PA) $(OBJS_PA)
 
 $(NAME_NC):	$(OBJS_NC)
 		$(CXX) -shared -o $(NAME_NC) $(OBJS_NC) -lncurses
@@ -51,10 +65,10 @@ $(NAME_LA):	$(OBJS_LA)
 		$(CXX) -shared -o $(NAME_LA) $(OBJS_LA) -lsfml-graphics -lsfml-window -lsfml-system $(LAFLAGS)
 
 clean:
-		$(RM) $(OBJS_EXE) $(OBJS_NC) $(OBJS_SF) $(OBJS_LA)
+		$(RM) $(OBJS_EXE) $(OBJS_NC) $(OBJS_SF) $(OBJS_LA) $(OBJS_SN) $(OBJS_PA)
 
 fclean: 	clean
-		$(RM) $(NAME_EXE) $(NAME_NC) $(NAME_SF) $(NAME_LA)
+		$(RM) $(NAME_EXE) $(NAME_NC) $(NAME_SF) $(NAME_LA) $(NAME_SN) $(NAME_PA)
 
 re:		fclean all
 

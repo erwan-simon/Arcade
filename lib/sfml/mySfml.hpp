@@ -5,7 +5,7 @@
 // Login   <antoine@epitech.eu>
 // 
 // Started on  Thu Mar 30 15:07:11 2017 Antoine
-// Last update Tue Apr  4 10:53:41 2017 Antoine
+// Last update Tue Apr  4 15:09:52 2017 Simon
 //
 
 #ifndef MYSFML_HPP_
@@ -28,8 +28,7 @@ public:
   virtual int			writeStuff(int x, int y, std::string& text);
   int				setCell();
 
-  // private:
-public:
+  private:
   sf::RenderWindow		_wd;
   sf::Event			_event;
   int				_y;
