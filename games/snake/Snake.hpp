@@ -5,7 +5,7 @@
 // Login   <erwan.simon@epitech.eu>
 // 
 // Started on  Wed Mar 29 17:18:01 2017 Simon
-// Last update Wed Apr  5 14:54:38 2017 Simon
+// Last update Wed Apr  5 15:35:34 2017 Antoine
 //
 
 #ifndef SNAKE_HPP_
@@ -16,7 +16,6 @@
 #include "../include/Protocol.hpp"
 #include "./../include/IGame.hpp"
 #include "../../Launcher.hpp"
-
 
 class					Snake : public IGame
 {
@@ -35,9 +34,12 @@ public:
   virtual void                          Play();
   virtual void                          _pause();
   virtual void                          _gameOver(IGame::e_end);
+  virtual void				_graphPlay();
   virtual void                          _initMap();
-  
+  virtual void                          _initPosition();
+  virtual void				_drawMap();
   void                                  _printMap();
+  
 private:
   Launcher                              *_launch;
   struct arcade::GetMap                 *_map;
