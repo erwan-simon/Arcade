@@ -5,7 +5,7 @@
 // Login   <erwan.simon@epitech.eu>
 // 
 // Started on  Mon Apr  3 14:51:47 2017 Simon
-// Last update Wed Apr  5 17:22:48 2017 Simon
+// Last update Wed Apr  5 17:58:33 2017 Simon
 //
 
 #include "../../Launcher.hpp"
@@ -32,8 +32,8 @@ struct arcade::GetMap&		Pacman::_getMap() const
 void		Pacman::_evilMove()
 {
   int		a = 1;
-  // float		diffA = 0.0;
-  // float		diffB = 0.0;
+  float		diffA = 0.0;
+  float		diffB = 0.0;
 
   while (a != 3)
     {
