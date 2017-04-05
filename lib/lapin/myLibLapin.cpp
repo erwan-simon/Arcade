@@ -5,7 +5,7 @@
 ** Login   <selimrinaz@epitech.net>
 ** 
 ** Started on  Tue Mar 28 17:42:54 2017 Selim Rinaz
-** Last update Mon Apr  3 14:36:21 2017 Selim Rinaz
+** Last update Wed Apr  5 11:05:54 2017 Selim Rinaz
 */
 
 #include <unistd.h>
@@ -21,6 +21,7 @@ int			myLibLapin::openWindow(int x, int y)
     {
       return (1);
     }
+  // bunny_set_key_response(&this->getKey);
   bunny_display(this->window);
   return (0);
 }
@@ -55,19 +56,19 @@ myLibLapin::e_key	myLibLapin::getKey()
     return (E_DOWN);
   if (bunny_get_keyboard()[BKS_UP])
     return (E_UP);
-  if (bunny_get_keyboard()[BKS_LEFT])
+  if (bunny_get_keyboard()[BKS_2])
     return (E_2);
-  if (bunny_get_keyboard()[BKS_LEFT])
+  if (bunny_get_keyboard()[BKS_3])
     return (E_3);
-  if (bunny_get_keyboard()[BKS_LEFT])
+  if (bunny_get_keyboard()[BKS_4])
     return (E_4);
-  if (bunny_get_keyboard()[BKS_LEFT])
+  if (bunny_get_keyboard()[BKS_5])
     return (E_5);
-  if (bunny_get_keyboard()[BKS_LEFT])
+  if (bunny_get_keyboard()[BKS_8])
     return (E_8);
-  if (bunny_get_keyboard()[BKS_LEFT])
+  if (bunny_get_keyboard()[BKS_9])
     return (E_9);
-  if (bunny_get_keyboard()[BKS_LEFT])
+  if (bunny_get_keyboard()[BKS_ESCAPE])
     return (E_ESC);
   return (E_NONE);
 }
@@ -119,6 +120,25 @@ int			myLibLapin::buildCell(int x, int y, e_color col)
 
 int			myLibLapin::writeStuff(int x, int y, std::string &text)
 {
+  t_bunny_position	position;
+  t_bunny_pixelarray	*pixarray;
+  size_t		i;
+  std::string		file;
+
+  if (NULL == (pixarray = bunny_new_pixelarray(20, 20)))
+    return (1);
+  for (i = 0; i < text.length(); i++)
+    {
+      position.x = x * this->width;
+      position.y = y * this->height;
+      fill_color(pixarray, BLACK);
+      file = "./Fonts/";
+      file += toupper(text.c_str()[i]);
+      file += ".png";
+      bunny_load_pixelarray(file.c_str());
+      bunny_blit(&this->window->buffer, &pixarray->clipable, &position);
+      x += 1;
+    }
   return (0);
 }
 
