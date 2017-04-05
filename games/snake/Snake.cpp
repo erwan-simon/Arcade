@@ -5,7 +5,7 @@
 // Login   <erwan.simon@epitech.eu>
 // 
 // Started on  Wed Mar 29 17:22:12 2017 Simon
-// Last update Tue Apr  4 17:01:43 2017 Antoine
+// Last update Wed Apr  5 14:55:52 2017 Simon
 //
 
 #include "Snake.hpp"
@@ -25,7 +25,7 @@ void            Snake::Play()
 
 }
 
-void            Snake::_getKey(IGraphic::e_key key)
+int		Snake::_getKey(IGraphic::e_key key)
 {
 
 }

@@ -5,7 +5,7 @@
 // Login   <erwan.simon@epitech.eu>
 // 
 // Started on  Mon Apr  3 14:51:47 2017 Simon
-// Last update Wed Apr  5 11:07:03 2017 Simon
+// Last update Wed Apr  5 14:57:20 2017 Simon
 //
 
 #include "../../Launcher.hpp"
@@ -32,12 +32,15 @@ void		Pacman::_move(IGraphic::e_key)
 
 }
 
-void		Pacman::_getKey(IGraphic::e_key key)
+int		Pacman::_getKey(IGraphic::e_key key)
 {
   if (key == IGraphic::E_LEFT || key == IGraphic::E_RIGHT || key == IGraphic::E_UP || key == IGraphic::E_DOWN)
     this->_move(key);
-  else
-    this->_launch->interact(key);
+  // else
+  //   this->_launch->interact(key);
+  else if (key == IGraphic::E_ESC)
+    return (-1);
+  return (0);
 }
 
 void		Pacman::Play()
@@ -144,9 +147,8 @@ void	Pacman::_graphPlay()
   while (1)
     {
       this->_drawMap();
-      // this->_getKey(this->_launch->_lib->getKey());
-      if (this->_launch->_lib->getKey() == IGraphic::E_ESC)
-       	break ;
+      if (this->_getKey(this->_launch->_lib->getKey()) == -1)
+	break ;
       // this->_launch->getLib()->refreshWindow();
     }
 }
