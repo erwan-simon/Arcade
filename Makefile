@@ -5,7 +5,7 @@
 ## Login   <erwan.simon@epitech.eu>
 ## 
 ## Started on  Thu Mar 30 11:17:19 2017 Simon
-## Last update Wed Apr  5 13:52:59 2017 Simon
+## Last update Wed Apr  5 15:25:10 2017 Selim Rinaz
 ##
 
 NAME_EXE	= arcade
@@ -36,10 +36,10 @@ OBJS_PA		= $(SRCS_PA:.cpp=.o)
 CXXFLAGS	+= -Wall -Wextra -fPIC -std=c++11 -Igraphic -g -g3 -Wfatal-errors
 LDFLAGS		+= -ldl
 
-# LAFLAGS		=  -L/home/${USER}/.froot/lib/ -llapin			\
-# 		   -L/usr/local/lib					\
-# 		   -lm							\
-# 		   -I../../graphic/ -I/home/${USER}/.froot/include/
+LAFLAGS		=  -L/home/${USER}/.froot/lib/ -llapin			\
+		   -L/usr/local/lib					\
+		   -lm							\
+		   -I../../graphic/ -I/home/${USER}/.froot/include/
 
 CXX		= g++
 RM		= rm -f
