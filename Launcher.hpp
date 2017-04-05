@@ -5,12 +5,13 @@
 // Login   <erwan.simon@epitech.eu>
 // 
 // Started on  Fri Mar 31 13:51:50 2017 Simon
-// Last update Mon Apr  3 17:22:02 2017 Simon
+// Last update Wed Apr  5 10:35:05 2017 Simon
 //
 
 #ifndef LAUNCHER_HPP_
 # define LAUNCHER_HPP_
 
+#include "./games/include/IGame.hpp"
 #include "./graphic/IGraphic.hpp"
 
 class Launcher {
@@ -20,17 +21,26 @@ public:
 
   void		launch();
   void		changeLib(IGraphic::e_key key);
+  void		changeGame(IGraphic::e_key key);
   void		writeMenu();
   void		buildFrame();
-  int		interact();
+  int		interact(IGraphic::e_key key);
+  void		play();
+
+public:
+  IGraphic*	_lib;
+  IGame*	_game;
 
 private:
-  IGraphic*	_lib;
-  int		_current;
+  // Graphic lib
+  int		_current_lib;
   void*		_dh_lib;
   std::string*	_lib_name;
+
+  // Game lib
+  int		_current_game;
+  void*		_dh_game;
   std::string*	_game_name;
-  int		_menu;
 };
 
 #endif

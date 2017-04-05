@@ -5,41 +5,43 @@
 // Login   <erwan.simon@epitech.eu>
 // 
 // Started on  Wed Mar 29 17:18:01 2017 Simon
-// Last update Mon Apr  3 11:55:18 2017 Simon
+// Last update Tue Apr  4 17:01:00 2017 Antoine
 //
 
 #ifndef SNAKE_HPP_
 # define SNAKE_HPP_
 
+#include <cstdlib>
+#include "../../graphic/IGraphic.hpp"
+#include "../include/Protocol.hpp"
 #include "./../include/IGame.hpp"
+#include "../../Launcher.hpp"
+
 
 class					Snake : public IGame
 {
 public:
-  Snake(int width, int height);
-  
+  Snake(int width, int height, Launcher &launch);
+
   // Getters
-  virtual struct arcade::WhereAmI	_whereAmI() const;
-  virtual struct arcade::GetMap		_getMap() const;
+  virtual struct arcade::WhereAmI&      _whereAmI() const;
+  virtual struct arcade::GetMap&        _getMap() const;
 
   // Input
-  virtual void				_goUp();
-  virtual void				_goDown();
-  virtual void				_goLeft();
-  virtual void				_goRight();
-  // virtual void			_goForward();
-  // virtual void                       _shoot();
-  // virtual void                       _illegal();
+  virtual void                          _move(IGraphic::e_key);
+  virtual void                          _getKey(IGraphic::e_key);
 
   // the game
-  virtual void				_play();
-  virtual void				_pause();
-  virtual void				_gameOver(IGame::e_end);
-
-  void					_initMap();
+  virtual void                          Play();
+  virtual void                          _pause();
+  virtual void                          _gameOver(IGame::e_end);
+  virtual void                          _initMap();
+  
+  void                                  _printMap();
 private:
-  struct arcade::GetMap			_map;
-  struct arcade::WhereAmI		_position;
+  Launcher                              *_launch;
+  struct arcade::GetMap                 *_map;
+  struct arcade::WhereAmI               *_position;
 };
 
 #endif

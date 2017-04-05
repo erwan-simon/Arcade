@@ -5,7 +5,7 @@
 // Login   <antoine@epitech.eu>
 // 
 // Started on  Thu Mar 30 15:07:11 2017 Antoine
-// Last update Mon Apr  3 11:13:50 2017 Simon
+// Last update Tue Apr  4 15:09:52 2017 Simon
 //
 
 #ifndef MYSFML_HPP_
@@ -16,6 +16,7 @@
 class				mySfml : public IGraphic
 {
 public:
+  mySfml();
   virtual int			openWindow(int x, int y);
   virtual int			refreshWindow();
   virtual int			clearWindow();
@@ -27,8 +28,7 @@ public:
   virtual int			writeStuff(int x, int y, std::string& text);
   int				setCell();
 
-  // private:
-public:
+  private:
   sf::RenderWindow		_wd;
   sf::Event			_event;
   int				_y;

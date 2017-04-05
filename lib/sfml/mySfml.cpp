@@ -5,13 +5,18 @@
 // Login   <antoine@epitech.eu>
 // 
 // Started on  Thu Mar 30 15:11:07 2017 Antoine
-// Last update Mon Apr  3 17:01:05 2017 Antoine
+// Last update Tue Apr  4 15:04:17 2017 Simon
 //
 
 #include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>
 #include <string>
 #include "mySfml.hpp"
+
+mySfml::mySfml()
+  : _wd(), _event(), _y(), _x(), _cellY(), _cellX()
+{
+}
 
 static sf::Color	colorCell(IGraphic::e_color col)
 {
@@ -90,8 +95,6 @@ IGraphic::e_key	mySfml::getKey()
     return (E_ESC);
   if (sf::Keyboard::isKeyPressed(sf::Keyboard::Return))
     return (E_ENT);
-  if (sf::Keyboard::isKeyPressed(sf::Keyboard::Tab))
-    return (E_ENT);
   return (E_NONE);
 }
 
@@ -150,20 +153,19 @@ int	mySfml::writeStuff(int x, int y, std::string& text)
   if (!font.loadFromFile("./lib/sfml/Roboto.ttf"))
     exit (84);
   tx.setFont(font);
-  tx.setCharacterSize(30);
+  tx.setCharacterSize(20);
   tx.setColor(sf::Color::Red);
   tx.setString(text);
   tx.setPosition(sf::Vector2f(x * this->_cellX, y * this->_cellY));
-  // unsigned int  i = 0;
-  // while(i < text.size())
-  //   {
-  //     s = text.at(i);
-  //     std::cout << s <<std::endl;
-  //     tx.setString(s);
-  //     tx.setPosition(sf::Vector2f((x * this->_cellX) + (i * this->_cellX), y * this->_cellY));
-  //     i += 1;
-  //   }
-  this->_wd.draw(tx);
+  unsigned int  i = 0;
+  while(i < text.size())
+    {
+      s = text.at(i);
+      tx.setString(s);
+      tx.setPosition(sf::Vector2f((x * this->_cellX) + (i * this->_cellX), y * this->_cellY));
+      this->_wd.draw(tx);
+      i += 1;
+    }
   return (0);
 }
 
