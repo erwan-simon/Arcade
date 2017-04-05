@@ -5,7 +5,7 @@
 // Login   <erwan.simon@epitech.eu>
 // 
 // Started on  Wed Mar 29 17:30:33 2017 Simon
-// Last update Tue Apr  4 17:55:49 2017 Simon
+// Last update Wed Apr  5 10:34:02 2017 Simon
 //
 
 #include <signal.h>
@@ -92,6 +92,7 @@ Launcher::Launcher(std::string &lib)
 Launcher::~Launcher()
 {
   dlclose(this->_dh_lib);
+  dlclose(this->_dh_game);
 }
 
 void		Launcher::changeLib(IGraphic::e_key key)
@@ -122,6 +123,7 @@ void		Launcher::changeLib(IGraphic::e_key key)
 void		Launcher::changeGame(IGraphic::e_key key)
 {
   IGame*	(*launch)(int, int, Launcher&);
+
   dlclose(this->_dh_game);
   if (key == IGraphic::E_2 && this->_current_game != 0)
     this->_current_game -= 1;
@@ -214,6 +216,7 @@ void		Launcher::buildFrame()
 void		Launcher::play()
 {
   IGame*	(*launch)(int, int, Launcher&);
+
   this->_dh_game = dlopen(this->_game_name[this->_current_game].c_str(), RTLD_LAZY);
   if (this->_dh_game == NULL)
     {
@@ -235,49 +238,31 @@ static void	sigIntHandler(int s)
   (void) s;
 }
 
-int		Launcher::interact()
+int		Launcher::interact(IGraphic::e_key key)
 {
-  switch (this->_lib->getKey())
-    {
-    case IGraphic::E_2:
-      this->changeLib(IGraphic::E_2);
-      break ;
-    case IGraphic::E_3:
-      this->changeLib(IGraphic::E_3);
-      break ;
-    case IGraphic::E_ESC:
-      return (-1);
-    case IGraphic::E_4:
-      this->_current_game -= (this->_current_game == 0 ? 0 : 1);
-      break ;
-    case IGraphic::E_5:
-      this->_current_game += (this->_current_game == 0 ? 1 : 0);
-      break ;
-    case IGraphic::E_ENT:
-      this->play();
-      break ;
-    case IGraphic::E_NONE:
-    case IGraphic::E_RIGHT:
-    case IGraphic::E_LEFT:
-    case IGraphic::E_UP:
-    case IGraphic::E_DOWN:
-    case IGraphic::E_8:
-    case IGraphic::E_9:
-      break ;
-    }
+  if (key == IGraphic::E_2 || key == IGraphic::E_3)
+    this->changeLib(key);
+  else if (key == IGraphic::E_ESC)
+    return (-1);
+  else if (key == IGraphic::E_4)
+    this->_current_game -= (this->_current_game == 0 ? 0 : 1);
+  else if (key == IGraphic::E_5)
+    this->_current_game += (this->_current_game == 0 ? 1 : 0);
+  else if (key == IGraphic::E_ENT)
+    this->play();
   return (0);
 }
 
 void		Launcher::launch()
 {
-  this->_game = 0;
+  this->_current_game = 0;
   this->_lib->openWindow(40, 40);
   signal(SIGINT, sigIntHandler);
   while (1)
     {
       this->writeMenu();
       this->buildFrame();
-      if (this->interact() == -1)
+      if (this->interact(this->_lib->getKey()) == -1)
 	break ;
       this->_lib->refreshWindow();
       this->_lib->clearWindow();

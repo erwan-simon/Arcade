@@ -5,7 +5,7 @@
 // Login   <erwan.simon@epitech.eu>
 // 
 // Started on  Mon Apr  3 14:51:47 2017 Simon
-// Last update Tue Apr  4 17:55:12 2017 Simon
+// Last update Wed Apr  5 10:35:43 2017 Simon
 //
 
 #include "../../Launcher.hpp"
@@ -32,9 +32,12 @@ void		Pacman::_move(IGraphic::e_key)
 
 }
 
-void		Pacman::_getKey(IGraphic::e_key)
+void		Pacman::_getKey(IGraphic::e_key key)
 {
-
+  if (key == IGraphic::E_LEFT || key == IGraphic::E_RIGHT || key == IGraphic::E_UP || key == IGraphic::E_DOWN)
+    this->_move(key);
+  else
+    this->_launch->interact(key);
 }
 
 void		Pacman::Play()
@@ -47,9 +50,27 @@ void		Pacman::_pause()
 
 }
 
-void		Pacman::_gameOver(IGame::e_end)
+void		Pacman::_gameOver(IGame::e_end end)
 {
   
+}
+
+void		Pacman::_drawMap()
+{
+  int		x = 0;
+  int		y = 0;
+  std::string	s = ".";
+  
+  for (y = 0; y != 40; y++)
+    {
+      for (x = 0; x != 40; x++)
+	{
+	  if (this->_map->tile[(y * 40) + x] == static_cast<arcade::TileType>(1))
+	    this->_launch->_lib->buildCell(x, y, IGraphic::E_BLUE);
+	  else if (this->_map->tile[(y * 40) + x] == static_cast<arcade::TileType>(6))
+	    this->_launch->_lib->writeStuff(x, y, s);
+	}
+    }
 }
 
 static std::string*	getFile()
@@ -63,11 +84,15 @@ static std::string*	getFile()
       while (getline(myfile, line))
 	*res += line;
       myfile.close();
-      std::cout << res << std::endl;
     }
   else
     {
-      std::cerr << "A problem occured with map.txt" << std::endl;
+      std::cerr << (*res).size() << " A problem occured with map.txt" << std::endl;
+      exit(84);
+    }
+  if ((*res).size() != 1600)
+    {
+      std::cerr << (*res).size() << " A problem occured with map.txt" << std::endl;
       exit(84);
     }
   return (res);
@@ -75,9 +100,8 @@ static std::string*	getFile()
 
 void		Pacman::_initMap()
 {
-  int		total = (this->_map->width * this->_map->height * sizeof(arcade::TileType));
+  int		total = this->_map->width * this->_map->height;
   int		i = 0;
-  int		save = 0;
   std::string	*map;
 
   if ((map = getFile()) == NULL)
@@ -85,9 +109,9 @@ void		Pacman::_initMap()
   while (i < total)
     {
       if (map->at(i) == '1')
-	this->_map->tile[i] = static_cast<arcade::TileType>(1); //BLOCK
-      else if (map->at(i) == '0')
-	this->_map->tile[i] = static_cast<arcade::TileType>(0);  //EMPTY
+	this->_map->tile[i] = static_cast<arcade::TileType>(1); // BLOCK
+      else if (map->at(i) == '6')
+	this->_map->tile[i] = static_cast<arcade::TileType>(6);  // BONUS
       else
 	{
 	  std::cerr << "map.txt contains some illegal caracters" << std::endl;
@@ -106,16 +130,17 @@ Pacman::Pacman(int width, int height, Launcher& launcher)
   this->_map = (struct arcade::GetMap *) malloc(sizeof (struct arcade::GetMap) + total);
   this->_map->width = width;
   this->_map->height = height;
-  std::cout << "map->width == " << width << " | map->height == "
-	    << height << " | total == "<< total <<std::endl;  
   this->_initMap();
 }
 
 void	Pacman::_graphPlay()
 {
+  // this->_launch->getLib()->clearWindow();
   while (1)
     {
-      
+      // this->_drawMap();
+      this->_getKey(this->_launch->_lib->getKey());
+      // this->_launch->getLib()->refreshWindow();
     }
 }
 
