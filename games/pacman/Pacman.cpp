@@ -5,7 +5,7 @@
 // Login   <erwan.simon@epitech.eu>
 // 
 // Started on  Mon Apr  3 14:51:47 2017 Simon
-// Last update Wed Apr  5 16:37:51 2017 Simon
+// Last update Wed Apr  5 17:22:48 2017 Simon
 //
 
 #include "../../Launcher.hpp"
@@ -29,15 +29,38 @@ struct arcade::GetMap&		Pacman::_getMap() const
   return (*this->_map);
 }
 
+void		Pacman::_evilMove()
+{
+  int		a = 1;
+  // float		diffA = 0.0;
+  // float		diffB = 0.0;
+
+  while (a != 3)
+    {
+      diffA = static_cast<float>(this->_position->position[a].x - this->_position->position[0].x);
+      diffB = static_cast<float>(this->_position->position[a].y - this->_position->position[0].y);
+      if (diffA <= -0.5 && this->_map->tile[this->_position->position[a].y * 40 + this->_position->position[a].x] != static_cast<arcade::TileType>(6))
+      a++;
+    }
+}
+
 void		Pacman::_move(IGraphic::e_key key)
 {
-  if (key == IGraphic::E_LEFT && this->_map->tile[(this->_position->position[0].y * 40) + this->_position->position[0].x - 1] != static_cast<arcade::TileType>(1))
+  if (key == IGraphic::E_LEFT &&
+      this->_map->tile[(this->_position->position[0].y * 40) +
+		       this->_position->position[0].x - 1] != static_cast<arcade::TileType>(1))
     this->_position->position[0].x -= 1;
-  else if (key == IGraphic::E_RIGHT && this->_map->tile[(this->_position->position[0].y * 40) + this->_position->position[0].x + 1] != static_cast<arcade::TileType>(1))
+  else if (key == IGraphic::E_RIGHT &&
+	   this->_map->tile[(this->_position->position[0].y * 40) +
+			    this->_position->position[0].x + 1] != static_cast<arcade::TileType>(1))
     this->_position->position[0].x += 1;
-  else if (key == IGraphic::E_UP && this->_map->tile[((this->_position->position[0].y - 1) * 40) + this->_position->position[0].x] != static_cast<arcade::TileType>(1))
+  else if (key == IGraphic::E_UP &&
+	   this->_map->tile[((this->_position->position[0].y - 1) * 40) +
+			    this->_position->position[0].x] != static_cast<arcade::TileType>(1))
     this->_position->position[0].y -= 1;
-  else if (key == IGraphic::E_RIGHT && this->_map->tile[((this->_position->position[0].y + 1) * 40) + this->_position->position[0].x] != static_cast<arcade::TileType>(1))
+  else if (key == IGraphic::E_DOWN &&
+	   this->_map->tile[((this->_position->position[0].y + 1) * 40) +
+			    this->_position->position[0].x] != static_cast<arcade::TileType>(1))
     this->_position->position[0].y += 1;
 }
 
@@ -59,7 +82,7 @@ void		Pacman::Play()
 
 void		Pacman::_pause()
 {
-
+  
 }
 
 void		Pacman::_gameOver(IGame::e_end end)
@@ -178,7 +201,6 @@ Pacman::Pacman(int width, int height, Launcher& launcher)
     exit (84);
   this->_map->width = width;
   this->_map->height = height;
-  this->_heading = IGraphic::E_NONE;
   this->_initMap();
   this->_initPosition();
 }
@@ -191,6 +213,7 @@ void				Pacman::_graphPlay()
       this->_drawMap();
       if (this->_getKey(this->_launch->_lib->getKey()) == -1)
 	break ;
+      
       this->_launch->_lib->refreshWindow();
       this->_launch->_lib->clearWindow();
     }

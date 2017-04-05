@@ -5,7 +5,7 @@
 // Login   <antoine@epitech.eu>
 // 
 // Started on  Tue Mar 28 14:24:06 2017 Antoine
-// Last update Wed Apr  5 14:53:32 2017 Simon
+// Last update Wed Apr  5 17:48:34 2017 Simon
 //
 
 #ifndef IGAME_HPP_

@@ -5,7 +5,7 @@
 // Login   <erwan.simon@epitech.eu>
 // 
 // Started on  Fri Mar 31 13:51:50 2017 Simon
-// Last update Wed Apr  5 10:35:05 2017 Simon
+// Last update Wed Apr  5 17:47:47 2017 Simon
 //
 
 #ifndef LAUNCHER_HPP_
@@ -26,6 +26,7 @@ public:
   void		buildFrame();
   int		interact(IGraphic::e_key key);
   void		play();
+  void		graphPlay();
 
 public:
   IGraphic*	_lib;

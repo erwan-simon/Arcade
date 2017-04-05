@@ -5,7 +5,7 @@
 // Login   <erwan.simon@epitech.eu>
 // 
 // Started on  Wed Mar 29 17:30:33 2017 Simon
-// Last update Wed Apr  5 11:01:55 2017 Simon
+// Last update Wed Apr  5 17:42:46 2017 Simon
 //
 
 #include <signal.h>
@@ -18,6 +18,11 @@
 #include "./games/include/IGame.hpp"
 #include "./graphic/IGraphic.hpp"
 #include "Launcher.hpp"
+
+void	Launcher::graphPlay()
+{
+  
+}
 
 Launcher::Launcher(std::string &lib)
 {
