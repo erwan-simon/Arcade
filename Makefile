@@ -5,7 +5,7 @@
 ## Login   <erwan.simon@epitech.eu>
 ## 
 ## Started on  Thu Mar 30 11:17:19 2017 Simon
-## Last update Wed Apr  5 15:25:10 2017 Selim Rinaz
+## Last update Wed Apr  5 21:08:59 2017 Simon
 ##
 
 NAME_EXE	= arcade
@@ -44,7 +44,7 @@ LAFLAGS		=  -L/home/${USER}/.froot/lib/ -llapin			\
 CXX		= g++
 RM		= rm -f
 
-all:		$(NAME_EXE) $(NAME_SN) $(NAME_PA) $(NAME_NC) $(NAME_SF) # $(NAME_LA)
+all:		$(NAME_EXE)  $(NAME_PA) $(NAME_NC) $(NAME_SF) # $(NAME_SN) $(NAME_LA)
 
 $(NAME_EXE):	$(OBJS_EXE)
 		$(CXX) -o $(NAME_EXE) $(OBJS_EXE) $(LDFLAGS)

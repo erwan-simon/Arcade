@@ -5,7 +5,7 @@
 // Login   <erwan.simon@epitech.eu>
 // 
 // Started on  Mon Apr  3 14:51:47 2017 Simon
-// Last update Wed Apr  5 17:58:33 2017 Simon
+// Last update Wed Apr  5 22:34:49 2017 Simon
 //
 
 #include "../../Launcher.hpp"
@@ -16,7 +16,6 @@
 #include <unistd.h>
 #include <iostream>
 #include <string>
-#include <chrono>
 #include "Pacman.hpp"
 
 struct arcade::WhereAmI&		Pacman::_whereAmI() const
@@ -27,6 +26,16 @@ struct arcade::WhereAmI&		Pacman::_whereAmI() const
 struct arcade::GetMap&		Pacman::_getMap() const
 {
   return (*this->_map);
+}
+
+void		Pacman::_setHeading(IGraphic::e_key key)
+{
+  this->_heading = key;
+}
+
+int		Pacman::_getScore()
+{
+  return (this->_score);
 }
 
 void		Pacman::_evilMove()
@@ -49,30 +58,31 @@ void		Pacman::_move(IGraphic::e_key key)
   if (key == IGraphic::E_LEFT &&
       this->_map->tile[(this->_position->position[0].y * 40) +
 		       this->_position->position[0].x - 1] != static_cast<arcade::TileType>(1))
-    this->_position->position[0].x -= 1;
+    {
+      this->_position->position[0].x -= 1;
+      _heading = key;
+    }
   else if (key == IGraphic::E_RIGHT &&
 	   this->_map->tile[(this->_position->position[0].y * 40) +
 			    this->_position->position[0].x + 1] != static_cast<arcade::TileType>(1))
-    this->_position->position[0].x += 1;
+    {
+      this->_position->position[0].x += 1;
+      _heading = key;
+    }
   else if (key == IGraphic::E_UP &&
 	   this->_map->tile[((this->_position->position[0].y - 1) * 40) +
 			    this->_position->position[0].x] != static_cast<arcade::TileType>(1))
-    this->_position->position[0].y -= 1;
+    {
+      this->_position->position[0].y -= 1;
+      _heading = key;
+    }
   else if (key == IGraphic::E_DOWN &&
 	   this->_map->tile[((this->_position->position[0].y + 1) * 40) +
 			    this->_position->position[0].x] != static_cast<arcade::TileType>(1))
-    this->_position->position[0].y += 1;
-}
-
-int		Pacman::_getKey(IGraphic::e_key key)
-{
-  if (key == IGraphic::E_LEFT || key == IGraphic::E_RIGHT || key == IGraphic::E_UP || key == IGraphic::E_DOWN)
-    this->_move(key);
-  // else
-  //   this->_launch->interact(key);
-  else if (key == IGraphic::E_ESC)
-    return (-1);
-  return (0);
+    {
+      this->_position->position[0].y += 1;
+      _heading = key;
+    }
 }
 
 void		Pacman::Play()
@@ -88,31 +98,6 @@ void		Pacman::_pause()
 void		Pacman::_gameOver(IGame::e_end end)
 {
   (void) end;
-}
-
-void		Pacman::_drawMap()
-{
-  int		x = 0;
-  int		y = 0;
-  std::string	s = ".";
-  
-  for (y = 0; y != 40; y++)
-    {
-      for (x = 0; x != 40; x++)
-	{
-	  if (this->_map->tile[(y * 40) + x] == static_cast<arcade::TileType>(1))
-	    this->_launch->_lib->buildCell(x, y, IGraphic::E_BLUE);
-	  else if (this->_map->tile[(y * 40) + x] == static_cast<arcade::TileType>(6))
-	    this->_launch->_lib->writeStuff(x, y, s);
-	  if (this->_position->position[0].x == x && this->_position->position[0].y == y)
-	    this->_launch->_lib->buildCell(x, y, IGraphic::E_YELLOW);
-	  else if ((this->_position->position[1].x == x && this->_position->position[1].y == y)
-		   || (this->_position->position[2].x == x && this->_position->position[2].y == y)
-		   || (this->_position->position[3].x == x && this->_position->position[3].y == y)
-		   || (this->_position->position[4].x == x && this->_position->position[4].y == y))
-	    this->_launch->_lib->buildCell(x, y, IGraphic::E_GREEN);
-	}
-    }
 }
 
 static std::string*	getFile()
@@ -161,35 +146,31 @@ void		Pacman::_initMap()
 	}
       i = i + 1;
     }
-  delete map;
-}
-
-void	Pacman::_initPosition()
-{
   if (this->_map->tile[1 * 40 + 1] != static_cast<arcade::TileType>(6)
       || this->_map->tile[38 * 40 + 1] != static_cast<arcade::TileType>(6)
       || this->_map->tile[38 * 40 + 38] != static_cast<arcade::TileType>(6)
       || this->_map->tile[1 * 40 + 38] != static_cast<arcade::TileType>(6)
       || this->_map->tile[17 * 40 + 20] != static_cast<arcade::TileType>(6))
-    exit (84);
+    {
+      std::cerr << "map problem : can't place protagonists" << std::endl;
+      exit (84);
+    }
+  this->_map->tile[1 * 40 + 1] = static_cast<arcade::TileType>(3);
+  this->_map->tile[38 * 40 + 1] = static_cast<arcade::TileType>(3);
+  this->_map->tile[38 * 40 + 38] = static_cast<arcade::TileType>(3);
+  this->_map->tile[1 * 40 + 38] = static_cast<arcade::TileType>(3);
+  delete map;
+}
+
+void	Pacman::_initPosition()
+{
   this->_position->position[0].x = 20;
   this->_position->position[0].y = 17;
-
-  this->_position->position[1].x = 1;
-  this->_position->position[1].y = 1;
-
-  this->_position->position[2].x = 38;
-  this->_position->position[2].y = 1;
-
-  this->_position->position[3].x = 1;
-  this->_position->position[3].y = 38;
-
-  this->_position->position[4].x = 38;
-  this->_position->position[4].y = 38;
 }
 
 Pacman::Pacman(int width, int height, Launcher& launcher)
 {
+  this->_score = 0;
   this->_launch = &launcher;
   if ((this->_map = (struct arcade::GetMap *)
        malloc(sizeof(struct arcade::GetMap)
@@ -207,16 +188,15 @@ Pacman::Pacman(int width, int height, Launcher& launcher)
 
 void				Pacman::_graphPlay()
 {
-  this->_launch->_lib->clearWindow();
-  while (1)
+  if (this->_map->tile[this->_position->position[0].y * 40 + this->_position->position[0].x]
+      == static_cast<arcade::TileType>(6))
     {
-      this->_drawMap();
-      if (this->_getKey(this->_launch->_lib->getKey()) == -1)
-	break ;
-      
-      this->_launch->_lib->refreshWindow();
-      this->_launch->_lib->clearWindow();
+      this->_score += 1;
+      this->_map->tile[this->_position->position[0].y * 40 + this->_position->position[0].x]
+	= static_cast<arcade::TileType>(0);
     }
+  this->_move(this->_heading);
+  // this->_evilMove();
 }
 
 extern "C"

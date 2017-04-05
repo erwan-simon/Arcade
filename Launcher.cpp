@@ -5,7 +5,7 @@
 // Login   <erwan.simon@epitech.eu>
 // 
 // Started on  Wed Mar 29 17:30:33 2017 Simon
-// Last update Wed Apr  5 17:42:46 2017 Simon
+// Last update Wed Apr  5 22:22:34 2017 Simon
 //
 
 #include <signal.h>
@@ -14,14 +14,58 @@
 #include <dirent.h>
 #include <regex>
 #include <string>
-#include <sstream>
+#include <chrono>
+#include <thread>
 #include "./games/include/IGame.hpp"
 #include "./graphic/IGraphic.hpp"
 #include "Launcher.hpp"
 
-void	Launcher::graphPlay()
+using namespace std::chrono;
+
+void	Launcher::drawMap()
 {
+  int		a = 0;
+  int		x = 0;
+  int		y = 0;
+  std::string	s = ".";
   
+  for (y = 0; y != 40; y++)
+    {
+      for (x = 0; x != 40; x++)
+	{
+	  if (this->_game->_getMap().tile[(y * 40) + x] == static_cast<arcade::TileType>(1))
+	    this->_lib->buildCell(x, y, IGraphic::E_BLUE);
+	  else if (this->_game->_getMap().tile[(y * 40) + x] == static_cast<arcade::TileType>(6))
+	    this->_lib->writeStuff(x, y, s);
+	  else if (this->_game->_getMap().tile[(y * 40) + x] == static_cast<arcade::TileType>(3))
+	    this->_lib->buildCell(x, y, IGraphic::E_GREEN);
+	  // while (a != 4) // À CHANGER
+	  //   {
+	  if (this->_game->_whereAmI().position[a].x == x &&
+	      this->_game->_whereAmI().position[a].y == y)
+	    this->_lib->buildCell(x, y, IGraphic::E_YELLOW);
+	    //   a++;
+	    // }
+	}
+    }
+}
+
+void				Launcher::graphPlay()
+{
+  time_point<system_clock> t = system_clock::now();
+
+  this->_lib->clearWindow();
+  while (1)
+    {
+      t += milliseconds(400);
+      std::this_thread::sleep_until(t);
+      if (this->interact(this->_lib->getKey()) == -1)
+	return ;
+      this->_game->_graphPlay();
+      this->drawMap();
+      this->_lib->refreshWindow();
+      this->_lib->clearWindow();
+    }
 }
 
 Launcher::Launcher(std::string &lib)
@@ -146,7 +190,7 @@ void		Launcher::changeGame(IGraphic::e_key key)
       return ;
     }
   this->_game = launch(40, 40, *this);
-  this->_game->_graphPlay();
+  this->graphPlay();
 }
 
 void			Launcher::writeMenu()
@@ -234,7 +278,7 @@ void		Launcher::play()
       exit(84);
     }
   this->_game = launch(40, 40, *this);
-  this->_game->_graphPlay();
+  this->graphPlay();
   dlclose(this->_dh_game);
 }
 
@@ -254,7 +298,13 @@ int		Launcher::interact(IGraphic::e_key key)
   else if (key == IGraphic::E_5)
     this->_current_game += (this->_current_game == 0 ? 1 : 0);
   else if (key == IGraphic::E_ENT)
-    this->play();
+    {
+      this->play();
+      return (-1);
+    }
+  else if (key == IGraphic::E_RIGHT || key == IGraphic::E_LEFT ||
+	   key == IGraphic::E_UP || key == IGraphic::E_DOWN)
+    this->_game->_setHeading(key);
   return (0);
 }
 

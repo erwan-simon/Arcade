@@ -5,7 +5,7 @@
 // Login   <antoine@epitech.eu>
 // 
 // Started on  Tue Mar 28 14:24:06 2017 Antoine
-// Last update Wed Apr  5 17:48:34 2017 Simon
+// Last update Wed Apr  5 22:35:21 2017 Simon
 //
 
 #ifndef IGAME_HPP_
@@ -25,10 +25,11 @@ public:
   // Getters
   virtual arcade::WhereAmI&	_whereAmI() const = 0;
   virtual arcade::GetMap&	_getMap() const = 0;
+  virtual int			_getScore() = 0;
+  virtual void			_setHeading(IGraphic::e_key) = 0;
 
   // Input
   virtual void			_move(IGraphic::e_key) = 0;
-  virtual int			_getKey(IGraphic::e_key) = 0;
   // virtual void			_goForward() = 0;
   // virtual void			_shoot() = 0;
   // virtual void			_illegal() = 0;
@@ -41,7 +42,6 @@ public:
 
   virtual void                  _initMap() = 0;
   virtual void			_initPosition() = 0;
-  virtual void			_drawMap() = 0;
 };
 
 #endif /* !IGAME_HPP_ */

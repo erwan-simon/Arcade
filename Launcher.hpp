@@ -5,7 +5,7 @@
 // Login   <erwan.simon@epitech.eu>
 // 
 // Started on  Fri Mar 31 13:51:50 2017 Simon
-// Last update Wed Apr  5 17:47:47 2017 Simon
+// Last update Wed Apr  5 20:55:00 2017 Simon
 //
 
 #ifndef LAUNCHER_HPP_
@@ -27,18 +27,17 @@ public:
   int		interact(IGraphic::e_key key);
   void		play();
   void		graphPlay();
-
-public:
-  IGraphic*	_lib;
-  IGame*	_game;
+  void		drawMap();
 
 private:
   // Graphic lib
+  IGraphic*	_lib;
   int		_current_lib;
   void*		_dh_lib;
   std::string*	_lib_name;
 
   // Game lib
+  IGame*	_game;
   int		_current_game;
   void*		_dh_game;
   std::string*	_game_name;
