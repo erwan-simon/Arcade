@@ -5,7 +5,7 @@
 // Login   <erwan.simon@epitech.eu>
 // 
 // Started on  Wed Mar 29 17:30:33 2017 Simon
-// Last update Wed Apr  5 10:34:02 2017 Simon
+// Last update Wed Apr  5 11:01:55 2017 Simon
 //
 
 #include <signal.h>
@@ -92,7 +92,6 @@ Launcher::Launcher(std::string &lib)
 Launcher::~Launcher()
 {
   dlclose(this->_dh_lib);
-  dlclose(this->_dh_game);
 }
 
 void		Launcher::changeLib(IGraphic::e_key key)
@@ -231,6 +230,7 @@ void		Launcher::play()
     }
   this->_game = launch(40, 40, *this);
   this->_game->_graphPlay();
+  dlclose(this->_dh_game);
 }
 
 static void	sigIntHandler(int s)

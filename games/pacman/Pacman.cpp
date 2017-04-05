@@ -5,7 +5,7 @@
 // Login   <erwan.simon@epitech.eu>
 // 
 // Started on  Mon Apr  3 14:51:47 2017 Simon
-// Last update Wed Apr  5 10:35:43 2017 Simon
+// Last update Wed Apr  5 11:07:03 2017 Simon
 //
 
 #include "../../Launcher.hpp"
@@ -122,6 +122,11 @@ void		Pacman::_initMap()
   delete map;
 }
 
+void	Pacman::_initPosition()
+{
+
+}
+
 Pacman::Pacman(int width, int height, Launcher& launcher)
 {
   int	total = (width * height * sizeof(arcade::TileType));
@@ -135,11 +140,13 @@ Pacman::Pacman(int width, int height, Launcher& launcher)
 
 void	Pacman::_graphPlay()
 {
-  // this->_launch->getLib()->clearWindow();
+  this->_launch->_lib->clearWindow();
   while (1)
     {
-      // this->_drawMap();
-      this->_getKey(this->_launch->_lib->getKey());
+      this->_drawMap();
+      // this->_getKey(this->_launch->_lib->getKey());
+      if (this->_launch->_lib->getKey() == IGraphic::E_ESC)
+       	break ;
       // this->_launch->getLib()->refreshWindow();
     }
 }
