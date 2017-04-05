@@ -5,7 +5,7 @@
 // Login   <erwan.simon@epitech.eu>
 // 
 // Started on  Mon Apr  3 15:01:55 2017 Simon
-// Last update Wed Apr  5 14:53:23 2017 Simon
+// Last update Wed Apr  5 16:33:17 2017 Simon
 //
 
 #ifndef PACMAN_HPP_
@@ -42,6 +42,7 @@ private:
   Launcher				*_launch;
   struct arcade::GetMap			*_map;
   struct arcade::WhereAmI		*_position;
+  IGraphic::e_key			_heading;
 };
 
 #endif
