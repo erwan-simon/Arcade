@@ -5,7 +5,7 @@
 ** Login   <selimrinaz@epitech.net>
 ** 
 ** Started on  Tue Mar 28 17:42:54 2017 Selim Rinaz
-** Last update Wed Apr  5 11:05:54 2017 Selim Rinaz
+** Last update Wed Apr  5 17:41:36 2017 Selim Rinaz
 */
 
 #include <unistd.h>
@@ -132,7 +132,7 @@ int			myLibLapin::writeStuff(int x, int y, std::string &text)
       position.x = x * this->width;
       position.y = y * this->height;
       fill_color(pixarray, BLACK);
-      file = "./Fonts/";
+      file = "./lib/lapin/Fonts/";
       file += toupper(text.c_str()[i]);
       file += ".png";
       bunny_load_pixelarray(file.c_str());
