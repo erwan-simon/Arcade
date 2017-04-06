@@ -5,7 +5,7 @@
 // Login   <erwan.simon@epitech.eu>
 // 
 // Started on  Wed Mar 29 17:22:12 2017 Simon
-// Last update Thu Apr  6 19:25:09 2017 Antoine
+// Last update Thu Apr  6 19:16:37 2017 Simon
 //
 
 #include "Snake.hpp"
@@ -37,24 +37,18 @@ void            Snake::Play()
 
 void		Snake::_setMove(int newX, int newY)
 {
-  int		saveX = 0;
-  int		saveY = 0;
-  int		i = 1;
+  int		i = this->_position->lenght;
 
-  saveX = this->_position->position[0].x;
-  saveY = this->_position->position[0].y;
+  while (i > 0)
+    {
+      this->_position->position[i].x = this->_position->position[i - 1].x;
+      this->_position->position[i].y = this->_position->position[i - 1].y;
+      i = i - 1;
+    }
   this->_position->position[0].x = newX;
   this->_position->position[0].y = newY;
-  while (this->_position->lenght)
-    {
-      this->_position->position[i].x = saveX;
-      this->_position->position[i].y = saveY;
-      saveX = this->_position->position[i + 1].x;
-      saveY = this->_position->position[i + 1].y;
-      std::cout << this->_position->position[i].x << std::endl;
-      std::cout << this->_position->position[i].y << std::endl;
-      i += 1;
-    }
+  if (this->_map->tile[newY * 40 + newX] == static_cast<arcade::TileType>(1))
+    std::cout << "Error" << std::endl;
 }
 
 
@@ -65,19 +59,31 @@ void            Snake::_move(IGraphic::e_key key)
   
   if (key == IGraphic::E_UP)
     {
-      _setMove(posX, posY - 1);
+      if (this->_position->position[1].y != this->_position->position[0].y - 1)
+	_setMove(posX, posY - 1);
+      else
+	_setMove(posX, posY + 1);
     }
   else if (key == IGraphic::E_DOWN)
     {
-      _setMove(posX, posY + 1);
+      if (this->_position->position[1].y != this->_position->position[0].y + 1)
+	_setMove(posX, posY + 1);
+      else
+	_setMove(posX, posY - 1);
     }
   else if (key == IGraphic::E_RIGHT)
     {
-      _setMove(posX + 1, posY);
+      if (this->_position->position[1].x != this->_position->position[0].x + 1)
+	_setMove(posX + 1, posY);
+      else
+	_setMove(posX - 1, posY);
     }
   else if (key == IGraphic::E_LEFT)
     {
-      _setMove(posX - 1, posY);
+      if (this->_position->position[1].x != this->_position->position[0].x - 1)
+	_setMove(posX - 1, posY);
+      else
+	_setMove(posX + 1, posY);
     }
 }
 
@@ -121,18 +127,15 @@ void            Snake::_printMap()
 
 void            Snake::_initPosition()
 {
-  int		a = 1;
+  int		i = 0;
 
   this->_position->lenght = 4;
-  this->_position->position[0].x = 20;
-  this->_position->position[0].y = 17;
-  while (a != this->_position->lenght)
+  while (i <= this->_position->lenght)
     {
-      this->_position->position[a].x = 20 + a;
-      this->_position->position[a].y = 17;  
-      a += 1;
+      this->_position->position[i].x = 18 + i;
+      this->_position->position[i].y = 20;  
+      i += 1;
     }
-  std::cout << "Position !!!" << std::endl;
 }
 
 void            Snake::_initMap()
