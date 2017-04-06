@@ -5,7 +5,7 @@
 // Login   <erwan.simon@epitech.eu>
 // 
 // Started on  Mon Apr  3 14:51:47 2017 Simon
-// Last update Thu Apr  6 09:41:49 2017 Simon
+// Last update Thu Apr  6 16:57:34 2017 Simon
 //
 
 #include "../../Launcher.hpp"
@@ -33,24 +33,24 @@ void		Pacman::_setHeading(IGraphic::e_key key)
   this->_heading = key;
 }
 
-int		Pacman::_getScore()
+int		Pacman::_getScore() const
 {
   return (this->_score);
 }
 
-void		Pacman::_evilMove()
+static void		evilMove()
 {
   int		a = 1;
   float		diffA = 0.0;
   float		diffB = 0.0;
 
-  while (a != 3)
-    {
-      diffA = static_cast<float>(this->_position->position[a].x - this->_position->position[0].x);
-      diffB = static_cast<float>(this->_position->position[a].y - this->_position->position[0].y);
-      if (diffA <= -0.5 && this->_map->tile[this->_position->position[a].y * 40 + this->_position->position[a].x] != static_cast<arcade::TileType>(6))
-      a++;
-    }
+  // while (a != 3)
+  //   {
+  //     diffA = static_cast<float>(this->_position->position[a].x - this->_position->position[0].x);
+  //     diffB = static_cast<float>(this->_position->position[a].y - this->_position->position[0].y);
+  //     if (diffA <= -0.5 && this->_map->tile[this->_position->position[a].y * 40 + this->_position->position[a].x] != static_cast<arcade::TileType>(6))
+  //     a++;
+  //   }
 }
 
 void		Pacman::_move(IGraphic::e_key key)
@@ -205,7 +205,7 @@ void				Pacman::_graphPlay()
 	= static_cast<arcade::TileType>(0);
     }
   this->_move(this->_heading);
-  // this->_evilMove();
+  // evilMove();
 }
 
 extern "C"
