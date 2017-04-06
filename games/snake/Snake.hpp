@@ -5,7 +5,7 @@
 // Login   <erwan.simon@epitech.eu>
 // 
 // Started on  Wed Mar 29 17:18:01 2017 Simon
-// Last update Thu Apr  6 09:47:53 2017 Simon
+// Last update Thu Apr  6 18:57:14 2017 Antoine
 //
 
 #ifndef SNAKE_HPP_
@@ -32,6 +32,7 @@ public:
   
   // Input
   virtual void                          _move(IGraphic::e_key);
+  void					_setMove(int, int);
 
   // the game
   virtual void                          Play();

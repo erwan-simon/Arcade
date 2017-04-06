@@ -5,7 +5,7 @@
 // Login   <erwan.simon@epitech.eu>
 // 
 // Started on  Wed Mar 29 17:22:12 2017 Simon
-// Last update Thu Apr  6 10:48:46 2017 Simon
+// Last update Thu Apr  6 19:25:09 2017 Antoine
 //
 
 #include "Snake.hpp"
@@ -35,27 +35,49 @@ void            Snake::Play()
 
 }
 
+void		Snake::_setMove(int newX, int newY)
+{
+  int		saveX = 0;
+  int		saveY = 0;
+  int		i = 1;
+
+  saveX = this->_position->position[0].x;
+  saveY = this->_position->position[0].y;
+  this->_position->position[0].x = newX;
+  this->_position->position[0].y = newY;
+  while (this->_position->lenght)
+    {
+      this->_position->position[i].x = saveX;
+      this->_position->position[i].y = saveY;
+      saveX = this->_position->position[i + 1].x;
+      saveY = this->_position->position[i + 1].y;
+      std::cout << this->_position->position[i].x << std::endl;
+      std::cout << this->_position->position[i].y << std::endl;
+      i += 1;
+    }
+}
+
+
 void            Snake::_move(IGraphic::e_key key)
 {
+  int		posX = this->_position->position[0].x;
+  int		posY = this->_position->position[0].y;
+  
   if (key == IGraphic::E_UP)
     {
-      
+      _setMove(posX, posY - 1);
     }
   else if (key == IGraphic::E_DOWN)
     {
-
+      _setMove(posX, posY + 1);
     }
   else if (key == IGraphic::E_RIGHT)
     {
-
+      _setMove(posX + 1, posY);
     }
   else if (key == IGraphic::E_LEFT)
     {
-
-    }
-  else
-    {
-
+      _setMove(posX - 1, posY);
     }
 }
 
@@ -101,15 +123,16 @@ void            Snake::_initPosition()
 {
   int		a = 1;
 
-  this->_position->lenght = 5;
+  this->_position->lenght = 4;
   this->_position->position[0].x = 20;
   this->_position->position[0].y = 17;
   while (a != this->_position->lenght)
     {
       this->_position->position[a].x = 20 + a;
       this->_position->position[a].y = 17;  
-      a++;
+      a += 1;
     }
+  std::cout << "Position !!!" << std::endl;
 }
 
 void            Snake::_initMap()
@@ -141,12 +164,14 @@ void            Snake::_graphPlay()
 
 Snake::Snake(int width, int height, Launcher &launch)
 {
-  int   total = (width * height * sizeof(arcade::TileType));
-
-  this->_map = (struct arcade::GetMap *) malloc(sizeof (struct arcade::GetMap) + total);
+  int   t_map = (width * height * sizeof(arcade::TileType));
+  int	t_pos = (4 * sizeof(struct arcade::Position));
+  
+  if ((this->_map = (struct arcade::GetMap *)
+       malloc(sizeof (struct arcade::GetMap) + t_map)) == NULL)
+    exit(84);  
   if ((this->_position = (struct arcade::WhereAmI *)
-       malloc(sizeof(struct arcade::WhereAmI)
-	      + (this->_position->lenght * sizeof(struct arcade::Position)))) == NULL)
+       malloc(sizeof(struct arcade::WhereAmI)+ t_pos)) == NULL)
     exit(84);
   this->_map->width = width;
   this->_map->height = height;
