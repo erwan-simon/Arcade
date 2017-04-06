@@ -5,7 +5,7 @@
 ## Login   <erwan.simon@epitech.eu>
 ## 
 ## Started on  Thu Mar 30 11:17:19 2017 Simon
-## Last update Thu Apr  6 16:54:01 2017 Selim Rinaz
+## Last update Thu Apr  6 17:21:11 2017 Selim Rinaz
 ##
 
 NAME_EXE	= arcade
@@ -41,10 +41,13 @@ LAFLAGS		=  -L/home/${USER}/.froot/lib/ -llapin			\
 		   -lm							\
 		   -I../../graphic/ -I/home/${USER}/.froot/include/
 
+LSFFLAGS	=  -I/home/${USER}/.sfml/include/ -lm	\
+		   -L/home/${USER}/.sfml/lib/
+
 CXX		= g++
 RM		= rm -f
 
-all:		$(NAME_EXE) $(NAME_SN) $(NAME_PA) $(NAME_NC) $(NAME_SF) $(NAME_LA)
+all:		$(NAME_EXE) $(NAME_SN) $(NAME_PA) $(NAME_NC) $(NAME_SF) #$(NAME_LA)
 
 $(NAME_EXE):	$(OBJS_EXE)
 		$(CXX) -o $(NAME_EXE) $(OBJS_EXE) $(LDFLAGS)
@@ -59,7 +62,7 @@ $(NAME_NC):	$(OBJS_NC)
 		$(CXX) -shared -o $(NAME_NC) $(OBJS_NC) -lncurses
 
 $(NAME_SF):	$(OBJS_SF)
-		$(CXX) -shared -o $(NAME_SF) $(OBJS_SF) -lsfml-graphics -lsfml-window -lsfml-system
+		$(CXX) -shared -o $(NAME_SF) $(OBJS_SF) -lsfml-graphics -lsfml-window -lsfml-system $(LSFFLAGS)
 
 $(NAME_LA):	$(OBJS_LA)
 		$(CXX) -shared -o $(NAME_LA) $(OBJS_LA) -lsfml-graphics -lsfml-window -lsfml-system $(LAFLAGS)
