@@ -5,7 +5,7 @@
 // Login   <erwan.simon@epitech.eu>
 // 
 // Started on  Wed Mar 29 17:22:12 2017 Simon
-// Last update Wed Apr  5 15:36:09 2017 Antoine
+// Last update Thu Apr  6 10:48:46 2017 Simon
 //
 
 #include "Snake.hpp"
@@ -20,6 +20,16 @@ struct arcade::GetMap&          Snake::_getMap() const
   return (*this->_map);
 }
 
+int	Snake::_getScore() const
+{
+  return (this->_score);
+}
+
+void	Snake::_setHeading(IGraphic::e_key key)
+{
+  this->_heading = key;
+}
+
 void            Snake::Play()
 {
 
@@ -29,7 +39,7 @@ void            Snake::_move(IGraphic::e_key key)
 {
   if (key == IGraphic::E_UP)
     {
-
+      
     }
   else if (key == IGraphic::E_DOWN)
     {
@@ -47,18 +57,6 @@ void            Snake::_move(IGraphic::e_key key)
     {
 
     }
-}
-
-int		Snake::_getKey(IGraphic::e_key key)
-{
-  if (key == IGraphic::E_LEFT || key == IGraphic::E_RIGHT || key == IGraphic::E_UP || key == IGraphic::E_DOWN)
-    this->_move(key);
-  // else                                                                    
-  //   this->_launch->interact(key);                                                   
-  else if (key == IGraphic::E_ESC)
-    return (-1);
-  return (0);
-
 }
 
 void            Snake::_pause()
@@ -100,7 +98,19 @@ void            Snake::_printMap()
 }
 
 void            Snake::_initPosition()
-{}
+{
+  int		a = 1;
+
+  this->_position->lenght = 5;
+  this->_position->position[0].x = 20;
+  this->_position->position[0].y = 17;
+  while (a != this->_position->lenght)
+    {
+      this->_position->position[a].x = 20 + a;
+      this->_position->position[a].y = 17;  
+      a++;
+    }
+}
 
 void            Snake::_initMap()
 {
@@ -124,34 +134,9 @@ void            Snake::_initMap()
     }
 }
 
-void            Snake::_drawMap()
-{
-  int           x = 0;
-  int           y = 0;
-  std::string   s = ".";
-
-  for (y = 0; y != 40; y++)
-    {
-      for (x = 0; x != 40; x++)
-        {
-          if (this->_map->tile[(y * 40) + x] == static_cast<arcade::TileType>(1))
-            this->_launch->_lib->buildCell(x, y, IGraphic::E_BLUE);
-          // else if (this->_map->tile[(y * 40) + x] == static_cast<arcade::TileType>(6))
-          //   this->_launch->_lib->writeStuff(x, y, s);
-        }
-    }
-}
-
 void            Snake::_graphPlay()
 {
-    this->_launch->_lib->clearWindow();
-  while (1)
-    {
-      this->_drawMap();
-      if (this->_getKey(this->_launch->_lib->getKey()) == -1)
-        break ;
-      // this->_launch->getLib()->refreshWindow();  
-    }
+  this->_move(this->_heading);
 }
 
 Snake::Snake(int width, int height, Launcher &launch)
@@ -159,10 +144,15 @@ Snake::Snake(int width, int height, Launcher &launch)
   int   total = (width * height * sizeof(arcade::TileType));
 
   this->_map = (struct arcade::GetMap *) malloc(sizeof (struct arcade::GetMap) + total);
+  if ((this->_position = (struct arcade::WhereAmI *)
+       malloc(sizeof(struct arcade::WhereAmI)
+	      + (this->_position->lenght * sizeof(struct arcade::Position)))) == NULL)
+    exit(84);
   this->_map->width = width;
   this->_map->height = height;
   this->_launch = &launch;
   this->_initMap();
+  this->_initPosition();
   this->_graphPlay();
 }
 

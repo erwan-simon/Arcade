@@ -5,7 +5,7 @@
 // Login   <erwan.simon@epitech.eu>
 // 
 // Started on  Wed Mar 29 17:18:01 2017 Simon
-// Last update Wed Apr  5 15:35:34 2017 Antoine
+// Last update Thu Apr  6 09:47:53 2017 Simon
 //
 
 #ifndef SNAKE_HPP_
@@ -25,10 +25,13 @@ public:
   // Getters
   virtual struct arcade::WhereAmI&      _whereAmI() const;
   virtual struct arcade::GetMap&        _getMap() const;
-
+  virtual int				_getScore() const;
+  
+  // Setter
+  virtual void				_setHeading(IGraphic::e_key);
+  
   // Input
   virtual void                          _move(IGraphic::e_key);
-  virtual int				_getKey(IGraphic::e_key);
 
   // the game
   virtual void                          Play();
@@ -37,13 +40,14 @@ public:
   virtual void				_graphPlay();
   virtual void                          _initMap();
   virtual void                          _initPosition();
-  virtual void				_drawMap();
   void                                  _printMap();
   
 private:
   Launcher                              *_launch;
   struct arcade::GetMap                 *_map;
   struct arcade::WhereAmI               *_position;
+  int					_score;
+  IGraphic::e_key			_heading;
 };
 
 #endif

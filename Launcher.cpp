@@ -5,7 +5,7 @@
 // Login   <erwan.simon@epitech.eu>
 // 
 // Started on  Wed Mar 29 17:30:33 2017 Simon
-// Last update Wed Apr  5 22:22:34 2017 Simon
+// Last update Thu Apr  6 10:47:08 2017 Simon
 //
 
 #include <signal.h>
@@ -24,7 +24,7 @@ using namespace std::chrono;
 
 void	Launcher::drawMap()
 {
-  int		a = 0;
+  int		a = 1;
   int		x = 0;
   int		y = 0;
   std::string	s = ".";
@@ -37,15 +37,17 @@ void	Launcher::drawMap()
 	    this->_lib->buildCell(x, y, IGraphic::E_BLUE);
 	  else if (this->_game->_getMap().tile[(y * 40) + x] == static_cast<arcade::TileType>(6))
 	    this->_lib->writeStuff(x, y, s);
-	  else if (this->_game->_getMap().tile[(y * 40) + x] == static_cast<arcade::TileType>(3))
-	    this->_lib->buildCell(x, y, IGraphic::E_GREEN);
-	  // while (a != 4) // À CHANGER
-	  //   {
-	  if (this->_game->_whereAmI().position[a].x == x &&
-	      this->_game->_whereAmI().position[a].y == y)
+	  if (this->_game->_whereAmI().position[0].x == x &&
+	      this->_game->_whereAmI().position[0].y == y)
 	    this->_lib->buildCell(x, y, IGraphic::E_YELLOW);
-	    //   a++;
-	    // }
+	  while (a != this->_game->_whereAmI().lenght)
+	    {
+	      if (this->_game->_whereAmI().position[a].x == x &&
+		  this->_game->_whereAmI().position[a].y == y)
+		this->_lib->buildCell(x, y, IGraphic::E_GREEN);
+	      a++;
+	    }
+	  a = 1;
 	}
     }
 }

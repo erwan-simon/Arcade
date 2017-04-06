@@ -5,7 +5,7 @@
 // Login   <erwan.simon@epitech.eu>
 // 
 // Started on  Mon Apr  3 14:51:47 2017 Simon
-// Last update Wed Apr  5 22:34:49 2017 Simon
+// Last update Thu Apr  6 09:41:49 2017 Simon
 //
 
 #include "../../Launcher.hpp"
@@ -146,6 +146,12 @@ void		Pacman::_initMap()
 	}
       i = i + 1;
     }
+  delete map;
+}
+
+void	Pacman::_initPosition()
+{
+  this->_position->lenght = 5;
   if (this->_map->tile[1 * 40 + 1] != static_cast<arcade::TileType>(6)
       || this->_map->tile[38 * 40 + 1] != static_cast<arcade::TileType>(6)
       || this->_map->tile[38 * 40 + 38] != static_cast<arcade::TileType>(6)
@@ -155,17 +161,20 @@ void		Pacman::_initMap()
       std::cerr << "map problem : can't place protagonists" << std::endl;
       exit (84);
     }
-  this->_map->tile[1 * 40 + 1] = static_cast<arcade::TileType>(3);
-  this->_map->tile[38 * 40 + 1] = static_cast<arcade::TileType>(3);
-  this->_map->tile[38 * 40 + 38] = static_cast<arcade::TileType>(3);
-  this->_map->tile[1 * 40 + 38] = static_cast<arcade::TileType>(3);
-  delete map;
-}
-
-void	Pacman::_initPosition()
-{
   this->_position->position[0].x = 20;
   this->_position->position[0].y = 17;
+
+  this->_position->position[1].x = 1;
+  this->_position->position[1].y = 38;
+
+  this->_position->position[2].x = 38;
+  this->_position->position[2].y = 38;
+
+  this->_position->position[3].x = 1;
+  this->_position->position[3].y = 1;
+
+  this->_position->position[4].x = 38;
+  this->_position->position[4].y = 1;
 }
 
 Pacman::Pacman(int width, int height, Launcher& launcher)
