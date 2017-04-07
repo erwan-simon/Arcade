@@ -5,7 +5,7 @@
 // Login   <erwan.simon@epitech.eu>
 // 
 // Started on  Wed Mar 29 17:22:12 2017 Simon
-// Last update Fri Apr  7 13:58:30 2017 Antoine
+// Last update Fri Apr  7 14:56:28 2017 Antoine
 //
 
 #include "Snake.hpp"
@@ -35,7 +35,7 @@ void            Snake::Play()
 
 }
 
-void		Snake::_setMove(int newX, int newY)
+void	Snake::_setMove(int newX, int newY)
 {
   int		i = this->_position->lenght;
 
@@ -47,8 +47,6 @@ void		Snake::_setMove(int newX, int newY)
     }
   this->_position->position[0].x = newX;
   this->_position->position[0].y = newY;
-  if (this->_map->tile[newY * 40 + newX] == static_cast<arcade::TileType>(1))
-    std::cout << "Error" << std::endl;
 }
 
 
@@ -94,6 +92,11 @@ void            Snake::_pause()
 
 IGame::e_end	Snake::_gameOver()
 {
+  int		x = this->_position->position[0].x;
+  int		y = this->_position->position[0].y;
+
+  if (this->_map->tile[y * 40 + x] == static_cast<arcade::TileType>(1))
+    return (IGame::E_LOSE);
   return (IGame::E_NONE);
 }
 
@@ -143,14 +146,26 @@ void		Snake::_popFood()
   
   if (this->_food == 0)
     {
-      while (this->_map->tile[pop] != arcade::TileType::BLOCK)
+      while (this->_map->tile[pop] == arcade::TileType::BLOCK)
 	{
 	  pop = std::rand() % (this->_map->width * this->_map->height)
 	    + this->_map->width;
-	  std::cout<< "ok"<< std::endl;
 	}
       this->_map->tile[pop] = arcade::TileType::OTHER;
       this->_food = 1;
+    }
+}
+
+void		Snake::_eat()
+{
+  int		x = this->_position->position[0].x;
+  int		y = this->_position->position[0].y;
+  
+  if (this->_map->tile[y * 40 + x] == arcade::TileType::OTHER)
+    {
+      this->_food -= 1;
+      this->_map->tile[y * 40 + x] = arcade::TileType::EMPTY;
+      this->_position->lenght += 1;
     }
 }
   
@@ -193,7 +208,8 @@ IGame::e_end	Snake::_graphPlay()
 {
   this->_move(this->_heading);
   this->_popFood();
-  return (IGame::E_NONE);
+  this->_eat();
+  return (this->_gameOver());
 }
 
 Snake::Snake(int width, int height, Launcher &launch)
@@ -212,6 +228,7 @@ Snake::Snake(int width, int height, Launcher &launch)
   this->_map->height = height;
   this->_launch = &launch;
   this->_food = 0;
+  this->_state = 0;
   this->_initMap();
   this->_initPosition();
   this->_graphPlay();
