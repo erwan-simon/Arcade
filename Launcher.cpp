@@ -5,7 +5,7 @@
 // Login   <erwan.simon@epitech.eu>
 // 
 // Started on  Wed Mar 29 17:30:33 2017 Simon
-// Last update Fri Apr  7 14:48:02 2017 Simon
+// Last update Fri Apr  7 15:52:46 2017 Simon
 //
 
 #include <signal.h>
@@ -56,7 +56,6 @@ void	Launcher::drawMap()
 
 void				Launcher::graphPlay()
 {
-  IGame::e_end			end = IGame::E_NONE;
   time_point<system_clock>	t = system_clock::now();
 
   this->_lib->clearWindow();
@@ -66,18 +65,15 @@ void				Launcher::graphPlay()
       std::this_thread::sleep_until(t);
       if (this->interact(this->_lib->getKey()) == -1)
 	return ;
-      if ((end = this->_game->_graphPlay()) != IGame::E_NONE)
+      if ((this->_end = this->_game->_graphPlay()) != IGame::E_NONE)
 	break ;
       this->drawMap();
       this->_lib->refreshWindow();
       this->_lib->clearWindow();
     }
-  if (end == IGame::E_NONE)
-    std::cout << "You gave up!" << std::endl;
-  else if (end == IGame::E_WIN)
-    std::cout << "You won!" << std::endl;
-  else if (end == IGame::E_LOSE)
-    std::cout << "You lost!" << std::endl;
+  dlclose(this->_dh_game);
+  this->_dh_game = NULL;
+  this->_game = NULL;
 }
 
 Launcher::Launcher(std::string &lib)
@@ -91,6 +87,11 @@ Launcher::Launcher(std::string &lib)
   this->_lib_name = new std::string[4];
   this->_game_name = new std::string[3];
   this->_current_lib = -1;
+
+  this->_game = NULL;
+  this->_lib = NULL;
+  this->_dh_lib = NULL;
+  this->_dh_game = NULL;
   if ((dir = opendir("./lib")) != NULL)
     {
     while (a != 3 && (ent = readdir(dir)) != NULL)
@@ -254,11 +255,21 @@ void			Launcher::writeMenu()
       a++;
       y += 2;
     }
+  if (this->_end != IGame::E_NONE)
+    {
+      if (this->_end == IGame::E_WIN)
+	s = "YOU WON! CONGRATULATION (no one ever did it (especially not us))";
+      else
+	s = "You lost! (bouh qu'il est mauvais)";
+      this->_lib->writeStuff((40 - s.size()) / 2, 34, s);
+    }
+  
 }
 
 void		Launcher::buildFrame()
 {
   int		i;
+
   // Base frame
   for (i = 1; i != 40; i++)
     this->_lib->buildCell(0, i, IGraphic::E_WHITE);
@@ -320,10 +331,7 @@ int		Launcher::interact(IGraphic::e_key key)
 	this->changeGame(key);
     }
   else if (key == IGraphic::E_ENT)
-    {
-      this->play();
-      return (-1);
-    }
+    this->play();
   else if (this->_game != NULL && (key == IGraphic::E_RIGHT || key == IGraphic::E_LEFT ||
 				   key == IGraphic::E_UP || key == IGraphic::E_DOWN))
     this->_game->_setHeading(key);
@@ -332,6 +340,7 @@ int		Launcher::interact(IGraphic::e_key key)
 
 void		Launcher::launch()
 {
+  this->_end = IGame::E_NONE;
   this->_current_game = 0;
   this->_lib->openWindow(40, 40);
   signal(SIGINT, sigIntHandler);

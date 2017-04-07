@@ -5,7 +5,7 @@
 // Login   <erwan.simon@epitech.eu>
 // 
 // Started on  Fri Mar 31 13:51:50 2017 Simon
-// Last update Wed Apr  5 20:55:00 2017 Simon
+// Last update Fri Apr  7 15:28:32 2017 Simon
 //
 
 #ifndef LAUNCHER_HPP_
@@ -30,6 +30,8 @@ public:
   void		drawMap();
 
 private:
+  IGame::e_end	_end;
+  
   // Graphic lib
   IGraphic*	_lib;
   int		_current_lib;
