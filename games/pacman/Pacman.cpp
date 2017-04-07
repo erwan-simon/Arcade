@@ -5,7 +5,7 @@
 // Login   <erwan.simon@epitech.eu>
 // 
 // Started on  Mon Apr  3 14:51:47 2017 Simon
-// Last update Fri Apr  7 17:52:02 2017 Simon
+// Last update Fri Apr  7 18:16:59 2017 Simon
 //
 
 #include "../../Launcher.hpp"
@@ -70,7 +70,7 @@ void	Pacman::_evilMove()
 	      break ;
 	    }
 	  b++;
-	  if (b >= random && (this->_map->tile[(this->_position->position[a].y - 1) * 40 + this->_position->position[a].x - 1] != static_cast<arcade::TileType>(1) || (this->_position->position[a].y == this->_position->position[0].y - 1 && this->_position->position[a].x == this->_position->position[0].x)))
+	  if (b >= random && (this->_map->tile[(this->_position->position[a].y - 1) * 40 + this->_position->position[a].x] != static_cast<arcade::TileType>(1) || (this->_position->position[a].y == this->_position->position[0].y - 1 && this->_position->position[a].x == this->_position->position[0].x)))
 	    {
 	      this->_position->position[a].y -= 1;
 	      break ;

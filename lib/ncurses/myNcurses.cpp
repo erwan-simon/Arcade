@@ -5,7 +5,7 @@
 // Login   <erwan.simon@epitech.eu>
 // 
 // Started on  Tue Mar 28 19:02:29 2017 Simon
-// Last update Wed Apr  5 10:26:27 2017 Simon
+// Last update Fri Apr  7 18:12:35 2017 Simon
 //
 
 #include <ncurses.h>
@@ -30,12 +30,6 @@ int	myNcurses::openWindow(int x, int y)
   curs_set(0);
   if ((this->win = newwin(y, x, 0, 0)) == NULL)
     return (84);
-  this->size_cell_y = 1;
-  this->size_cell_x = 2;
-  this->default_x = x;
-  this->default_y = y;
-  this->nb_line = y - 1;
-  this->nb_col = x - 1;
   return (0);
 }
 
@@ -93,15 +87,8 @@ IGraphic::e_key	myNcurses::getKey()
 
 int	myNcurses::buildCell(int x, int y, IGraphic::e_color col)
 {
-  int	a;
-  int	b;
-  
   attron(COLOR_PAIR(col));
-  for (a = 0; a < this->size_cell_y; a++)
-    {
-      for (b = 0; b < this->size_cell_x; b++)
-	mvprintw((y * this->size_cell_y) + a, (x * this->size_cell_x) + b, " ");
-    }
+  mvprintw(y, (x * 2), "OO");
   attroff(COLOR_PAIR(col));
   return (0);
 }
@@ -112,7 +99,7 @@ int		myNcurses::writeStuff(int x, int y, std::string &text)
 
   while (a < text.size() * 2)
     {
-      mvprintw((y * this->size_cell_y), (x * this->size_cell_x) + a, "%c", text.at(a / 2));
+      mvprintw(y, (x * 2) + a, "%c", text.at(a / 2));
       a += 2;
     }
   return (0);

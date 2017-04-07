@@ -5,7 +5,7 @@
 // Login   <erwan.simon@epitech.eu>
 // 
 // Started on  Tue Mar 28 19:03:04 2017 Simon
-// Last update Mon Apr  3 11:13:24 2017 Simon
+// Last update Fri Apr  7 18:00:52 2017 Simon
 //
 
 #ifndef MYNCURSES_HPP_
@@ -29,12 +29,6 @@ public:
 
 private:
   WINDOW			*win;
-  int				default_x;
-  int				default_y;
-  int				nb_line;
-  int				nb_col;
-  int				size_cell_x;
-  int				size_cell_y;
 };
 
 #endif
