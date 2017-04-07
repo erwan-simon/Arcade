@@ -5,7 +5,7 @@
 // Login   <erwan.simon@epitech.eu>
 // 
 // Started on  Mon Apr  3 14:51:47 2017 Simon
-// Last update Fri Apr  7 19:32:03 2017 Simon
+// Last update Fri Apr  7 19:55:37 2017 Simon
 //
 
 #include "../../Launcher.hpp"
@@ -99,11 +99,6 @@ void		Pacman::_move(IGraphic::e_key key)
       this->_position->position[0].y += 1;
       _heading = key;
     }
-}
-
-void		Pacman::_pause()
-{
-  
 }
 
 IGame::e_end	Pacman::_gameOver()
@@ -206,6 +201,7 @@ Pacman::Pacman(int width, int height)
 {
   srand(time(NULL));
   this->_score = 0;
+  this->_heading = IGraphic::E_RIGHT;
   if ((this->_map = (struct arcade::GetMap *)
        malloc(sizeof(struct arcade::GetMap)
 	      + (width * height * sizeof(arcade::TileType)))) == NULL)
@@ -239,26 +235,24 @@ IGame::e_end	Pacman::_graphPlay()
   return (end);
 }
 
-// extern "C"
-// {
-//   void			Play()
-//   {
-//     arcade::CommandType	c;
-//     Pacman		p(40, 40);
-//     std::istream	r(0);
+extern "C"
+{
+  void			Play()
+  {
+    arcade::CommandType	c;
+    Pacman		p(40, 40);
+    std::ofstream	o;
 
-//     while (r.read(c, sizeof(arcade::CommandType)) > 0)
-//       {
-// 	if (c == arcade::TileType::WHERE_AM_I)
-// 	  fwrite(p._whereAmI(), sizeof(struct arcade::WhereAmI) +
-// 		 sizeof(struct arcade::Position) * 5, 0);
-// 	else if (c == arcade::TileType::GETMAP)
-// 	  fwrite(0, p._getMap(), sizeof(struct arcade::GetMap) +
-// 		 sizeof(struct arcade::TileType) * 40 * 40);
-// 	p._graphPlay();
-//       }
-//   }
-// }
+    while (std::cin.read(reinterpret_cast<char *>(c), sizeof(uint16_t)))
+      {
+	// if (c == arcade::CommandType::WHERE_AM_I)
+	//   std::cout.write(p._whereAmI(), sizeof(arcade::WhereAmI));
+	// else if (c == arcade::CommandType::GETMAP)
+	//   std::cout.write(0, p._getMap());
+	p._graphPlay();
+      }
+  }
+}
 
 extern "C"
 {

@@ -5,7 +5,7 @@
 // Login   <antoine@epitech.eu>
 // 
 // Started on  Tue Mar 28 14:24:06 2017 Antoine
-// Last update Fri Apr  7 16:23:18 2017 Simon
+// Last update Fri Apr  7 19:52:30 2017 Simon
 //
 
 #ifndef IGAME_HPP_
@@ -31,13 +31,9 @@ public:
 
   // Input
   virtual void			_move(IGraphic::e_key) = 0;
-  // virtual void			_goForward() = 0;
-  // virtual void			_shoot() = 0;
-  // virtual void			_illegal() = 0;
   
   // the game
   virtual e_end			_graphPlay() = 0;
-  virtual void			_pause() = 0;
   virtual e_end			_gameOver() = 0;
 
   virtual void                  _initMap() = 0;
