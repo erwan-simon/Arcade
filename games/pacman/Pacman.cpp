@@ -5,17 +5,16 @@
 // Login   <erwan.simon@epitech.eu>
 // 
 // Started on  Mon Apr  3 14:51:47 2017 Simon
-// Last update Fri Apr  7 18:16:59 2017 Simon
+// Last update Fri Apr  7 18:54:42 2017 Simon
 //
 
 #include "../../Launcher.hpp"
 #include "../../graphic/IGraphic.hpp"
 #include "../include/Protocol.hpp"
+#include <algorithm>
+#include <vector>
 #include <iostream>
 #include <fstream>
-#include <time.h>
-#include <stdio.h>
-#include <unistd.h>
 #include <iostream>
 #include <string>
 #include "Pacman.hpp"
@@ -40,43 +39,31 @@ int	Pacman::_getScore() const
   return (this->_score);
 }
 
-void	Pacman::_evilMove()
+void			Pacman::_evilMove()
 {
-  int	a = 1;
-  int	b;
-  int	random;
-
+  int			a = 1;
+  std::vector<int>	way;
+  
   while (a != 5)
     {
-      b = 0;
-      random = rand() % 4;
-      while (1)
-	{
-	  if (b >= random && (this->_map->tile[this->_position->position[a].y * 40 + this->_position->position[a].x + 1] != static_cast<arcade::TileType>(1) || (this->_position->position[a].y == this->_position->position[0].y && this->_position->position[a].x + 1 == this->_position->position[0].x)))
-	    {
-	      this->_position->position[a].x += 1;
-	      break ;
-	    }
-	  b++;
-	  if (b >= random && (this->_map->tile[this->_position->position[a].y * 40 + this->_position->position[a].x - 1] != static_cast<arcade::TileType>(1) || (this->_position->position[a].y == this->_position->position[0].y && this->_position->position[a].x - 1 == this->_position->position[0].x)))
-	    {
-	      this->_position->position[a].x -= 1;
-	      break ;
-	    }
-	  b++;
-	  if (b >= random && (this->_map->tile[(this->_position->position[a].y + 1)* 40 + this->_position->position[a].x] != static_cast<arcade::TileType>(1) || (this->_position->position[a].y + 1 == this->_position->position[0].y && this->_position->position[a].x == this->_position->position[0].x)))
-	    {
-	      this->_position->position[a].y += 1;
-	      break ;
-	    }
-	  b++;
-	  if (b >= random && (this->_map->tile[(this->_position->position[a].y - 1) * 40 + this->_position->position[a].x] != static_cast<arcade::TileType>(1) || (this->_position->position[a].y == this->_position->position[0].y - 1 && this->_position->position[a].x == this->_position->position[0].x)))
-	    {
-	      this->_position->position[a].y -= 1;
-	      break ;
-	    }
-	  b++;
-	}
+      if (this->_map->tile[this->_position->position[a].y * 40 + this->_position->position[a].x + 1] != static_cast<arcade::TileType>(1) || (this->_position->position[a].y == this->_position->position[0].y && this->_position->position[a].x + 1 == this->_position->position[0].x))
+	way.push_back(0);
+      if (this->_map->tile[this->_position->position[a].y * 40 + this->_position->position[a].x - 1] != static_cast<arcade::TileType>(1) || (this->_position->position[a].y == this->_position->position[0].y && this->_position->position[a].x - 1 == this->_position->position[0].x))
+	way.push_back(1);
+      if (this->_map->tile[(this->_position->position[a].y + 1)* 40 + this->_position->position[a].x] != static_cast<arcade::TileType>(1) || (this->_position->position[a].y + 1 == this->_position->position[0].y && this->_position->position[a].x == this->_position->position[0].x))
+	way.push_back(2);
+      if (this->_map->tile[(this->_position->position[a].y - 1) * 40 + this->_position->position[a].x] != static_cast<arcade::TileType>(1) || (this->_position->position[a].y == this->_position->position[0].y - 1 && this->_position->position[a].x == this->_position->position[0].x))
+	way.push_back(3);
+      std::random_shuffle(way.begin(), way.end());
+      if (way.at(0) == 0)
+	this->_position->position[a].x += 1;
+      else if (way.at(0) == 1)
+	this->_position->position[a].x -= 1;
+      else if (way.at(0) == 2)
+	this->_position->position[a].y += 1;
+      else if (way.at(0) == 3)
+	this->_position->position[a].x -= 1;
+      way.clear();
       a++;
     }
 }
@@ -248,16 +235,16 @@ IGame::e_end	Pacman::_graphPlay()
 
 // extern "C"
 // {
-//   void		Play()
+//   void			Play()
 //   {
-//     char	c;
+//     arcade::CommandType	c;
 //     Pacman	p(40, 40);
 
-//     while (read(0, &c, 1) > 0)
+//     while (read(0, &c, sizeof(arcade::CommandType)) > 0)
 //       {
-// 	if (std::atoi(&c) == 0)
+// 	if (&c == arcade::TileType::WHERE_AM_I)
 // 	  fwrite(p._whereAmI(), sizeof(struct arcade::WhereAmI) + sizeof(struct arcade::Position) * 5, 0);
-// 	else if (std::atoi(&c))
+// 	else if (&c == arcade::TileType::GETMAP)
 // 	  fwrite(0, p._getMap(), sizeof(struct arcade::GetMap) + sizeof(struct arcade::TileType) * 40 * 40);
 // 	p._graphPlay();
 //       }
