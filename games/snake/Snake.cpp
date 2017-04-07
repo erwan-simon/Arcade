@@ -5,7 +5,7 @@
 // Login   <erwan.simon@epitech.eu>
 // 
 // Started on  Wed Mar 29 17:22:12 2017 Simon
-// Last update Fri Apr  7 17:48:34 2017 Antoine
+// Last update Fri Apr  7 18:00:20 2017 Antoine
 //
 
 #include "Snake.hpp"
@@ -160,9 +160,7 @@ void		Snake::_popFood()
   if (this->_food == 0)
     {
       while (this->_map->tile[pop] == arcade::TileType::BLOCK || this->_checkFood(pop) == 1)
-	{
-	  pop = std::rand() % (this->_map->width + this->_map->height) + this->_map->width;
-	}
+	pop = std::rand() % (this->_map->width * this->_map->height) + this->_map->width;
       this->_map->tile[pop] = arcade::TileType::OTHER;
       this->_food = 1;
     }
