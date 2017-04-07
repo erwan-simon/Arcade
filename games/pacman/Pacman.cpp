@@ -5,7 +5,7 @@
 // Login   <erwan.simon@epitech.eu>
 // 
 // Started on  Mon Apr  3 14:51:47 2017 Simon
-// Last update Fri Apr  7 19:21:23 2017 Simon
+// Last update Fri Apr  7 19:32:03 2017 Simon
 //
 
 #include "../../Launcher.hpp"
@@ -239,26 +239,26 @@ IGame::e_end	Pacman::_graphPlay()
   return (end);
 }
 
-extern "C"
-{
-  void			Play()
-  {
-    arcade::CommandType	c;
-    Pacman		p(40, 40);
-    std::istream	r;
+// extern "C"
+// {
+//   void			Play()
+//   {
+//     arcade::CommandType	c;
+//     Pacman		p(40, 40);
+//     std::istream	r(0);
 
-    while (std::istream.read(c, sizeof(arcade::CommandType)) > 0)
-      {
-	if (c == arcade::TileType::WHERE_AM_I)
-	  fwrite(p._whereAmI(), sizeof(struct arcade::WhereAmI) +
-		 sizeof(struct arcade::Position) * 5, 0);
-	else if (c == arcade::TileType::GETMAP)
-	  fwrite(0, p._getMap(), sizeof(struct arcade::GetMap) +
-		 sizeof(struct arcade::TileType) * 40 * 40);
-	p._graphPlay();
-      }
-  }
-}
+//     while (r.read(c, sizeof(arcade::CommandType)) > 0)
+//       {
+// 	if (c == arcade::TileType::WHERE_AM_I)
+// 	  fwrite(p._whereAmI(), sizeof(struct arcade::WhereAmI) +
+// 		 sizeof(struct arcade::Position) * 5, 0);
+// 	else if (c == arcade::TileType::GETMAP)
+// 	  fwrite(0, p._getMap(), sizeof(struct arcade::GetMap) +
+// 		 sizeof(struct arcade::TileType) * 40 * 40);
+// 	p._graphPlay();
+//       }
+//   }
+// }
 
 extern "C"
 {
