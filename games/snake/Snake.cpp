@@ -5,7 +5,7 @@
 // Login   <erwan.simon@epitech.eu>
 // 
 // Started on  Wed Mar 29 17:22:12 2017 Simon
-// Last update Fri Apr  7 14:56:28 2017 Antoine
+// Last update Fri Apr  7 15:31:25 2017 Antoine
 //
 
 #include "Snake.hpp"
@@ -166,6 +166,10 @@ void		Snake::_eat()
       this->_food -= 1;
       this->_map->tile[y * 40 + x] = arcade::TileType::EMPTY;
       this->_position->lenght += 1;
+      if ((this->_position = (struct arcade::WhereAmI *)
+	   realloc(this->_position, sizeof(struct arcade::WhereAmI)
+		   + (this->_position->lenght * sizeof(struct arcade::Position)))) == NULL)
+	exit(84);
     }
 }
   
