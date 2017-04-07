@@ -5,7 +5,7 @@
 // Login   <erwan.simon@epitech.eu>
 // 
 // Started on  Wed Mar 29 17:30:33 2017 Simon
-// Last update Fri Apr  7 16:02:38 2017 Simon
+// Last update Fri Apr  7 16:28:54 2017 Simon
 //
 
 #include <signal.h>
@@ -56,6 +56,7 @@ void	Launcher::drawMap()
 
 void				Launcher::graphPlay()
 {
+  this->_end = IGame::E_NONE;
   time_point<system_clock>	t = system_clock::now();
 
   this->_lib->clearWindow();
