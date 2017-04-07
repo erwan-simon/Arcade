@@ -5,7 +5,7 @@
 // Login   <erwan.simon@epitech.eu>
 // 
 // Started on  Wed Mar 29 17:22:12 2017 Simon
-// Last update Thu Apr  6 19:16:37 2017 Simon
+// Last update Fri Apr  7 12:23:46 2017 Antoine
 //
 
 #include "Snake.hpp"
@@ -125,6 +125,35 @@ void            Snake::_printMap()
     }
 }
 
+// int		Snake::_freePos(int pos)
+// {
+//   int		i = 0;
+
+//   while (i <= this->_position->lenght)
+//     {
+//       this->_position->position[i].x = 18 + i;
+//       this->_position->position[i].y = 20;  
+//       i += 1;
+//     }
+// }
+
+void		Snake::_popFood()
+{
+  int		pop = 0;
+  
+  if (this->_food == 0)
+    {
+      while (this->_map->tile[pop] != arcade::TileType::BLOCK)
+	{
+	  pop = std::rand() % (this->_map->width * this->_map->height)
+	    + this->_map->width;
+	  std::cout<< "ok"<< std::endl;
+	}
+      this->_map->tile[pop] = arcade::TileType::OTHER;
+      this->_food = 1;
+    }
+}
+  
 void            Snake::_initPosition()
 {
   int		i = 0;
@@ -163,12 +192,14 @@ void            Snake::_initMap()
 void            Snake::_graphPlay()
 {
   this->_move(this->_heading);
+  this->_popFood();
 }
 
 Snake::Snake(int width, int height, Launcher &launch)
 {
   int   t_map = (width * height * sizeof(arcade::TileType));
   int	t_pos = (4 * sizeof(struct arcade::Position));
+  std::srand(std::time(0));
   
   if ((this->_map = (struct arcade::GetMap *)
        malloc(sizeof (struct arcade::GetMap) + t_map)) == NULL)
@@ -179,6 +210,7 @@ Snake::Snake(int width, int height, Launcher &launch)
   this->_map->width = width;
   this->_map->height = height;
   this->_launch = &launch;
+  this->_food = 0;
   this->_initMap();
   this->_initPosition();
   this->_graphPlay();

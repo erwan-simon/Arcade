@@ -5,13 +5,14 @@
 // Login   <erwan.simon@epitech.eu>
 // 
 // Started on  Wed Mar 29 17:18:01 2017 Simon
-// Last update Thu Apr  6 18:57:14 2017 Antoine
+// Last update Fri Apr  7 12:14:07 2017 Antoine
 //
 
 #ifndef SNAKE_HPP_
 # define SNAKE_HPP_
 
 #include <cstdlib>
+#include <ctime>
 #include "../../graphic/IGraphic.hpp"
 #include "../include/Protocol.hpp"
 #include "./../include/IGame.hpp"
@@ -29,7 +30,7 @@ public:
   
   // Setter
   virtual void				_setHeading(IGraphic::e_key);
-  
+  void					_popFood();
   // Input
   virtual void                          _move(IGraphic::e_key);
   void					_setMove(int, int);
@@ -48,6 +49,7 @@ private:
   struct arcade::GetMap                 *_map;
   struct arcade::WhereAmI               *_position;
   int					_score;
+  int					_food;
   IGraphic::e_key			_heading;
 };
 
