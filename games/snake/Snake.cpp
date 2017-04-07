@@ -5,9 +5,10 @@
 // Login   <erwan.simon@epitech.eu>
 // 
 // Started on  Wed Mar 29 17:22:12 2017 Simon
-// Last update Fri Apr  7 20:19:58 2017 Antoine
+// Last update Fri Apr  7 21:32:25 2017 Simon
 //
 
+#include <fstream>
 #include "Snake.hpp"
 
 struct arcade::WhereAmI&                Snake::_whereAmI() const
@@ -190,6 +191,7 @@ void            Snake::_initPosition()
   int		i = 0;
 
   this->_position->lenght = 4;
+  this->_position->type = arcade::CommandType::WHERE_AM_I;
   while (i < this->_position->lenght)
     {
       this->_position->position[i].x = 18 + i;
@@ -204,6 +206,9 @@ void            Snake::_initMap()
   int           y = 1;
   int           total = this->_map->width * this->_map->height;
 
+  this->_map->type = arcade::CommandType::GET_MAP;
+  this->_map->width = 40;
+  this->_map->height = 40;
   while (i < total)
     {
       if (y == this->_map->width)
@@ -255,6 +260,33 @@ Snake::Snake(int width, int height)
 
 extern "C"
 {
+  void                  Play()
+  {
+    uint16_t		i = 0;
+    arcade::CommandType	c;
+    Snake		s(40, 40);
+    std::ofstream	o;
+
+    while (std::cin.read(reinterpret_cast<char *>(&i), sizeof(uint16_t)))
+      {
+	c = static_cast<arcade::CommandType>(i);
+	if (c == arcade::CommandType::WHERE_AM_I)
+	  std::cout.write(reinterpret_cast<char *>(&s._whereAmI()), static_cast<std::streamsize>(sizeof(arcade::WhereAmI) + (sizeof(arcade::Position) * s._whereAmI().lenght)));
+	else if (c == arcade::CommandType::GET_MAP)
+	  std::cout.write(reinterpret_cast<char *>(&s._getMap()), static_cast<std::streamsize>(sizeof(arcade::GetMap) + (sizeof(arcade::TileType) * 1600)));
+	else if (c == arcade::CommandType::GO_UP)
+	  s._setHeading(IGraphic::E_UP);
+	else if (c == arcade::CommandType::GO_DOWN)
+	  s._setHeading(IGraphic::E_DOWN);
+	else if (c == arcade::CommandType::GO_LEFT)
+	  s._setHeading(IGraphic::E_LEFT);
+	else if (c == arcade::CommandType::GO_RIGHT)
+	  s._setHeading(IGraphic::E_RIGHT);
+	else if (c == arcade::CommandType::PLAY)
+	  s._graphPlay();
+      }
+  }
+  
   IGame*        launch_game(int x, int y)
   {
     return new Snake(x, y);
