@@ -5,7 +5,7 @@
 // Login   <erwan.simon@epitech.eu>
 // 
 // Started on  Mon Apr  3 14:51:47 2017 Simon
-// Last update Fri Apr  7 16:26:18 2017 Simon
+// Last update Fri Apr  7 17:52:02 2017 Simon
 //
 
 #include "../../Launcher.hpp"
@@ -246,13 +246,23 @@ IGame::e_end	Pacman::_graphPlay()
   return(this->_gameOver());
 }
 
-extern "C"
-{
-  void	Play()
-  {
+// extern "C"
+// {
+//   void		Play()
+//   {
+//     char	c;
+//     Pacman	p(40, 40);
 
-  }
-}
+//     while (read(0, &c, 1) > 0)
+//       {
+// 	if (std::atoi(&c) == 0)
+// 	  fwrite(p._whereAmI(), sizeof(struct arcade::WhereAmI) + sizeof(struct arcade::Position) * 5, 0);
+// 	else if (std::atoi(&c))
+// 	  fwrite(0, p._getMap(), sizeof(struct arcade::GetMap) + sizeof(struct arcade::TileType) * 40 * 40);
+// 	p._graphPlay();
+//       }
+//   }
+// }
 
 extern "C"
 {

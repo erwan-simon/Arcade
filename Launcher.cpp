@@ -5,7 +5,7 @@
 // Login   <erwan.simon@epitech.eu>
 // 
 // Started on  Wed Mar 29 17:30:33 2017 Simon
-// Last update Fri Apr  7 16:28:54 2017 Simon
+// Last update Fri Apr  7 17:52:37 2017 Simon
 //
 
 #include <signal.h>
@@ -62,7 +62,7 @@ void				Launcher::graphPlay()
   this->_lib->clearWindow();
   while (1)
     {
-      t += milliseconds(400);
+      t += milliseconds(200);
       std::this_thread::sleep_until(t);
       if (this->interact(this->_lib->getKey()) == -1)
 	return ;
