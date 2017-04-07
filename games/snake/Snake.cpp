@@ -5,7 +5,7 @@
 // Login   <erwan.simon@epitech.eu>
 // 
 // Started on  Wed Mar 29 17:22:12 2017 Simon
-// Last update Fri Apr  7 16:12:09 2017 Antoine
+// Last update Fri Apr  7 16:24:52 2017 Antoine
 //
 
 #include "Snake.hpp"
@@ -28,11 +28,6 @@ int	Snake::_getScore() const
 void	Snake::_setHeading(IGraphic::e_key key)
 {
   this->_heading = key;
-}
-
-void            Snake::Play()
-{
-
 }
 
 void	Snake::_setMove(int newX, int newY)
@@ -94,7 +89,7 @@ int			Snake::_checkPos()
 {
   int		i = 1;
 
-  while (i <= this->_position->lenght)
+  while (i < this->_position->lenght)
     {
       if ((this->_position->position[i].x == this->_position->position[0].x) &&
 	  (this->_position->position[i].y == this->_position->position[0].y))
@@ -143,17 +138,20 @@ void            Snake::_printMap()
     }
 }
 
-// int		Snake::_freePos(int pos)
-// {
-//   int		i = 0;
+int			Snake::_checkFood(int food)
+{
+  int		i = 1;
+  int		total = 0;
 
-//   while (i <= this->_position->lenght)
-//     {
-//       this->_position->position[i].x = 18 + i;
-//       this->_position->position[i].y = 20;  
-//       i += 1;
-//     }
-// }
+  while (i < this->_position->lenght)
+    {
+      total = this->_position->position[i].y * 40 + this->_position->position[i].x;
+      if (total == food)
+	return (1);
+      i += 1;
+    }
+  return (0);
+}
 
 void		Snake::_popFood()
 {
@@ -161,7 +159,7 @@ void		Snake::_popFood()
   
   if (this->_food == 0)
     {
-      while (this->_map->tile[pop] == arcade::TileType::BLOCK)
+      while (this->_map->tile[pop] == arcade::TileType::BLOCK || this->_checkFood(pop) == 1)
 	{
 	  pop = std::rand() % (this->_map->width * this->_map->height)
 	    + this->_map->width;
@@ -193,7 +191,7 @@ void            Snake::_initPosition()
   int		i = 0;
 
   this->_position->lenght = 4;
-  while (i <= this->_position->lenght)
+  while (i < this->_position->lenght)
     {
       this->_position->position[i].x = 18 + i;
       this->_position->position[i].y = 20;  

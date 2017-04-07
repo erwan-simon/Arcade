@@ -5,7 +5,7 @@
 // Login   <erwan.simon@epitech.eu>
 // 
 // Started on  Wed Mar 29 17:18:01 2017 Simon
-// Last update Fri Apr  7 16:10:26 2017 Antoine
+// Last update Fri Apr  7 16:24:54 2017 Antoine
 //
 
 #ifndef SNAKE_HPP_
@@ -31,6 +31,7 @@ public:
   // Setter
   virtual void				_setHeading(IGraphic::e_key);
   void					_popFood();
+  int					_checkFood(int);
   void					_eat();
   int					_checkPos();
   // Input
@@ -38,7 +39,6 @@ public:
   void					_setMove(int, int);
 
   // the game
-  virtual void                          Play();
   virtual void                          _pause();
   virtual IGame::e_end			_gameOver();
   virtual IGame::e_end			_graphPlay();
