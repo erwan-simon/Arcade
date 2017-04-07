@@ -5,7 +5,7 @@
 // Login   <erwan.simon@epitech.eu>
 // 
 // Started on  Wed Mar 29 17:30:33 2017 Simon
-// Last update Fri Apr  7 12:48:27 2017 Simon
+// Last update Fri Apr  7 13:54:44 2017 Simon
 //
 
 #include <signal.h>
@@ -66,8 +66,7 @@ void				Launcher::graphPlay()
       std::this_thread::sleep_until(t);
       if (this->interact(this->_lib->getKey()) == -1)
 	return ;
-      if ((end = this->_game->_graphPlay()) != IGame::E_NONE)
-	break ;
+      end = this->_game->_graphPlay();
       this->drawMap();
       this->_lib->refreshWindow();
       this->_lib->clearWindow();
