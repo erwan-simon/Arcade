@@ -5,7 +5,7 @@
 // Login   <erwan.simon@epitech.eu>
 // 
 // Started on  Fri Mar 31 13:51:50 2017 Simon
-// Last update Fri Apr  7 15:28:32 2017 Simon
+// Last update Fri Apr  7 20:14:59 2017 Antoine
 //
 
 #ifndef LAUNCHER_HPP_
@@ -31,7 +31,7 @@ public:
 
 private:
   IGame::e_end	_end;
-  
+  int		_score;
   // Graphic lib
   IGraphic*	_lib;
   int		_current_lib;

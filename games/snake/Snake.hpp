@@ -5,7 +5,7 @@
 // Login   <erwan.simon@epitech.eu>
 // 
 // Started on  Wed Mar 29 17:18:01 2017 Simon
-// Last update Fri Apr  7 19:31:11 2017 Antoine
+// Last update Fri Apr  7 19:52:04 2017 Antoine
 //
 
 #ifndef SNAKE_HPP_
@@ -38,7 +38,6 @@ public:
   void					_setMove(int, int);
 
   // the game
-  virtual void                          _pause();
   virtual IGame::e_end			_gameOver();
   virtual IGame::e_end			_graphPlay();
   virtual void                          _initMap();

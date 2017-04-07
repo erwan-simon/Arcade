@@ -5,7 +5,7 @@
 // Login   <erwan.simon@epitech.eu>
 // 
 // Started on  Wed Mar 29 17:22:12 2017 Simon
-// Last update Fri Apr  7 19:31:34 2017 Antoine
+// Last update Fri Apr  7 20:19:58 2017 Antoine
 //
 
 #include "Snake.hpp"
@@ -78,11 +78,6 @@ void            Snake::_move(IGraphic::e_key key)
       else
 	_setMove(posX + 1, posY);
     }
-}
-
-void            Snake::_pause()
-{
-
 }
 
 int			Snake::_checkPos()
@@ -180,6 +175,7 @@ void		Snake::_eat()
   if (this->_map->tile[y * 40 + x] == arcade::TileType::OTHER)
     {
       this->_food -= 1;
+      this->_score += 1;
       this->_map->tile[y * 40 + x] = arcade::TileType::EMPTY;
       if ((this->_position = (struct arcade::WhereAmI *)
 	   realloc(this->_position, sizeof(struct arcade::WhereAmI)
@@ -248,6 +244,7 @@ Snake::Snake(int width, int height)
     exit(84);
   this->_food = 0;
   this->_state = 0;
+  this->_score = 0;
   this->_heading = IGraphic::E_RIGHT;
   this->_map->width = width;
   this->_map->height = height;

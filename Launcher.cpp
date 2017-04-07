@@ -5,7 +5,7 @@
 // Login   <erwan.simon@epitech.eu>
 // 
 // Started on  Wed Mar 29 17:30:33 2017 Simon
-// Last update Fri Apr  7 17:52:37 2017 Simon
+// Last update Fri Apr  7 21:21:43 2017 Antoine
 //
 
 #include <signal.h>
@@ -72,6 +72,7 @@ void				Launcher::graphPlay()
       this->_lib->refreshWindow();
       this->_lib->clearWindow();
     }
+  this->_score = this->_game->_getScore();
   dlclose(this->_dh_game);
   this->_game = NULL;
 }
@@ -92,6 +93,7 @@ Launcher::Launcher(std::string &lib)
   this->_lib = NULL;
   this->_dh_lib = NULL;
   this->_dh_game = NULL;
+  this->_score = 0;
   if ((dir = opendir("./lib")) != NULL)
     {
     while (a != 3 && (ent = readdir(dir)) != NULL)
@@ -215,7 +217,7 @@ void		Launcher::play()
     {
       std::cerr << this->_game_name[this->_current_game] << ": dhandle error" << std::endl;
       exit(84);
-    }
+   }
   launch = reinterpret_cast<IGame* (*)(int, int, Launcher&)>(dlsym(this->_dh_game, "launch_game"));
   if (launch == NULL)
     {
@@ -232,6 +234,7 @@ void			Launcher::writeMenu()
   int			a = 0;
   int			y = 12;
   std::string		s;
+  std::string		score;
 
   s = "Welcome in the Arcade!";
   this->_lib->writeStuff((40 - s.size()) / 2, 3, s);
@@ -257,11 +260,15 @@ void			Launcher::writeMenu()
     }
   if (this->_end != IGame::E_NONE)
     {
+      score = std::to_string(this->_score);
       if (this->_end == IGame::E_WIN)
 	s = "YOU WON! CONGRATULATION (no one ever did it (especially not us))";
       else
 	s = "You lost! (bouh qu'il est mauvais)";
-      this->_lib->writeStuff((40 - s.size()) / 2, 34, s);
+      this->_lib->writeStuff((40 - s.size()) / 2, 33, s);
+      s = "Your Score : ";
+      s += score;
+      this->_lib->writeStuff((40 - s.size()) / 2, 35, s);
     }
   
 }
