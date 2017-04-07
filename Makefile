@@ -5,11 +5,12 @@
 ## Login   <erwan.simon@epitech.eu>
 ## 
 ## Started on  Thu Mar 30 11:17:19 2017 Simon
-## Last update Fri Apr  7 15:21:55 2017 Simon
+## Last update Fri Apr  7 16:01:11 2017 Selim Rinaz
 ##
 
 NAME_EXE	= arcade
-SRCS_EXE	= ./Launcher.cpp	\
+SRCS_EXE	= ./Launcher.cpp		\
+		  ./error/myException.cpp	\
 		  ./main.cpp
 OBJS_EXE	= $(SRCS_EXE:.cpp=.o)
 
@@ -41,8 +42,9 @@ LAFLAGS		=  -L/home/${USER}/.froot/lib/ -llapin			\
 		   -lm							\
 		   -I../../graphic/ -I/home/${USER}/.froot/include/
 
-LSFFLAGS	=  -I/home/${USER}/.sfml/include/ -lm	\
-		   -L/home/${USER}/.sfml/lib/
+LSFFLAGS	=  -L/home/${USER}/.sfml/lib/ -lm	\
+		   -L/usr/local/lib			\
+		   -I/home/${USER}/.sfml/include/
 
 CXX		= g++
 RM		= rm -f
