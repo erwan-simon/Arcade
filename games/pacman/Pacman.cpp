@@ -5,7 +5,7 @@
 // Login   <erwan.simon@epitech.eu>
 // 
 // Started on  Mon Apr  3 14:51:47 2017 Simon
-// Last update Fri Apr  7 18:54:42 2017 Simon
+// Last update Fri Apr  7 19:06:33 2017 Simon
 //
 
 #include "../../Launcher.hpp"
@@ -221,6 +221,8 @@ Pacman::Pacman(int width, int height)
 
 IGame::e_end	Pacman::_graphPlay()
 {
+  IGame::e_end	end;
+  
   if (this->_map->tile[this->_position->position[0].y * 40 + this->_position->position[0].x]
       == static_cast<arcade::TileType>(6))
     {
@@ -228,9 +230,12 @@ IGame::e_end	Pacman::_graphPlay()
       this->_map->tile[this->_position->position[0].y * 40 + this->_position->position[0].x]
 	= static_cast<arcade::TileType>(0);
     }
+  end = this->_gameOver();
   this->_move(this->_heading);
+  end = this->_gameOver();
   this->_evilMove();
-  return(this->_gameOver());
+  end = this->_gameOver();
+  return (end);
 }
 
 // extern "C"

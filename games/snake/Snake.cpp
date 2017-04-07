@@ -5,7 +5,7 @@
 // Login   <erwan.simon@epitech.eu>
 // 
 // Started on  Wed Mar 29 17:22:12 2017 Simon
-// Last update Fri Apr  7 18:00:20 2017 Antoine
+// Last update Fri Apr  7 19:04:46 2017 Simon
 //
 
 #include "Snake.hpp"
@@ -221,10 +221,13 @@ void            Snake::_initMap()
 
 IGame::e_end	Snake::_graphPlay()
 {
+  IGame::e_end	end;
+  
   this->_move(this->_heading);
   this->_popFood();
   this->_eat();
-  return (this->_gameOver());
+  end = this->_gameOver();
+  return (end);
 }
 
 Snake::Snake(int width, int height)
