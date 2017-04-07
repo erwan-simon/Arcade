@@ -5,7 +5,7 @@
 // Login   <erwan.simon@epitech.eu>
 // 
 // Started on  Mon Apr  3 14:51:47 2017 Simon
-// Last update Fri Apr  7 16:10:09 2017 Simon
+// Last update Fri Apr  7 16:26:18 2017 Simon
 //
 
 #include "../../Launcher.hpp"
@@ -20,7 +20,7 @@
 #include <string>
 #include "Pacman.hpp"
 
-struct arcade::WhereAmI&		Pacman::_whereAmI() const
+struct arcade::WhereAmI&	Pacman::_whereAmI() const
 {
   return (*this->_position);
 }
@@ -30,21 +30,21 @@ struct arcade::GetMap&		Pacman::_getMap() const
   return (*this->_map);
 }
 
-void		Pacman::_setHeading(IGraphic::e_key key)
+void	Pacman::_setHeading(IGraphic::e_key key)
 {
   this->_heading = key;
 }
 
-int		Pacman::_getScore() const
+int	Pacman::_getScore() const
 {
   return (this->_score);
 }
 
-void		Pacman::_evilMove()
+void	Pacman::_evilMove()
 {
-  int		a = 1;
-  int		b;
-  int		random;
+  int	a = 1;
+  int	b;
+  int	random;
 
   while (a != 5)
     {
@@ -111,11 +111,6 @@ void		Pacman::_move(IGraphic::e_key key)
       this->_position->position[0].y += 1;
       _heading = key;
     }
-}
-
-void		Pacman::Play()
-{
-  
 }
 
 void		Pacman::_pause()
@@ -249,6 +244,14 @@ IGame::e_end	Pacman::_graphPlay()
   this->_move(this->_heading);
   this->_evilMove();
   return(this->_gameOver());
+}
+
+extern "C"
+{
+  void	Play()
+  {
+
+  }
 }
 
 extern "C"
