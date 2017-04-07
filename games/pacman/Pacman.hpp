@@ -5,7 +5,7 @@
 // Login   <erwan.simon@epitech.eu>
 // 
 // Started on  Mon Apr  3 15:01:55 2017 Simon
-// Last update Fri Apr  7 12:42:57 2017 Simon
+// Last update Fri Apr  7 16:10:14 2017 Simon
 //
 
 #ifndef PACMAN_HPP_
@@ -15,7 +15,7 @@
 
 class	Pacman : public IGame {
 public:
-  Pacman(int width, int height, Launcher& launcher);
+  Pacman(int width, int height);
 
   // Getters
   virtual struct arcade::WhereAmI&	_whereAmI() const;
@@ -40,7 +40,6 @@ public:
   virtual void				_initPosition();
 
 private:
-  Launcher				*_launch;
   struct arcade::GetMap			*_map;
   struct arcade::WhereAmI		*_position;
   IGraphic::e_key			_heading;

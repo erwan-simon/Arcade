@@ -5,7 +5,7 @@
 // Login   <erwan.simon@epitech.eu>
 // 
 // Started on  Mon Apr  3 14:51:47 2017 Simon
-// Last update Fri Apr  7 15:16:43 2017 Simon
+// Last update Fri Apr  7 16:10:09 2017 Simon
 //
 
 #include "../../Launcher.hpp"
@@ -219,11 +219,10 @@ void	Pacman::_initPosition()
   this->_position->position[4].y = 1;
 }
 
-Pacman::Pacman(int width, int height, Launcher& launcher)
+Pacman::Pacman(int width, int height)
 {
   srand(time(NULL));
   this->_score = 0;
-  this->_launch = &launcher;
   if ((this->_map = (struct arcade::GetMap *)
        malloc(sizeof(struct arcade::GetMap)
 	      + (width * height * sizeof(arcade::TileType)))) == NULL)
@@ -254,8 +253,8 @@ IGame::e_end	Pacman::_graphPlay()
 
 extern "C"
 {
-  IGame*	launch_game(int x, int y, Launcher& launcher)
+  IGame*	launch_game(int x, int y)
   {
-    return new Pacman(x, y, launcher);
+    return new Pacman(x, y);
   }
 }
