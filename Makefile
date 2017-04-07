@@ -5,12 +5,12 @@
 ## Login   <erwan.simon@epitech.eu>
 ## 
 ## Started on  Thu Mar 30 11:17:19 2017 Simon
-## Last update Fri Apr  7 16:01:11 2017 Selim Rinaz
+## Last update Fri Apr  7 19:05:23 2017 Selim Rinaz
 ##
 
 NAME_EXE	= arcade
-SRCS_EXE	= ./Launcher.cpp		\
-		  ./error/myException.cpp	\
+SRCS_EXE	= ./Launcher.cpp	\
+		  ./error/Error.cpp	\
 		  ./main.cpp
 OBJS_EXE	= $(SRCS_EXE:.cpp=.o)
 
