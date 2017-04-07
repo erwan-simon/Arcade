@@ -5,7 +5,7 @@
 // Login   <erwan.simon@epitech.eu>
 // 
 // Started on  Wed Mar 29 17:22:12 2017 Simon
-// Last update Fri Apr  7 12:23:46 2017 Antoine
+// Last update Fri Apr  7 13:54:47 2017 Antoine
 //
 
 #include "Snake.hpp"
@@ -92,7 +92,7 @@ void            Snake::_pause()
 
 }
 
-void            Snake::_gameOver(IGame::e_end)
+IGame::e_end	Snake::_gameOver()
 {
 
 }
@@ -189,7 +189,7 @@ void            Snake::_initMap()
     }
 }
 
-void            Snake::_graphPlay()
+IGame::e_end	Snake::_graphPlay()
 {
   this->_move(this->_heading);
   this->_popFood();

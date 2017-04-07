@@ -5,7 +5,7 @@
 ## Login   <erwan.simon@epitech.eu>
 ## 
 ## Started on  Thu Mar 30 11:17:19 2017 Simon
-## Last update Fri Apr  7 12:47:32 2017 Simon
+## Last update Fri Apr  7 13:56:06 2017 Antoine
 ##
 
 NAME_EXE	= arcade
@@ -47,7 +47,7 @@ LSFFLAGS	=  -I/home/${USER}/.sfml/include/ -lm	\
 CXX		= g++
 RM		= rm -f
 
-all:		$(NAME_EXE) $(NAME_PA) $(NAME_NC) $(NAME_SF) #$(NAME_LA) $(NAME_SN)
+all:		$(NAME_EXE) $(NAME_PA) $(NAME_SN) $(NAME_NC) $(NAME_SF) #$(NAME_LA)
 
 $(NAME_EXE):	$(OBJS_EXE)
 		$(CXX) -o $(NAME_EXE) $(OBJS_EXE) $(LDFLAGS)
