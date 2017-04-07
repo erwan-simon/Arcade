@@ -5,14 +5,13 @@
 // Login   <erwan.simon@epitech.eu>
 // 
 // Started on  Wed Mar 29 17:18:01 2017 Simon
-// Last update Fri Apr  7 16:24:54 2017 Antoine
+// Last update Fri Apr  7 19:31:11 2017 Antoine
 //
 
 #ifndef SNAKE_HPP_
 # define SNAKE_HPP_
 
-#include <cstdlib>
-#include <ctime>
+#include <random>
 #include "../../graphic/IGraphic.hpp"
 #include "../include/Protocol.hpp"
 #include "./../include/IGame.hpp"

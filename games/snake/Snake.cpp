@@ -5,7 +5,7 @@
 // Login   <erwan.simon@epitech.eu>
 // 
 // Started on  Wed Mar 29 17:22:12 2017 Simon
-// Last update Fri Apr  7 19:04:46 2017 Simon
+// Last update Fri Apr  7 19:31:34 2017 Antoine
 //
 
 #include "Snake.hpp"
@@ -153,14 +153,19 @@ int			Snake::_checkFood(int food)
   return (0);
 }
 
-void		Snake::_popFood()
+void			Snake::_popFood()
 {
-  int		pop = 0;
-  
+  std::random_device    rand;
+  int                   pop = 0;
+  std::mt19937          gen(rand());
+
   if (this->_food == 0)
     {
       while (this->_map->tile[pop] == arcade::TileType::BLOCK || this->_checkFood(pop) == 1)
-	pop = std::rand() % (this->_map->width * this->_map->height) + this->_map->width;
+	{
+	  std::uniform_int_distribution<> dis(this->_map->width, this->_map->width * this->_map->height);
+          pop = dis(gen);
+	}
       this->_map->tile[pop] = arcade::TileType::OTHER;
       this->_food = 1;
     }
@@ -234,7 +239,6 @@ Snake::Snake(int width, int height)
 {
   int   t_map = (width * height * sizeof(arcade::TileType) + 1);
   int	t_pos = (5 * sizeof(struct arcade::Position));
-  std::srand(std::time(0));
   
   if ((this->_map = (struct arcade::GetMap *)
        malloc(sizeof (struct arcade::GetMap) + t_map)) == NULL)
