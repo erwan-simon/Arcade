@@ -5,7 +5,7 @@
 // Login   <erwan.simon@epitech.eu>
 // 
 // Started on  Wed Mar 29 17:22:12 2017 Simon
-// Last update Fri Apr  7 13:54:47 2017 Antoine
+// Last update Fri Apr  7 13:58:30 2017 Antoine
 //
 
 #include "Snake.hpp"
@@ -94,7 +94,7 @@ void            Snake::_pause()
 
 IGame::e_end	Snake::_gameOver()
 {
-
+  return (IGame::E_NONE);
 }
 
 void            Snake::_printMap()
@@ -193,6 +193,7 @@ IGame::e_end	Snake::_graphPlay()
 {
   this->_move(this->_heading);
   this->_popFood();
+  return (IGame::E_NONE);
 }
 
 Snake::Snake(int width, int height, Launcher &launch)
