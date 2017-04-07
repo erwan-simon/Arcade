@@ -5,7 +5,7 @@
 // Login   <erwan.simon@epitech.eu>
 // 
 // Started on  Wed Mar 29 17:30:33 2017 Simon
-// Last update Thu Apr  6 10:47:08 2017 Simon
+// Last update Fri Apr  7 12:27:44 2017 Simon
 //
 
 #include <signal.h>
@@ -37,6 +37,8 @@ void	Launcher::drawMap()
 	    this->_lib->buildCell(x, y, IGraphic::E_BLUE);
 	  else if (this->_game->_getMap().tile[(y * 40) + x] == static_cast<arcade::TileType>(6))
 	    this->_lib->writeStuff(x, y, s);
+	  else if (this->_game->_getMap().tile[(y * 40) + x] == static_cast<arcade::TileType>(7))
+	    this->_lib->buildCell(x, y, IGraphic::E_PINK);
 	  if (this->_game->_whereAmI().position[0].x == x &&
 	      this->_game->_whereAmI().position[0].y == y)
 	    this->_lib->buildCell(x, y, IGraphic::E_YELLOW);
@@ -175,11 +177,11 @@ void		Launcher::changeGame(IGraphic::e_key key)
   IGame*	(*launch)(int, int, Launcher&);
 
   dlclose(this->_dh_game);
-  if (key == IGraphic::E_2 && this->_current_game != 0)
+  if (key == IGraphic::E_4 && this->_current_game != 0)
     this->_current_game -= 1;
-  else if (key == IGraphic::E_3 && this->_game_name[this->_current_game + 1] != "")
+  else if (key == IGraphic::E_5 && this->_game_name[this->_current_game + 1] != "")
     this->_current_game += 1;
-  this->_dh_lib = dlopen(this->_lib_name[this->_current_lib].c_str(), RTLD_LAZY);
+  this->_dh_game = dlopen(this->_game_name[this->_current_game].c_str(), RTLD_LAZY);
   if (this->_dh_game == NULL)
     {
       std::cerr << this->_game_name[this->_current_game] << ": dhandle error" << std::endl;
@@ -195,12 +197,34 @@ void		Launcher::changeGame(IGraphic::e_key key)
   this->graphPlay();
 }
 
+void		Launcher::play()
+{
+  IGame*	(*launch)(int, int, Launcher&);
+
+  this->_dh_game = dlopen(this->_game_name[this->_current_game].c_str(), RTLD_LAZY);
+  if (this->_dh_game == NULL)
+    {
+      std::cerr << this->_game_name[this->_current_game] << ": dhandle error" << std::endl;
+      exit(84);
+    }
+  launch = reinterpret_cast<IGame* (*)(int, int, Launcher&)>(dlsym(this->_dh_game, "launch_game"));
+  if (launch == NULL)
+    {
+      std::cerr << this->_game_name[this->_current_game] << ": launch game error" << std::endl;
+      exit(84);
+    }
+  this->_game = launch(40, 40, *this);
+  this->graphPlay();
+  dlclose(this->_dh_game);
+}
+
+
 void			Launcher::writeMenu()
 {
   int			a = 0;
   int			y = 12;
   std::string		s;
-  
+
   s = "Welcome in the Arcade!";
   this->_lib->writeStuff((40 - s.size()) / 2, 3, s);
   s = "Choose your graphic library below:";
@@ -263,27 +287,6 @@ void		Launcher::buildFrame()
     this->_lib->buildCell(i, 24 + (2 * this->_current_game), IGraphic::E_YELLOW);  
 }
 
-void		Launcher::play()
-{
-  IGame*	(*launch)(int, int, Launcher&);
-
-  this->_dh_game = dlopen(this->_game_name[this->_current_game].c_str(), RTLD_LAZY);
-  if (this->_dh_game == NULL)
-    {
-      std::cerr << this->_game_name[this->_current_game] << ": dhandle error" << std::endl;
-      exit(84);
-    }
-  launch = reinterpret_cast<IGame* (*)(int, int, Launcher&)>(dlsym(this->_dh_game, "launch_game"));
-  if (launch == NULL)
-    {
-      std::cerr << this->_game_name[this->_current_game] << ": launch game error" << std::endl;
-      exit(84);
-    }
-  this->_game = launch(40, 40, *this);
-  this->graphPlay();
-  dlclose(this->_dh_game);
-}
-
 static void	sigIntHandler(int s)
 {
   (void) s;
@@ -296,16 +299,26 @@ int		Launcher::interact(IGraphic::e_key key)
   else if (key == IGraphic::E_ESC)
     return (-1);
   else if (key == IGraphic::E_4)
-    this->_current_game -= (this->_current_game == 0 ? 0 : 1);
+    {
+      if (this->_game == NULL)
+	this->_current_game -= (this->_current_game == 0 ? 0 : 1);
+      else
+	this->changeGame(key);
+    }
   else if (key == IGraphic::E_5)
-    this->_current_game += (this->_current_game == 0 ? 1 : 0);
+    {
+      if (this->_game == NULL)
+	this->_current_game += (this->_current_game == 0 ? 1 : 0);
+      else
+	this->changeGame(key);
+    }
   else if (key == IGraphic::E_ENT)
     {
       this->play();
       return (-1);
     }
-  else if (key == IGraphic::E_RIGHT || key == IGraphic::E_LEFT ||
-	   key == IGraphic::E_UP || key == IGraphic::E_DOWN)
+  else if (this->_game != NULL && (key == IGraphic::E_RIGHT || key == IGraphic::E_LEFT ||
+				   key == IGraphic::E_UP || key == IGraphic::E_DOWN))
     this->_game->_setHeading(key);
   return (0);
 }

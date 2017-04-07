@@ -5,7 +5,7 @@
 // Login   <erwan.simon@epitech.eu>
 // 
 // Started on  Mon Apr  3 14:51:47 2017 Simon
-// Last update Thu Apr  6 16:57:34 2017 Simon
+// Last update Fri Apr  7 12:13:13 2017 Simon
 //
 
 #include "../../Launcher.hpp"
@@ -13,6 +13,8 @@
 #include "../include/Protocol.hpp"
 #include <iostream>
 #include <fstream>
+#include <time.h>
+#include <stdio.h>
 #include <unistd.h>
 #include <iostream>
 #include <string>
@@ -38,19 +40,45 @@ int		Pacman::_getScore() const
   return (this->_score);
 }
 
-static void		evilMove()
+void		Pacman::_evilMove()
 {
   int		a = 1;
-  float		diffA = 0.0;
-  float		diffB = 0.0;
+  int		b;
+  int		random;
 
-  // while (a != 3)
-  //   {
-  //     diffA = static_cast<float>(this->_position->position[a].x - this->_position->position[0].x);
-  //     diffB = static_cast<float>(this->_position->position[a].y - this->_position->position[0].y);
-  //     if (diffA <= -0.5 && this->_map->tile[this->_position->position[a].y * 40 + this->_position->position[a].x] != static_cast<arcade::TileType>(6))
-  //     a++;
-  //   }
+  while (a != 5)
+    {
+      b = 0;
+      random = rand() % 4;
+      while (1)
+	{
+	  if (b >= random && this->_map->tile[this->_position->position[a].y * 40 + this->_position->position[a].x + 1] != static_cast<arcade::TileType>(1))
+	    {
+	      this->_position->position[a].x += 1;
+	      break ;
+	    }
+	  b++;
+	  if (b >= random && this->_map->tile[this->_position->position[a].y * 40 + this->_position->position[a].x - 1] != static_cast<arcade::TileType>(1))
+	    {
+	      this->_position->position[a].x -= 1;
+	      break ;
+	    }
+	  b++;
+	  if (b >= random && this->_map->tile[(this->_position->position[a].y + 1) * 40 + this->_position->position[a].x] != static_cast<arcade::TileType>(1))
+	    {
+	      this->_position->position[a].y += 1;
+	      break ;
+	    }
+	  b++;
+	  if (b >= random && this->_map->tile[(this->_position->position[a].y - 1) * 40 + this->_position->position[a].x] != static_cast<arcade::TileType>(1))
+	    {
+	      this->_position->position[a].y -= 1;
+	      break ;
+	    }
+	  b++;
+	}
+      a++;
+    }
 }
 
 void		Pacman::_move(IGraphic::e_key key)
@@ -179,6 +207,7 @@ void	Pacman::_initPosition()
 
 Pacman::Pacman(int width, int height, Launcher& launcher)
 {
+  srand(time(NULL));
   this->_score = 0;
   this->_launch = &launcher;
   if ((this->_map = (struct arcade::GetMap *)
@@ -205,7 +234,7 @@ void				Pacman::_graphPlay()
 	= static_cast<arcade::TileType>(0);
     }
   this->_move(this->_heading);
-  // evilMove();
+  this->_evilMove();
 }
 
 extern "C"
