@@ -5,7 +5,7 @@
 // Login   <erwan.simon@epitech.eu>
 // 
 // Started on  Mon Apr  3 14:51:47 2017 Simon
-// Last update Fri Apr  7 12:42:10 2017 Simon
+// Last update Fri Apr  7 15:16:43 2017 Simon
 //
 
 #include "../../Launcher.hpp"
@@ -52,25 +52,25 @@ void		Pacman::_evilMove()
       random = rand() % 4;
       while (1)
 	{
-	  if (b >= random && this->_map->tile[this->_position->position[a].y * 40 + this->_position->position[a].x + 1] != static_cast<arcade::TileType>(1))
+	  if (b >= random && (this->_map->tile[this->_position->position[a].y * 40 + this->_position->position[a].x + 1] != static_cast<arcade::TileType>(1) || (this->_position->position[a].y == this->_position->position[0].y && this->_position->position[a].x + 1 == this->_position->position[0].x)))
 	    {
 	      this->_position->position[a].x += 1;
 	      break ;
 	    }
 	  b++;
-	  if (b >= random && this->_map->tile[this->_position->position[a].y * 40 + this->_position->position[a].x - 1] != static_cast<arcade::TileType>(1))
+	  if (b >= random && (this->_map->tile[this->_position->position[a].y * 40 + this->_position->position[a].x - 1] != static_cast<arcade::TileType>(1) || (this->_position->position[a].y == this->_position->position[0].y && this->_position->position[a].x - 1 == this->_position->position[0].x)))
 	    {
 	      this->_position->position[a].x -= 1;
 	      break ;
 	    }
 	  b++;
-	  if (b >= random && this->_map->tile[(this->_position->position[a].y + 1) * 40 + this->_position->position[a].x] != static_cast<arcade::TileType>(1))
+	  if (b >= random && (this->_map->tile[(this->_position->position[a].y + 1)* 40 + this->_position->position[a].x] != static_cast<arcade::TileType>(1) || (this->_position->position[a].y + 1 == this->_position->position[0].y && this->_position->position[a].x == this->_position->position[0].x)))
 	    {
 	      this->_position->position[a].y += 1;
 	      break ;
 	    }
 	  b++;
-	  if (b >= random && this->_map->tile[(this->_position->position[a].y - 1) * 40 + this->_position->position[a].x] != static_cast<arcade::TileType>(1))
+	  if (b >= random && (this->_map->tile[(this->_position->position[a].y - 1) * 40 + this->_position->position[a].x - 1] != static_cast<arcade::TileType>(1) || (this->_position->position[a].y == this->_position->position[0].y - 1 && this->_position->position[a].x == this->_position->position[0].x)))
 	    {
 	      this->_position->position[a].y -= 1;
 	      break ;
@@ -125,7 +125,7 @@ void		Pacman::_pause()
 
 IGame::e_end	Pacman::_gameOver()
 {
-  for (int a = 0; a < 5; a++)
+  for (int a = 1; a <= 5; a++)
     {
       if (this->_position->position[0].y == this->_position->position[a].y
 	  && this->_position->position[0].x == this->_position->position[a].x)
@@ -135,12 +135,11 @@ IGame::e_end	Pacman::_gameOver()
     {
       for (int x = 0; x < 40; x++)
 	{
-	  if (this->_map->tile[((this->_position->position[0].y + 1) * 40) +
-			       this->_position->position[0].x] != static_cast<arcade::TileType>(6))
+	  if (this->_map->tile[(y * 40) + x] != static_cast<arcade::TileType>(6))
 	    return (IGame::E_NONE);
 	}
     }
-  return (IGame::E_LOSE);
+  return (IGame::E_WIN);
 }
 
 static std::string*	getFile()
