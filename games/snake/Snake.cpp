@@ -5,7 +5,7 @@
 // Login   <erwan.simon@epitech.eu>
 // 
 // Started on  Wed Mar 29 17:22:12 2017 Simon
-// Last update Fri Apr  7 15:55:29 2017 Antoine
+// Last update Fri Apr  7 16:10:35 2017 Antoine
 //
 
 #include "Snake.hpp"
@@ -245,7 +245,6 @@ Snake::Snake(int width, int height, Launcher &launch)
     exit(84);
   this->_map->width = width;
   this->_map->height = height;
-  this->_launch = &launch;
   this->_food = 0;
   this->_state = 0;
   this->_initMap();
@@ -255,8 +254,8 @@ Snake::Snake(int width, int height, Launcher &launch)
 
 extern "C"
 {
-  IGame*        launch_game(int x, int y, Launcher& launcher)
+  IGame*        launch_game(int x, int y)
   {
-    return new Snake(x, y, launcher);
+    return new Snake(x, y);
   }
 }

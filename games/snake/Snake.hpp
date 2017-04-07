@@ -5,7 +5,7 @@
 // Login   <erwan.simon@epitech.eu>
 // 
 // Started on  Wed Mar 29 17:18:01 2017 Simon
-// Last update Fri Apr  7 15:49:53 2017 Antoine
+// Last update Fri Apr  7 16:10:26 2017 Antoine
 //
 
 #ifndef SNAKE_HPP_
@@ -21,7 +21,7 @@
 class					Snake : public IGame
 {
 public:
-  Snake(int width, int height, Launcher &launch);
+  Snake(int width, int height);
 
   // Getters
   virtual struct arcade::WhereAmI&      _whereAmI() const;
@@ -47,7 +47,6 @@ public:
   void                                  _printMap();
   
 private:
-  Launcher                              *_launch;
   struct arcade::GetMap                 *_map;
   struct arcade::WhereAmI               *_position;
   int					_score;
