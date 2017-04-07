@@ -5,7 +5,7 @@
 // Login   <erwan.simon@epitech.eu>
 // 
 // Started on  Wed Mar 29 17:22:12 2017 Simon
-// Last update Fri Apr  7 15:31:25 2017 Antoine
+// Last update Fri Apr  7 15:55:29 2017 Antoine
 //
 
 #include "Snake.hpp"
@@ -90,12 +90,27 @@ void            Snake::_pause()
 
 }
 
+int			Snake::_checkPos()
+{
+  int		i = 1;
+
+  while (i <= this->_position->lenght)
+    {
+      if ((this->_position->position[i].x == this->_position->position[0].x) &&
+	  (this->_position->position[i].y == this->_position->position[0].y))
+	return (1);
+      i += 1;
+    }
+  return (0);
+}
+
 IGame::e_end	Snake::_gameOver()
 {
   int		x = this->_position->position[0].x;
   int		y = this->_position->position[0].y;
 
-  if (this->_map->tile[y * 40 + x] == static_cast<arcade::TileType>(1))
+  if ((this->_map->tile[y * 40 + x] == static_cast<arcade::TileType>(1)) ||
+      (_checkPos() == 1))
     return (IGame::E_LOSE);
   return (IGame::E_NONE);
 }
