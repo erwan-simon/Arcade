@@ -5,7 +5,7 @@
 // Login   <erwan.simon@epitech.eu>
 // 
 // Started on  Wed Mar 29 17:22:12 2017 Simon
-// Last update Fri Apr  7 16:24:52 2017 Antoine
+// Last update Fri Apr  7 17:48:34 2017 Antoine
 //
 
 #include "Snake.hpp"
@@ -161,8 +161,7 @@ void		Snake::_popFood()
     {
       while (this->_map->tile[pop] == arcade::TileType::BLOCK || this->_checkFood(pop) == 1)
 	{
-	  pop = std::rand() % (this->_map->width * this->_map->height)
-	    + this->_map->width;
+	  pop = std::rand() % (this->_map->width + this->_map->height) + this->_map->width;
 	}
       this->_map->tile[pop] = arcade::TileType::OTHER;
       this->_food = 1;
@@ -173,16 +172,17 @@ void		Snake::_eat()
 {
   int		x = this->_position->position[0].x;
   int		y = this->_position->position[0].y;
+  int		save = this->_position->lenght + 2;
   
   if (this->_map->tile[y * 40 + x] == arcade::TileType::OTHER)
     {
       this->_food -= 1;
       this->_map->tile[y * 40 + x] = arcade::TileType::EMPTY;
-      this->_position->lenght += 1;
       if ((this->_position = (struct arcade::WhereAmI *)
 	   realloc(this->_position, sizeof(struct arcade::WhereAmI)
-		   + (this->_position->lenght * sizeof(struct arcade::Position)))) == NULL)
+		   + (save * sizeof(struct arcade::Position)))) == NULL)
 	exit(84);
+      this->_position->lenght += 1;
     }
 }
   
@@ -205,7 +205,7 @@ void            Snake::_initMap()
   int           y = 1;
   int           total = this->_map->width * this->_map->height;
 
-  while (i <= total)
+  while (i < total)
     {
       if (y == this->_map->width)
         {
@@ -231,8 +231,8 @@ IGame::e_end	Snake::_graphPlay()
 
 Snake::Snake(int width, int height)
 {
-  int   t_map = (width * height * sizeof(arcade::TileType));
-  int	t_pos = (4 * sizeof(struct arcade::Position));
+  int   t_map = (width * height * sizeof(arcade::TileType) + 1);
+  int	t_pos = (5 * sizeof(struct arcade::Position));
   std::srand(std::time(0));
   
   if ((this->_map = (struct arcade::GetMap *)
@@ -241,10 +241,11 @@ Snake::Snake(int width, int height)
   if ((this->_position = (struct arcade::WhereAmI *)
        malloc(sizeof(struct arcade::WhereAmI)+ t_pos)) == NULL)
     exit(84);
-  this->_map->width = width;
-  this->_map->height = height;
   this->_food = 0;
   this->_state = 0;
+  this->_heading = IGraphic::E_RIGHT;
+  this->_map->width = width;
+  this->_map->height = height;
   this->_initMap();
   this->_initPosition();
   this->_graphPlay();
