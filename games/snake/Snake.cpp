@@ -5,7 +5,7 @@
 // Login   <erwan.simon@epitech.eu>
 // 
 // Started on  Wed Mar 29 17:22:12 2017 Simon
-// Last update Fri Apr  7 16:10:35 2017 Antoine
+// Last update Fri Apr  7 16:12:09 2017 Antoine
 //
 
 #include "Snake.hpp"
@@ -231,7 +231,7 @@ IGame::e_end	Snake::_graphPlay()
   return (this->_gameOver());
 }
 
-Snake::Snake(int width, int height, Launcher &launch)
+Snake::Snake(int width, int height)
 {
   int   t_map = (width * height * sizeof(arcade::TileType));
   int	t_pos = (4 * sizeof(struct arcade::Position));
