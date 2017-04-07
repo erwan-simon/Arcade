@@ -5,7 +5,7 @@
 // Login   <erwan.simon@epitech.eu>
 // 
 // Started on  Wed Mar 29 17:30:33 2017 Simon
-// Last update Fri Apr  7 15:52:46 2017 Simon
+// Last update Fri Apr  7 16:02:12 2017 Simon
 //
 
 #include <signal.h>
@@ -72,7 +72,7 @@ void				Launcher::graphPlay()
       this->_lib->clearWindow();
     }
   dlclose(this->_dh_game);
-  this->_dh_game = NULL;
+  // this->_dh_game = NULL;
   this->_game = NULL;
 }
 
