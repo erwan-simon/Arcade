@@ -5,7 +5,7 @@
 // Login   <erwan.simon@epitech.eu>
 // 
 // Started on  Wed Mar 29 17:30:33 2017 Simon
-// Last update Fri Apr  7 12:27:44 2017 Simon
+// Last update Fri Apr  7 12:48:27 2017 Simon
 //
 
 #include <signal.h>
@@ -56,7 +56,8 @@ void	Launcher::drawMap()
 
 void				Launcher::graphPlay()
 {
-  time_point<system_clock> t = system_clock::now();
+  IGame::e_end			end = IGame::E_NONE;
+  time_point<system_clock>	t = system_clock::now();
 
   this->_lib->clearWindow();
   while (1)
@@ -65,11 +66,18 @@ void				Launcher::graphPlay()
       std::this_thread::sleep_until(t);
       if (this->interact(this->_lib->getKey()) == -1)
 	return ;
-      this->_game->_graphPlay();
+      if ((end = this->_game->_graphPlay()) != IGame::E_NONE)
+	break ;
       this->drawMap();
       this->_lib->refreshWindow();
       this->_lib->clearWindow();
     }
+  if (end == IGame::E_NONE)
+    std::cout << "You gave up!" << std::endl;
+  else if (end == IGame::E_WIN)
+    std::cout << "You won!" << std::endl;
+  else if (end == IGame::E_LOSE)
+    std::cout << "You lost!" << std::endl;
 }
 
 Launcher::Launcher(std::string &lib)

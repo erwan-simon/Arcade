@@ -5,7 +5,7 @@
 // Login   <antoine@epitech.eu>
 // 
 // Started on  Tue Mar 28 14:24:06 2017 Antoine
-// Last update Thu Apr  6 09:44:31 2017 Simon
+// Last update Fri Apr  7 12:42:45 2017 Simon
 //
 
 #ifndef IGAME_HPP_
@@ -18,6 +18,7 @@ class				IGame
 {
 public:
   typedef enum {
+    E_NONE,
     E_WIN,
     E_LOSE
   }	e_end;
@@ -36,9 +37,9 @@ public:
 
   // the game
   virtual void			Play() = 0;
-  virtual void			_graphPlay() = 0;
+  virtual e_end			_graphPlay() = 0;
   virtual void			_pause() = 0;
-  virtual void			_gameOver(e_end) = 0;
+  virtual e_end			_gameOver() = 0;
 
   virtual void                  _initMap() = 0;
   virtual void			_initPosition() = 0;

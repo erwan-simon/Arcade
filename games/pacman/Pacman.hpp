@@ -5,7 +5,7 @@
 // Login   <erwan.simon@epitech.eu>
 // 
 // Started on  Mon Apr  3 15:01:55 2017 Simon
-// Last update Thu Apr  6 21:14:42 2017 Simon
+// Last update Fri Apr  7 12:42:57 2017 Simon
 //
 
 #ifndef PACMAN_HPP_
@@ -31,10 +31,10 @@ public:
   // virtual void                       _illegal();
 
   // the game
-  virtual void				_graphPlay();
+  virtual IGame::e_end			_graphPlay();
   virtual void				Play();
   virtual void				_pause();
-  virtual void				_gameOver(IGame::e_end);
+  virtual IGame::e_end			_gameOver();
 
   virtual void				_initMap();
   virtual void				_initPosition();

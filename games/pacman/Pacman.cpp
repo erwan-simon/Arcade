@@ -5,7 +5,7 @@
 // Login   <erwan.simon@epitech.eu>
 // 
 // Started on  Mon Apr  3 14:51:47 2017 Simon
-// Last update Fri Apr  7 12:13:13 2017 Simon
+// Last update Fri Apr  7 12:42:10 2017 Simon
 //
 
 #include "../../Launcher.hpp"
@@ -123,9 +123,24 @@ void		Pacman::_pause()
   
 }
 
-void		Pacman::_gameOver(IGame::e_end end)
+IGame::e_end	Pacman::_gameOver()
 {
-  (void) end;
+  for (int a = 0; a < 5; a++)
+    {
+      if (this->_position->position[0].y == this->_position->position[a].y
+	  && this->_position->position[0].x == this->_position->position[a].x)
+	return (IGame::E_LOSE);
+    }
+  for (int y = 0; y < 40; y++)
+    {
+      for (int x = 0; x < 40; x++)
+	{
+	  if (this->_map->tile[((this->_position->position[0].y + 1) * 40) +
+			       this->_position->position[0].x] != static_cast<arcade::TileType>(6))
+	    return (IGame::E_NONE);
+	}
+    }
+  return (IGame::E_LOSE);
 }
 
 static std::string*	getFile()
@@ -224,7 +239,7 @@ Pacman::Pacman(int width, int height, Launcher& launcher)
   this->_initPosition();
 }
 
-void				Pacman::_graphPlay()
+IGame::e_end	Pacman::_graphPlay()
 {
   if (this->_map->tile[this->_position->position[0].y * 40 + this->_position->position[0].x]
       == static_cast<arcade::TileType>(6))
@@ -235,6 +250,7 @@ void				Pacman::_graphPlay()
     }
   this->_move(this->_heading);
   this->_evilMove();
+  return(this->_gameOver());
 }
 
 extern "C"
