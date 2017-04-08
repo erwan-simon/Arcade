@@ -1,0 +1,119 @@
+==32293== Memcheck, a memory error detector
+==32293== Copyright (C) 2002-2015, and GNU GPL'd, by Julian Seward et al.
+==32293== Using Valgrind-3.12.0 and LibVEX; rerun with -h for copyright info
+==32293== Command: ./arcade ./lib/lib_arcade_ncurses.so
+==32293== 
+==32293== Invalid read of size 2
+==32293==    at 0x64EDA85: Pacman::_gameOver() (Pacman.cpp:160)
+==32293==    by 0x64ED9ED: Pacman::_graphPlay() (Pacman.cpp:148)
+==32293==    by 0x404367: Launcher::graphPlay() (Launcher.cpp:71)
+==32293==    by 0x405276: Launcher::play() (Launcher.cpp:200)
+==32293==    by 0x405C7E: Launcher::interact(IGraphic::e_key) (Launcher.cpp:314)
+==32293==    by 0x405D7B: Launcher::launch() (Launcher.cpp:331)
+==32293==    by 0x42B7D6: main (main.cpp:31)
+==32293==  Address 0x5d8a93a is 2 bytes after a block of size 24 alloc'd
+==32293==    at 0x4C2AB8D: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==32293==    by 0x64ED23E: Pacman::Pacman(int, int) (Pacman.cpp:33)
+==32293==    by 0x64EE2D5: launch_game (Pacman.cpp:294)
+==32293==    by 0x40525F: Launcher::play() (Launcher.cpp:199)
+==32293==    by 0x405C7E: Launcher::interact(IGraphic::e_key) (Launcher.cpp:314)
+==32293==    by 0x405D7B: Launcher::launch() (Launcher.cpp:331)
+==32293==    by 0x42B7D6: main (main.cpp:31)
+==32293== 
+==32293== Invalid read of size 2
+==32293==    at 0x64EDA85: Pacman::_gameOver() (Pacman.cpp:160)
+==32293==    by 0x64EDA27: Pacman::_graphPlay() (Pacman.cpp:150)
+==32293==    by 0x404367: Launcher::graphPlay() (Launcher.cpp:71)
+==32293==    by 0x405276: Launcher::play() (Launcher.cpp:200)
+==32293==    by 0x405C7E: Launcher::interact(IGraphic::e_key) (Launcher.cpp:314)
+==32293==    by 0x405D7B: Launcher::launch() (Launcher.cpp:331)
+==32293==    by 0x42B7D6: main (main.cpp:31)
+==32293==  Address 0x5d8a93a is 2 bytes after a block of size 24 alloc'd
+==32293==    at 0x4C2AB8D: malloc (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==32293==    by 0x64ED23E: Pacman::Pacman(int, int) (Pacman.cpp:33)
+==32293==    by 0x64EE2D5: launch_game (Pacman.cpp:294)
+==32293==    by 0x40525F: Launcher::play() (Launcher.cpp:199)
+==32293==    by 0x405C7E: Launcher::interact(IGraphic::e_key) (Launcher.cpp:314)
+==32293==    by 0x405D7B: Launcher::launch() (Launcher.cpp:331)
+==32293==    by 0x42B7D6: main (main.cpp:31)
+==32293== 
+==32293== Invalid read of size 4
+==32293==    at 0x64EE3C6: Ghost::getState() const (Ghost.cpp:27)
+==32293==    by 0x64ED560: Pacman::_evilMove() (Pacman.cpp:108)
+==32293==    by 0x64EDA36: Pacman::_graphPlay() (Pacman.cpp:151)
+==32293==    by 0x404367: Launcher::graphPlay() (Launcher.cpp:71)
+==32293==    by 0x405276: Launcher::play() (Launcher.cpp:200)
+==32293==    by 0x405C7E: Launcher::interact(IGraphic::e_key) (Launcher.cpp:314)
+==32293==    by 0x405D7B: Launcher::launch() (Launcher.cpp:331)
+==32293==    by 0x42B7D6: main (main.cpp:31)
+==32293==  Address 0x5d8e368 is 0 bytes after a block of size 104 alloc'd
+==32293==    at 0x4C2B8D9: operator new[](unsigned long) (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==32293==    by 0x64EDFCF: Pacman::_initPosition() (Pacman.cpp:256)
+==32293==    by 0x64ED27D: Pacman::Pacman(int, int) (Pacman.cpp:37)
+==32293==    by 0x64EE2D5: launch_game (Pacman.cpp:294)
+==32293==    by 0x40525F: Launcher::play() (Launcher.cpp:199)
+==32293==    by 0x405C7E: Launcher::interact(IGraphic::e_key) (Launcher.cpp:314)
+==32293==    by 0x405D7B: Launcher::launch() (Launcher.cpp:331)
+==32293==    by 0x42B7D6: main (main.cpp:31)
+==32293== 
+==32293== Invalid read of size 8
+==32293==    at 0x64EE3FA: Ghost::getPosition() const (Ghost.cpp:42)
+==32293==    by 0x64ED593: Pacman::_evilMove() (Pacman.cpp:110)
+==32293==    by 0x64EDA36: Pacman::_graphPlay() (Pacman.cpp:151)
+==32293==    by 0x404367: Launcher::graphPlay() (Launcher.cpp:71)
+==32293==    by 0x405276: Launcher::play() (Launcher.cpp:200)
+==32293==    by 0x405C7E: Launcher::interact(IGraphic::e_key) (Launcher.cpp:314)
+==32293==    by 0x405D7B: Launcher::launch() (Launcher.cpp:331)
+==32293==    by 0x42B7D6: main (main.cpp:31)
+==32293==  Address 0x5d8e378 is 16 bytes after a block of size 104 alloc'd
+==32293==    at 0x4C2B8D9: operator new[](unsigned long) (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==32293==    by 0x64EDFCF: Pacman::_initPosition() (Pacman.cpp:256)
+==32293==    by 0x64ED27D: Pacman::Pacman(int, int) (Pacman.cpp:37)
+==32293==    by 0x64EE2D5: launch_game (Pacman.cpp:294)
+==32293==    by 0x40525F: Launcher::play() (Launcher.cpp:199)
+==32293==    by 0x405C7E: Launcher::interact(IGraphic::e_key) (Launcher.cpp:314)
+==32293==    by 0x405D7B: Launcher::launch() (Launcher.cpp:331)
+==32293==    by 0x42B7D6: main (main.cpp:31)
+==32293== 
+==32293== Invalid read of size 2
+==32293==    at 0x64ED594: Pacman::_evilMove() (Pacman.cpp:110)
+==32293==    by 0x64EDA36: Pacman::_graphPlay() (Pacman.cpp:151)
+==32293==    by 0x404367: Launcher::graphPlay() (Launcher.cpp:71)
+==32293==    by 0x405276: Launcher::play() (Launcher.cpp:200)
+==32293==    by 0x405C7E: Launcher::interact(IGraphic::e_key) (Launcher.cpp:314)
+==32293==    by 0x405D7B: Launcher::launch() (Launcher.cpp:331)
+==32293==    by 0x42B7D6: main (main.cpp:31)
+==32293==  Address 0x0 is not stack'd, malloc'd or (recently) free'd
+==32293== 
+==32293== 
+==32293== Process terminating with default action of signal 11 (SIGSEGV): dumping core
+==32293==  Access not within mapped region at address 0x0
+==32293==    at 0x64ED594: Pacman::_evilMove() (Pacman.cpp:110)
+==32293==    by 0x64EDA36: Pacman::_graphPlay() (Pacman.cpp:151)
+==32293==    by 0x404367: Launcher::graphPlay() (Launcher.cpp:71)
+==32293==    by 0x405276: Launcher::play() (Launcher.cpp:200)
+==32293==    by 0x405C7E: Launcher::interact(IGraphic::e_key) (Launcher.cpp:314)
+==32293==    by 0x405D7B: Launcher::launch() (Launcher.cpp:331)
+==32293==    by 0x42B7D6: main (main.cpp:31)
+==32293==  If you believe this happened as a result of a stack
+==32293==  overflow in your program's main thread (unlikely but
+==32293==  possible), you can try to increase the size of the
+==32293==  main thread stack using the --main-stacksize= flag.
+==32293==  The main thread stack size used in this run was 8388608.
+==32293== 
+==32293== HEAP SUMMARY:
+==32293==     in use at exit: 801,730 bytes in 504 blocks
+==32293==   total heap usage: 1,833 allocs, 1,329 frees, 987,604 bytes allocated
+==32293== 
+==32293== LEAK SUMMARY:
+==32293==    definitely lost: 0 bytes in 0 blocks
+==32293==    indirectly lost: 0 bytes in 0 blocks
+==32293==      possibly lost: 0 bytes in 0 blocks
+==32293==    still reachable: 801,730 bytes in 504 blocks
+==32293==                       of which reachable via heuristic:
+==32293==                         newarray           : 344 bytes in 3 blocks
+==32293==         suppressed: 0 bytes in 0 blocks
+==32293== Rerun with --leak-check=full to see details of leaked memory
+==32293== 
+==32293== For counts of detected and suppressed errors, rerun with: -v
+==32293== ERROR SUMMARY: 5 errors from 5 contexts (suppressed: 0 from 0)

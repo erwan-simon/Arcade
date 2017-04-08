@@ -5,13 +5,14 @@
 ** Login   <selimrinaz@epitech.net>
 ** 
 ** Started on  Sat Apr  8 16:50:42 2017 Selim Rinaz
-** Last update Sat Apr  8 16:50:43 2017 Selim Rinaz
+// Last update Sat Apr  8 17:39:05 2017 Antoine
 */
 
 #ifndef SNAKE_HPP_
 # define SNAKE_HPP_
 
 #include <random>
+#include <stdexcept>
 #include "IGraphic.hpp"
 #include "Protocol.hpp"
 #include "IGame.hpp"

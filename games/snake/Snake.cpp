@@ -5,10 +5,9 @@
 // Login   <erwan.simon@epitech.eu>
 // 
 // Started on  Wed Mar 29 17:22:12 2017 Simon
-// Last update Fri Apr  7 21:32:25 2017 Simon
+// Last update Sat Apr  8 17:41:48 2017 Antoine
 //
 
-#include <fstream>
 #include "Snake.hpp"
 
 struct arcade::WhereAmI&                Snake::_whereAmI() const
@@ -181,7 +180,7 @@ void		Snake::_eat()
       if ((this->_position = (struct arcade::WhereAmI *)
 	   realloc(this->_position, sizeof(struct arcade::WhereAmI)
 		   + (save * sizeof(struct arcade::Position)))) == NULL)
-	exit(84);
+	throw std::runtime_error("Snake : realloc fail");
       this->_position->lenght += 1;
     }
 }
@@ -243,10 +242,10 @@ Snake::Snake(int width, int height)
   
   if ((this->_map = (struct arcade::GetMap *)
        malloc(sizeof (struct arcade::GetMap) + t_map)) == NULL)
-    exit(84);  
+    throw std::runtime_error("Snake : malloc fail");
   if ((this->_position = (struct arcade::WhereAmI *)
        malloc(sizeof(struct arcade::WhereAmI)+ t_pos)) == NULL)
-    exit(84);
+    throw std::runtime_error("Snake : malloc fail");
   this->_food = 0;
   this->_state = 0;
   this->_score = 0;
@@ -265,7 +264,6 @@ extern "C"
     uint16_t		i = 0;
     arcade::CommandType	c;
     Snake		s(40, 40);
-    std::ofstream	o;
 
     while (std::cin.read(reinterpret_cast<char *>(&i), sizeof(uint16_t)))
       {

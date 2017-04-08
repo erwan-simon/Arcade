@@ -5,7 +5,7 @@
 ** Login   <selimrinaz@epitech.net>
 ** 
 ** Started on  Sat Apr  8 17:04:13 2017 Selim Rinaz
-** Last update Sat Apr  8 17:30:05 2017 Selim Rinaz
+// Last update Sat Apr  8 17:39:18 2017 Antoine
 */
 
 #include <signal.h>
@@ -16,6 +16,7 @@
 #include <string>
 #include <chrono>
 #include <thread>
+#include <stdexcept>
 #include "IGame.hpp"
 #include "IGraphic.hpp"
 #include "Launcher.hpp"
