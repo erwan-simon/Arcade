@@ -5,7 +5,7 @@
 ## Login   <erwan.simon@epitech.eu>
 ## 
 ## Started on  Thu Mar 30 11:17:19 2017 Simon
-## Last update Sat Apr  8 17:44:12 2017 Antoine
+## Last update Sat Apr  8 18:07:27 2017 Simon
 ##
 
 NAME_EXE	= arcade
@@ -30,8 +30,7 @@ SRCS_SN		= ./games/snake/Snake.cpp
 OBJS_SN		= $(SRCS_SN:.cpp=.o)
 
 NAME_PA		= ./games/libarcade_pacman.so
-SRCS_PA		= ./games/pacman/Pacman.cpp	\
-		  ./games/pacman/Ghost.cpp
+SRCS_PA		= ./games/pacman/Pacman.cpp
 OBJS_PA		= $(SRCS_PA:.cpp=.o)
 
 CXXFLAGS	+= -Wall -Wextra -fPIC -std=c++11 		\

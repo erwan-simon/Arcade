@@ -5,17 +5,21 @@
 ** Login   <selimrinaz@epitech.net>
 ** 
 ** Started on  Sat Apr  8 16:52:07 2017 Selim Rinaz
-// Last update Sat Apr  8 17:54:19 2017 Simon
+// Last update Sat Apr  8 18:47:12 2017 Simon
 */
 
 #ifndef PACMAN_HPP_
 # define PACMAN_HPP_
 
 #include "IGame.hpp"
-#include "Ghost.hpp"
 
 class	Pacman : public IGame {
 public:
+  typedef enum {
+    E_PREY,
+    E_PREDATOR
+  }					e_state;
+  
   Pacman(int width, int height);
   ~Pacman();
   
@@ -23,7 +27,6 @@ public:
   virtual struct arcade::WhereAmI&	_whereAmI() const;
   virtual struct arcade::GetMap&	_getMap() const;
   virtual int				_getScore() const;
-  Ghost const &				_getGhost() const;
   
   virtual void				_setHeading(IGraphic::e_key key);
 
@@ -39,7 +42,7 @@ public:
   virtual void				_initPosition();
 
 private:
-  Ghost *				_ghost;
+  e_state				_state;
   struct arcade::GetMap			*_map;
   struct arcade::WhereAmI		*_position;
   IGraphic::e_key			_initial_heading;

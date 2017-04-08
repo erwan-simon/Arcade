@@ -5,7 +5,7 @@
 ** Login   <selimrinaz@epitech.net>
 ** 
 ** Started on  Sat Apr  8 16:56:56 2017 Selim Rinaz
-// Last update Sat Apr  8 17:54:08 2017 Simon
+// Last update Sat Apr  8 18:51:13 2017 Simon
 */
 
 #include <algorithm>
@@ -19,11 +19,11 @@
 #include "IGraphic.hpp"
 #include "Protocol.hpp"
 #include "Pacman.hpp"
-#include "Ghost.hpp"
 
 Pacman::Pacman(int width, int height)
 {
   this->_score = 0;
+  this->_state = Pacman::E_PREDATOR;
   this->_heading = IGraphic::E_RIGHT;
   if ((this->_map = (struct arcade::GetMap *)
        malloc(sizeof(struct arcade::GetMap)
@@ -39,7 +39,6 @@ Pacman::Pacman(int width, int height)
 
 Pacman::~Pacman()
 {
-  delete (this->_ghost);
   free(this->_map);
   free(this->_position);
 }
@@ -57,11 +56,6 @@ struct arcade::GetMap&		Pacman::_getMap() const
 int	Pacman::_getScore() const
 {
   return (this->_score);
-}
-
-Ghost const &	Pacman::_getGhost() const
-{
-  return (*this->_ghost);
 }
 
 void	Pacman::_setHeading(IGraphic::e_key key)
@@ -101,29 +95,51 @@ void		Pacman::_move(IGraphic::e_key key)
     }
 }
 
-void	Pacman::_evilMove()
+static bool		check(arcade::Position const * position, int x, int y)
 {
-  for (int i = 0; i != 5; i++)
+  for (int i = 1; i != 5; i++)
     {
-      // if (this->_ghost[i].getState() == Ghost::PREDATOR)
-      // 	{
-      // 	  if (this->_ghost[i].getPosition().x == this->_position->position[0].x + 1 &&
-      // 	      this->_ghost[i].getPosition().y == this->_position->position[0].y)
-      // 	    this->_position->position[i + 1].x += 1;
-      // 	  else if (this->_ghost[i].getPosition().x == this->_position->position[0].x - 1 &&
-      // 		   this->_ghost[i].getPosition().y == this->_position->position[0].y)
-      // 	    this->_position->position[i + 1].x -= 1;
-      // 	  else if (this->_ghost[i].getPosition().x == this->_position->position[0].x &&
-      // 		   this->_ghost[i].getPosition().y == this->_position->position[0].y + 1)
-      // 	    this->_position->position[i + 1].y += 1;
-      // 	  else if (this->_ghost[i].getPosition().x == this->_position->position[0].x &&
-      // 		   this->_ghost[i].getPosition().y == this->_position->position[0].y - 1)
-      // 	    this->_position->position[i + 1].y -= 1;
-      // 	  else
-      // 	    this->_ghost[i].move(*this->_map, *this->_position);
-      // 	}
-      // else
-	this->_ghost[i].move(*this->_map, *this->_position->position);
+      if (position[i].x == x && position[i].y == y)
+	return (false);
+    }
+  return (true);
+}
+
+void			Pacman::_evilMove()
+{
+  std::vector<int>	way;
+  
+  for (int i = 1; i != 5; i++)
+    {
+      if (this->_map->tile[20 * 40 + 17] != static_cast<arcade::TileType>(1)
+	  && this->_position->position[i].y == 20
+	  && this->_position->position[i].x >= 17
+	  && this->_position->position[i].x <= 21)
+	this->_position->position[i].x -= 1;
+      else
+	{
+	  if (this->_map->tile[this->_position->position[i].y * 40 + this->_position->position[i].x + 1] != static_cast<arcade::TileType>(1) && check(this->_position->position, this->_position->position[i].x + 1, this->_position->position[i].y))
+	    way.push_back(0);
+	  if (this->_map->tile[this->_position->position[i].y * 40 + this->_position->position[i].x - 1] != static_cast<arcade::TileType>(1) && check(this->_position->position, this->_position->position[i].x - 1, this->_position->position[i].y))
+	    way.push_back(1);
+	  if (this->_map->tile[(this->_position->position[i].y + 1) * 40 + this->_position->position[i].x] != static_cast<arcade::TileType>(1) && check(this->_position->position, this->_position->position[i].x, this->_position->position[i].y + 1))
+	    way.push_back(2);
+	  if (this->_map->tile[(this->_position->position[i].y - 1) * 40 + this->_position->position[i].x] != static_cast<arcade::TileType>(1) && check(this->_position->position, this->_position->position[i].x, this->_position->position[i].y - 1))
+	    way.push_back(3);
+	  std::random_shuffle(way.begin(), way.end());
+	  if (way.size() != 0)
+	    {
+	      if (way.at(0) == 0)
+		this->_position->position[i].x += 1;
+	      else if (way.at(0) == 1)
+		this->_position->position[i].x -= 1;
+	      else if (way.at(0) == 2)
+		this->_position->position[i].y += 1;
+	      else if (way.at(0) == 3)
+		this->_position->position[i].y -= 1;
+	    }
+	  way.clear();
+	}
     }
 }
 
@@ -131,14 +147,28 @@ IGame::e_end	Pacman::_graphPlay()
 {
   IGame::e_end	end;
   static int	free = 0;
+  static int	save = 0;
 
   if (free == 50)
     this->_map->tile[20 * 40 + 17] = static_cast<arcade::TileType>(0);
   free++;
+  if (save != 0 && save == free - 50)
+    {
+      save = 0;
+      this->_state = Pacman::E_PREDATOR;
+    }
   if (this->_map->tile[this->_position->position[0].y * 40 + this->_position->position[0].x]
       == static_cast<arcade::TileType>(6))
     {
       this->_score += 1;
+      this->_map->tile[this->_position->position[0].y * 40 + this->_position->position[0].x]
+	= static_cast<arcade::TileType>(0);
+    }
+  else if (this->_map->tile[this->_position->position[0].y * 40 + this->_position->position[0].x]
+	   == static_cast<arcade::TileType>(7))
+    {
+      save = free;
+      this->_state = E_PREY;
       this->_map->tile[this->_position->position[0].y * 40 + this->_position->position[0].x]
 	= static_cast<arcade::TileType>(0);
     }
@@ -156,7 +186,16 @@ IGame::e_end	Pacman::_gameOver()
     {
       if (this->_position->position[0].y == this->_position->position[a].y
 	  && this->_position->position[0].x == this->_position->position[a].x)
-	return (IGame::E_LOSE);
+	{
+	  if (this->_state == Pacman::E_PREDATOR)
+	    return (IGame::E_LOSE);
+	  else
+	    {
+	      this->_position->position[a].y = 20;
+	      this->_position->position[a].x = 18 + a;
+	    }
+	}
+	
     }
   for (int y = 0; y < 40; y++)
     {
@@ -249,8 +288,6 @@ void	Pacman::_initPosition()
 
   this->_position->position[4].x = 21;
   this->_position->position[4].y = 20;
-
-  this->_ghost = new Ghost[4];
 }
 
 extern "C"
