@@ -5,7 +5,7 @@
 ## Login   <erwan.simon@epitech.eu>
 ## 
 ## Started on  Thu Mar 30 11:17:19 2017 Simon
-## Last update Sat Apr  8 18:07:27 2017 Simon
+## Last update Sat Apr  8 19:08:22 2017 Antoine
 ##
 
 NAME_EXE	= arcade
@@ -83,6 +83,6 @@ clean:
 fclean: 	clean
 		$(RM) $(NAME_EXE) $(NAME_NC) $(NAME_SF) $(NAME_LA) $(NAME_SN) $(NAME_PA)
 
-re:		fclean all
+re:		fclean mouli
 
 .PHONY:		all clean fclean re
