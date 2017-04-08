@@ -5,7 +5,7 @@
 ## Login   <erwan.simon@epitech.eu>
 ## 
 ## Started on  Thu Mar 30 11:17:19 2017 Simon
-## Last update Sat Apr  8 17:29:01 2017 Selim Rinaz
+## Last update Sat Apr  8 17:31:24 2017 Selim Rinaz
 ##
 
 NAME_EXE	= arcade
@@ -55,9 +55,11 @@ LSFFLAGS	=  -L/home/${USER}/.sfml/lib/ -lm		\
 CXX		= g++
 RM		= rm -f
 
-all:		$(NAME_SN) $(NAME_PA)
+mouli:		$(NAME_SN) $(NAME_PA)
 
 lib:		$(NAME_EXE) $(NAME_SN) $(NAME_NC) $(NAME_SF) $(NAME_PA) # $(NAME_LA)
+
+all:		mouli lib
 
 $(NAME_EXE):	$(OBJS_EXE)
 		$(CXX) -o $(NAME_EXE) $(OBJS_EXE) $(LDFLAGS)
