@@ -5,10 +5,12 @@
 // Login   <erwan.simon@epitech.eu>
 // 
 // Started on  Fri Mar 31 14:11:45 2017 Simon
-// Last update Fri Mar 31 17:19:22 2017 Simon
+// Last update Sat Apr  8 16:12:23 2017 Antoine
 //
 
 #include <iostream>
+#include <stdexcept>
+#include <exception>
 #include <dlfcn.h>
 #include "./games/include/IGame.hpp"
 #include "./graphic/IGraphic.hpp"
@@ -24,7 +26,14 @@ int             main(int ac, char **av)
       return (1);
     }
   temp = av[1];
-  Launcher	l(temp);
-  l.launch();
+  try {
+    Launcher	l(temp);
+    l.launch();
+  }
+  catch(std::exception const& error)
+    {
+      std::cerr << "ERROR : " << error.what() << std::endl;
+      return (84);
+    }
   return (0);
 }
