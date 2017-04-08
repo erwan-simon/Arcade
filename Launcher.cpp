@@ -5,7 +5,7 @@
 // Login   <erwan.simon@epitech.eu>
 // 
 // Started on  Wed Mar 29 17:30:33 2017 Simon
-// Last update Sat Apr  8 12:31:49 2017 Simon
+// Last update Sat Apr  8 17:02:38 2017 Simon
 //
 
 #include <signal.h>
@@ -29,7 +29,7 @@ void	Launcher::drawMap()
   int		y = 0;
   std::string	s = ".";
   std::string	o = "O";
-  
+
   for (y = 0; y != 40; y++)
     {
       for (x = 0; x != 40; x++)

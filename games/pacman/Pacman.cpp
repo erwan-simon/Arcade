@@ -5,7 +5,7 @@
 // Login   <erwan.simon@epitech.eu>
 // 
 // Started on  Mon Apr  3 14:51:47 2017 Simon
-// Last update Sat Apr  8 15:11:08 2017 Simon
+// Last update Sat Apr  8 17:43:43 2017 Simon
 //
 
 #include "../../Launcher.hpp"
@@ -59,7 +59,7 @@ int	Pacman::_getScore() const
   return (this->_score);
 }
 
-Ghost &	Pacman::_getGhost() const
+Ghost const &	Pacman::_getGhost() const
 {
   return (*this->_ghost);
 }
@@ -105,25 +105,25 @@ void	Pacman::_evilMove()
 {
   for (int i = 0; i != 5; i++)
     {
-      if (this->_ghost[i].getState() == Ghost::PREDATOR)
-	{
-	  if (this->_ghost[i].getPosition().x == this->_position->position[0].x + 1 &&
-	      this->_ghost[i].getPosition().y == this->_position->position[0].y)
-	    this->_position->position[i + 1].x += 1;
-	  else if (this->_ghost[i].getPosition().x == this->_position->position[0].x - 1 &&
-		   this->_ghost[i].getPosition().y == this->_position->position[0].y)
-	    this->_position->position[i + 1].x -= 1;
-	  else if (this->_ghost[i].getPosition().x == this->_position->position[0].x &&
-		   this->_ghost[i].getPosition().y == this->_position->position[0].y + 1)
-	    this->_position->position[i + 1].y += 1;
-	  else if (this->_ghost[i].getPosition().x == this->_position->position[0].x &&
-		   this->_ghost[i].getPosition().y == this->_position->position[0].y - 1)
-	    this->_position->position[i + 1].y -= 1;
-	  else
-	    this->_ghost[i].move(*this->_map, this->_position->position[0]);
-	}
-      else
-	this->_ghost[i].move(*this->_map, this->_position->position[0]);
+      // if (this->_ghost[i].getState() == Ghost::PREDATOR)
+      // 	{
+      // 	  if (this->_ghost[i].getPosition().x == this->_position->position[0].x + 1 &&
+      // 	      this->_ghost[i].getPosition().y == this->_position->position[0].y)
+      // 	    this->_position->position[i + 1].x += 1;
+      // 	  else if (this->_ghost[i].getPosition().x == this->_position->position[0].x - 1 &&
+      // 		   this->_ghost[i].getPosition().y == this->_position->position[0].y)
+      // 	    this->_position->position[i + 1].x -= 1;
+      // 	  else if (this->_ghost[i].getPosition().x == this->_position->position[0].x &&
+      // 		   this->_ghost[i].getPosition().y == this->_position->position[0].y + 1)
+      // 	    this->_position->position[i + 1].y += 1;
+      // 	  else if (this->_ghost[i].getPosition().x == this->_position->position[0].x &&
+      // 		   this->_ghost[i].getPosition().y == this->_position->position[0].y - 1)
+      // 	    this->_position->position[i + 1].y -= 1;
+      // 	  else
+      // 	    this->_ghost[i].move(*this->_map, *this->_position);
+      // 	}
+      // else
+	this->_ghost[i].move(*this->_map, *this->_position->position);
     }
 }
 
@@ -133,10 +133,7 @@ IGame::e_end	Pacman::_graphPlay()
   static int	free = 0;
 
   if (free == 50)
-    {
-      this->_map->tile[20 * 40 + 17] = static_cast<arcade::TileType>(0);
-      this->_map->tile[20 * 40 + 22] = static_cast<arcade::TileType>(0);
-    }
+    this->_map->tile[20 * 40 + 17] = static_cast<arcade::TileType>(0);
   free++;
   if (this->_map->tile[this->_position->position[0].y * 40 + this->_position->position[0].x]
       == static_cast<arcade::TileType>(6))
@@ -254,10 +251,6 @@ void	Pacman::_initPosition()
   this->_position->position[4].y = 20;
 
   this->_ghost = new Ghost[4];
-  this->_ghost[0].setPosition(this->_position->position[1]);
-  this->_ghost[1].setPosition(this->_position->position[2]);
-  this->_ghost[2].setPosition(this->_position->position[3]);
-  this->_ghost[3].setPosition(this->_position->position[4]);  
 }
 
 extern "C"
@@ -267,7 +260,6 @@ extern "C"
     uint16_t		i = 0;
     arcade::CommandType	c;
     Pacman		p(40, 40);
-    std::ofstream	o;
 
     while (std::cin.read(reinterpret_cast<char *>(&i), sizeof(uint16_t)))
       {

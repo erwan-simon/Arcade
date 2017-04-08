@@ -5,7 +5,7 @@
 // Login   <erwan.simon@epitech.eu>
 // 
 // Started on  Mon Apr  3 15:01:55 2017 Simon
-// Last update Sat Apr  8 13:15:39 2017 Simon
+// Last update Sat Apr  8 16:16:50 2017 Simon
 //
 
 #ifndef PACMAN_HPP_
@@ -23,10 +23,10 @@ public:
   virtual struct arcade::WhereAmI&	_whereAmI() const;
   virtual struct arcade::GetMap&	_getMap() const;
   virtual int				_getScore() const;
-  Ghost &				_getGhost() const;
+  Ghost const &				_getGhost() const;
   
   virtual void				_setHeading(IGraphic::e_key key);
-  
+
   // Input
   virtual void				_move(IGraphic::e_key);
   void					_evilMove();
