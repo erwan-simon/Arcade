@@ -5,7 +5,7 @@
 ** Login   <selimrinaz@epitech.net>
 ** 
 ** Started on  Sat Apr  8 17:05:27 2017 Selim Rinaz
-** Last update Sat Apr  8 17:29:20 2017 Selim Rinaz
+** Last update Sat Apr  8 18:12:38 2017 Selim Rinaz
 */
 
 #include <iostream>
@@ -22,7 +22,7 @@ int             main(int ac, char **av)
   
   if (ac != 2)
     {
-      std::cerr << "Need an argument" << std::endl;
+      std::cerr << "Need ONE argument (graphic library path)" << std::endl;
       return (1);
     }
   temp = av[1];
