@@ -5,7 +5,7 @@
 ** Login   <selimrinaz@epitech.net>
 ** 
 ** Started on  Sat Apr  8 16:56:56 2017 Selim Rinaz
-// Last update Sat Apr  8 19:05:57 2017 Simon
+// Last update Sat Apr  8 19:15:58 2017 Simon
 */
 
 #include <algorithm>
@@ -23,7 +23,7 @@
 Pacman::Pacman(int width, int height)
 {
   this->_score = 0;
-  this->_state = Pacman::E_PREDATOR;
+  this->_state = E_PREDATOR;
   this->_heading = IGraphic::E_RIGHT;
   if ((this->_map = (struct arcade::GetMap *)
        malloc(sizeof(struct arcade::GetMap)
@@ -161,7 +161,7 @@ IGame::e_end	Pacman::_graphPlay()
   if (save != 0 && save == free - 50)
     {
       save = 0;
-      this->_state = Pacman::E_PREDATOR;
+      this->_state = E_PREDATOR;
     }
   if (this->_map->tile[this->_position->position[0].y * 40 + this->_position->position[0].x]
       == static_cast<arcade::TileType>(6))
@@ -194,7 +194,7 @@ IGame::e_end	Pacman::_gameOver()
       if (this->_position->position[0].y == this->_position->position[a].y
 	  && this->_position->position[0].x == this->_position->position[a].x)
 	{
-	  if (this->_state == Pacman::E_PREDATOR)
+	  if (this->_state == E_PREDATOR)
 	    return (IGame::E_LOSE);
 	  else
 	    {
@@ -202,8 +202,7 @@ IGame::e_end	Pacman::_gameOver()
 	      this->_position->position[a].y = 20;
 	      this->_position->position[a].x = 18 + a;
 	    }
-	}
-	
+	}	
     }
   for (int y = 0; y < 40; y++)
     {
