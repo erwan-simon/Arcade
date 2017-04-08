@@ -1,32 +1,38 @@
-//
-// mySfml.hpp for  in /home/antoine/Rendu/C++/cpp_arcade/lib/sfml
-// 
-// Made by Antoine
-// Login   <antoine@epitech.eu>
-// 
-// Started on  Thu Mar 30 15:07:11 2017 Antoine
-// Last update Tue Apr  4 15:09:52 2017 Simon
-//
+/*
+** mySfml.hpp for mySfml in /home/selimrinaz/repo/tek2/B4-CPP/cpp_arcade/lib
+** 
+** Made by Selim Rinaz
+** Login   <selimrinaz@epitech.net>
+** 
+** Started on  Sat Apr  8 16:44:35 2017 Selim Rinaz
+** Last update Sat Apr  8 17:21:25 2017 Selim Rinaz
+*/
 
 #ifndef MYSFML_HPP_
 # define MYSFML_HPP_
 
-# include "./../../graphic/IGraphic.hpp"
+# include "IGraphic.hpp"
 
 class				mySfml : public IGraphic
 {
 public:
   mySfml();
-  virtual int			openWindow(int x, int y);
-  virtual int			refreshWindow();
-  virtual int			clearWindow();
-  virtual int			closeWindow();
-  virtual IGraphic::e_key	getKey();
+
+  // Window
+  virtual void			openWindow(const int &x, const int &y);
+  virtual void			refreshWindow();
+  virtual void			clearWindow();
+  virtual void			closeWindow();
+  virtual IGraphic::e_key	getKey() const;
 
   // Draw
-  virtual int			buildCell(int x, int y, e_color col);
-  virtual int			writeStuff(int x, int y, std::string& text);
-  int				setCell();
+  virtual void			buildCell(const int &x,
+					  const int &y,
+					  const e_color &col);
+  virtual void			writeStuff(const int &x,
+					   const int &y,
+					   const std::string& text);
+  void				setCell();
 
   private:
   sf::RenderWindow		_wd;
@@ -35,8 +41,6 @@ public:
   int				_x;
   int				_cellY;
   int				_cellX;
-  // int				_marginY;
-  // int				_marginX;
 };
 
 #endif

@@ -1,21 +1,21 @@
-//
-// Snake.hpp for arcade in /home/erwan/Code/teck/Cpp/cpp_arcade/games/snake
-// 
-// Made by Simon
-// Login   <erwan.simon@epitech.eu>
-// 
-// Started on  Wed Mar 29 17:18:01 2017 Simon
-// Last update Fri Apr  7 19:52:04 2017 Antoine
-//
+/*
+** Snake.hpp for Snake.hpp in /home/selimrinaz/repo/tek2/B4-CPP/cpp_arcade/lib
+** 
+** Made by Selim Rinaz
+** Login   <selimrinaz@epitech.net>
+** 
+** Started on  Sat Apr  8 16:50:42 2017 Selim Rinaz
+** Last update Sat Apr  8 16:50:43 2017 Selim Rinaz
+*/
 
 #ifndef SNAKE_HPP_
 # define SNAKE_HPP_
 
 #include <random>
-#include "../../graphic/IGraphic.hpp"
-#include "../include/Protocol.hpp"
-#include "./../include/IGame.hpp"
-#include "../../Launcher.hpp"
+#include "IGraphic.hpp"
+#include "Protocol.hpp"
+#include "IGame.hpp"
+#include "Launcher.hpp"
 
 class					Snake : public IGame
 {

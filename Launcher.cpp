@@ -1,12 +1,12 @@
-//
-// launcher.cpp for arcade in /home/erwan/Code/teck/Cpp/cpp_arcade
-// 
-// Made by Simon
-// Login   <erwan.simon@epitech.eu>
-// 
-// Started on  Wed Mar 29 17:30:33 2017 Simon
-// Last update Sat Apr  8 12:31:49 2017 Simon
-//
+/*
+** Launcher.cpp for Launcher in /home/selimrinaz/repo/tek2/B4-CPP/cpp_arcade
+** 
+** Made by Selim Rinaz
+** Login   <selimrinaz@epitech.net>
+** 
+** Started on  Sat Apr  8 17:04:13 2017 Selim Rinaz
+** Last update Sat Apr  8 17:04:15 2017 Selim Rinaz
+*/
 
 #include <signal.h>
 #include <iostream>
@@ -16,8 +16,8 @@
 #include <string>
 #include <chrono>
 #include <thread>
-#include "./games/include/IGame.hpp"
-#include "./graphic/IGraphic.hpp"
+#include "IGame.hpp"
+#include "IGraphic.hpp"
 #include "Launcher.hpp"
 
 using namespace std::chrono;

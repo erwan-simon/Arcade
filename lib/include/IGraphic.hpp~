@@ -5,7 +5,7 @@
 ** Login   <selimrinaz@epitech.net>
 ** 
 ** Started on  Wed Mar 29 15:05:04 2017 Selim Rinaz
-// Last update Tue Apr  4 15:03:25 2017 Simon
+** Last update Sat Apr  8 16:56:22 2017 Selim Rinaz
 */
 
 #ifndef IGRAPHIC_HPP_
@@ -45,15 +45,15 @@ public:
   }			e_key;
 
   // Window
-  virtual int		openWindow(int x, int y) = 0;
-  virtual int		refreshWindow() = 0;
-  virtual int		clearWindow() = 0;
-  virtual int		closeWindow() = 0;
-  virtual e_key		getKey() = 0;
+  virtual void		openWindow(int x, int y) const = 0;
+  virtual void		refreshWindow() const = 0;
+  virtual void		clearWindow() const = 0;
+  virtual void		closeWindow() const = 0;
+  virtual e_key		getKey() const = 0;
 
   // Draw
-  virtual int		writeStuff(int x, int y, std::string& text) = 0;
-  virtual int		buildCell(int x, int y, e_color col) = 0;
+  virtual void		writeStuff(int x, int y, std::string& text) const = 0;
+  virtual void		buildCell(int x, int y, e_color col) const = 0;
 };
 
 #endif

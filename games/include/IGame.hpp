@@ -1,17 +1,17 @@
-//
-// IGame.hpp for  in /home/antoine/Rendu/C++/cpp_arcade/games/include
-// 
-// Made by Antoine
-// Login   <antoine@epitech.eu>
-// 
-// Started on  Tue Mar 28 14:24:06 2017 Antoine
-// Last update Fri Apr  7 19:52:30 2017 Simon
-//
+/*
+** IGame.hpp for IGame in /home/selimrinaz/repo/tek2/B4-CPP/cpp_arcade
+** 
+** Made by Selim Rinaz
+** Login   <selimrinaz@epitech.net>
+** 
+** Started on  Sat Apr  8 16:54:55 2017 Selim Rinaz
+** Last update Sat Apr  8 16:54:56 2017 Selim Rinaz
+*/
 
 #ifndef IGAME_HPP_
 # define IGAME_HPP_
 
-#include "./../../graphic/IGraphic.hpp"
+#include "IGraphic.hpp"
 #include "Protocol.hpp"
 
 class				IGame

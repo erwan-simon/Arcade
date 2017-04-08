@@ -1,12 +1,12 @@
-//
-// mySfml.cpp for  in /home/antoine/Rendu/C++/cpp_arcade/lib/sfml
-// 
-// Made by Antoine
-// Login   <antoine@epitech.eu>
-// 
-// Started on  Thu Mar 30 15:11:07 2017 Antoine
-// Last update Wed Apr  5 22:27:43 2017 Simon
-//
+/*
+** mySfml.cpp for mySfml in /home/selimrinaz/repo/tek2/B4-CPP/cpp_arcade
+** 
+** Made by Selim Rinaz
+** Login   <selimrinaz@epitech.net>
+** 
+** Started on  Sat Apr  8 17:14:23 2017 Selim Rinaz
+** Last update Sat Apr  8 17:21:20 2017 Selim Rinaz
+*/
 
 #include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>
@@ -35,41 +35,32 @@ static sf::Color	colorCell(IGraphic::e_color col)
   return (sf::Color::Black);
 }
 
-int	mySfml::openWindow(int x, int y)
+void	mySfml::openWindow(const int &x, const int &y)
 {
   this->_cellX = 0;
   this->_cellY = 0;
   this->_wd.create(sf::VideoMode(x * 20, y * 20), "Arcade", sf::Style::Close);
   this->setCell();
   this->_wd.display();
-  return (0);
 }
 
-int	mySfml::refreshWindow()
+void	mySfml::refreshWindow()
 {
-  // sf::Vector2u size = this->_wd.getSize();
-
-  // this->_y = size.y;
-  // this->_x = size.x;
-  // this->_wd.pollEvent(this->_event);
   this->setCell();
   this->_wd.display();
-  return (0);
 }
 
-int	mySfml::clearWindow()
+void	mySfml::clearWindow()
 {
   this->_wd.clear(sf::Color::Black);
-  return (0);
 }
 
-int	mySfml::closeWindow()
+void	mySfml::closeWindow()
 {
   this->_wd.close();
-  return (0);
 }
 
-IGraphic::e_key	mySfml::getKey()
+IGraphic::e_key	mySfml::getKey() const
 {
   if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
     return (E_LEFT);
@@ -98,52 +89,26 @@ IGraphic::e_key	mySfml::getKey()
   return (E_NONE);
 }
 
-int	mySfml::setCell()
+void	mySfml::setCell()
 {
   sf::Vector2u size = this->_wd.getSize();
 
   this->_x = size.x;
   this->_y = size.x;
-  // this->_cellY = this->_cellX;
   this->_cellX = this->_x / 40;
   this->_cellY = this->_y / 40;
-  
-  // if (size.y > size.x)
-  //   {
-  //     this->_x = size.x;
-  //     this->_y = size.x;
-  //     // this->_cellY = this->_cellX;
-  //     this->_cellX = this->_x / 40;
-  //     this->_cellY = this->_y / 40;
-  //     // this->_cellX = this->_cellY;
-  //   }
-  // else
-  //   {
-  //     this->_y = size.y;
-  //     this->_x = size.y;
-  //     // this->_cellY = this->_cellX;
-  //     this->_cellX = this->_x / 40;
-  //     this->_cellY = this->_y / 40;
-  //     // this->_cellX = this->_cellY;
-  //   }
-  // std::cout << "size.x = " << size.x << " | size.y = " << size.y << std::endl;
-  // std::cout << "Cellx = " << this->_cellX * 40 << " | Celly = " << this->_cellY * 40
-  // 	    << std::endl << std::endl;;
   this->_wd.pollEvent(this->_event);
-  return (0);
 }
 
-int	mySfml::buildCell(int x, int y, IGraphic::e_color col)
+void	mySfml::buildCell(const int &x, const int &y, const IGraphic::e_color &col)
 {
   sf::RectangleShape rectangle(sf::Vector2f(this->_cellX, this->_cellY));
-  // rectangle.setSize(sf::Vector2f(this->_cellX, this->_cellX));
   rectangle.setFillColor(colorCell(col));
   rectangle.setPosition(x * this->_cellX, y * this->_cellY);
   this->_wd.draw(rectangle);
-  return (0);
 }
 
-int	mySfml::writeStuff(int x, int y, std::string& text)
+void	mySfml::writeStuff(const int &x, const int &y, const std::string& text)
 {
   sf::Text      tx;
   sf::Font      font;
@@ -165,7 +130,6 @@ int	mySfml::writeStuff(int x, int y, std::string& text)
       this->_wd.draw(tx);
       i += 1;
     }
-  return (0);
 }
 
 extern "C"

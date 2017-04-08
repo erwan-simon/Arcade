@@ -1,18 +1,18 @@
-//
-// Launcher.hpp for arcade in /home/erwan/Code/teck/Cpp/cpp_arcade
-// 
-// Made by Simon
-// Login   <erwan.simon@epitech.eu>
-// 
-// Started on  Fri Mar 31 13:51:50 2017 Simon
-// Last update Fri Apr  7 20:14:59 2017 Antoine
-//
+/*
+** Launcher.hpp for Launcher in /home/selimrinaz/repo/tek2/B4-CPP/cpp_arcade/lib
+** 
+** Made by Selim Rinaz
+** Login   <selimrinaz@epitech.net>
+** 
+** Started on  Sat Apr  8 16:52:41 2017 Selim Rinaz
+** Last update Sat Apr  8 16:53:25 2017 Selim Rinaz
+*/
 
 #ifndef LAUNCHER_HPP_
 # define LAUNCHER_HPP_
 
-#include "./games/include/IGame.hpp"
-#include "./graphic/IGraphic.hpp"
+#include "IGame.hpp"
+#include "IGraphic.hpp"
 
 class Launcher {
 public:
