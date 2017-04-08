@@ -1,16 +1,13 @@
-//
-// Pacman.cpp for arcade in /home/erwan/Code/teck/Cpp/cpp_arcade/games/pacman
-// 
-// Made by Simon
-// Login   <erwan.simon@epitech.eu>
-// 
-// Started on  Mon Apr  3 14:51:47 2017 Simon
-// Last update Sat Apr  8 17:43:43 2017 Simon
-//
+/*
+** Pacman.cpp for Pacman in /home/selimrinaz/repo/tek2/B4-CPP/cpp_arcade
+** 
+** Made by Selim Rinaz
+** Login   <selimrinaz@epitech.net>
+** 
+** Started on  Sat Apr  8 16:56:56 2017 Selim Rinaz
+// Last update Sat Apr  8 17:54:08 2017 Simon
+*/
 
-#include "../../Launcher.hpp"
-#include "../../graphic/IGraphic.hpp"
-#include "../include/Protocol.hpp"
 #include <algorithm>
 #include <vector>
 #include <iostream>
@@ -18,6 +15,9 @@
 #include <iostream>
 #include <string>
 #include <fstream>
+#include "Launcher.hpp"
+#include "IGraphic.hpp"
+#include "Protocol.hpp"
 #include "Pacman.hpp"
 #include "Ghost.hpp"
 

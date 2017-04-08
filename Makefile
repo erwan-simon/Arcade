@@ -5,12 +5,11 @@
 ## Login   <erwan.simon@epitech.eu>
 ## 
 ## Started on  Thu Mar 30 11:17:19 2017 Simon
-## Last update Sat Apr  8 13:36:07 2017 Simon
+## Last update Sat Apr  8 17:44:12 2017 Antoine
 ##
 
 NAME_EXE	= arcade
 SRCS_EXE	= ./Launcher.cpp	\
-		  ./error/Error.cpp	\
 		  ./main.cpp
 OBJS_EXE	= $(SRCS_EXE:.cpp=.o)
 
@@ -35,24 +34,31 @@ SRCS_PA		= ./games/pacman/Pacman.cpp	\
 		  ./games/pacman/Ghost.cpp
 OBJS_PA		= $(SRCS_PA:.cpp=.o)
 
-CXXFLAGS	+= -Wall -Wextra -fPIC -std=c++11 -Igraphic -g -g3 -Wfatal-errors
+CXXFLAGS	+= -Wall -Wextra -fPIC -std=c++11 		\
+		   -Wfatal-errors -I./lib/include -g -g3	\
+		   -I./games/include -I./error -I./
+
 LDFLAGS		+= -ldl
 
 LAFLAGS		=  -L/home/${USER}/.froot/lib/ -llapin			\
 		   -L/usr/local/lib					\
 		   -lm							\
+		   -lsfml-graphics -lsfml-window -lsfml-system		\
 		   -I../../graphic/ -I/home/${USER}/.froot/include/
 
-LSFFLAGS	=  -L/home/${USER}/.sfml/lib/ -lm	\
-		   -L/usr/local/lib			\
+LSFFLAGS	=  -L/home/${USER}/.sfml/lib/ -lm		\
+		   -L/usr/local/lib				\
+		   -lsfml-graphics -lsfml-window -lsfml-system	\
 		   -I/home/${USER}/.sfml/include/
 
 CXX		= g++
 RM		= rm -f
 
-all:		$(NAME_SN) $(NAME_PA)
+mouli:		$(NAME_SN) $(NAME_PA)
 
 lib:		$(NAME_EXE) $(NAME_SN) $(NAME_NC) $(NAME_SF) $(NAME_PA) # $(NAME_LA)
+
+all:		mouli lib
 
 $(NAME_EXE):	$(OBJS_EXE)
 		$(CXX) -o $(NAME_EXE) $(OBJS_EXE) $(LDFLAGS)
@@ -67,10 +73,10 @@ $(NAME_NC):	$(OBJS_NC)
 		$(CXX) -shared -o $(NAME_NC) $(OBJS_NC) -lncurses
 
 $(NAME_SF):	$(OBJS_SF)
-		$(CXX) -shared -o $(NAME_SF) $(OBJS_SF) -lsfml-graphics -lsfml-window -lsfml-system $(LSFFLAGS)
+		$(CXX) -shared -o $(NAME_SF) $(OBJS_SF) $(LSFFLAGS)
 
 $(NAME_LA):	$(OBJS_LA)
-		$(CXX) -shared -o $(NAME_LA) $(OBJS_LA) -lsfml-graphics -lsfml-window -lsfml-system $(LAFLAGS)
+		$(CXX) -shared -o $(NAME_LA) $(OBJS_LA) $(LAFLAGS)
 
 clean:
 		$(RM) $(OBJS_EXE) $(OBJS_NC) $(OBJS_SF) $(OBJS_LA) $(OBJS_SN) $(OBJS_PA)

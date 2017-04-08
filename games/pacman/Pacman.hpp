@@ -1,17 +1,17 @@
-//
-// Pacman.hpp for arcade in /home/erwan/Code/teck/Cpp/cpp_arcade/games/pacman
-// 
-// Made by Simon
-// Login   <erwan.simon@epitech.eu>
-// 
-// Started on  Mon Apr  3 15:01:55 2017 Simon
-// Last update Sat Apr  8 16:16:50 2017 Simon
-//
+/*
+** Pacman.hpp for Pacman in /home/selimrinaz/repo/tek2/B4-CPP/cpp_arcade/lib
+** 
+** Made by Selim Rinaz
+** Login   <selimrinaz@epitech.net>
+** 
+** Started on  Sat Apr  8 16:52:07 2017 Selim Rinaz
+// Last update Sat Apr  8 17:54:19 2017 Simon
+*/
 
 #ifndef PACMAN_HPP_
 # define PACMAN_HPP_
 
-#include "../include/IGame.hpp"
+#include "IGame.hpp"
 #include "Ghost.hpp"
 
 class	Pacman : public IGame {

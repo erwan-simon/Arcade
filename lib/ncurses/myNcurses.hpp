@@ -1,31 +1,35 @@
-//
-// myNcurses.hpp for arcade in /home/erwan/Code/teck/Cpp/cpp_arcade/lib/ncurses
-// 
-// Made by Simon
-// Login   <erwan.simon@epitech.eu>
-// 
-// Started on  Tue Mar 28 19:03:04 2017 Simon
-// Last update Fri Apr  7 18:00:52 2017 Simon
-//
+/*
+** myNcurses.hpp for myNcurses in /home/selimrinaz/repo/tek2/B4-CPP/cpp_arcade/lib
+** 
+** Made by Selim Rinaz
+** Login   <selimrinaz@epitech.net>
+** 
+** Started on  Sat Apr  8 16:40:15 2017 Selim Rinaz
+** Last update Sat Apr  8 17:21:43 2017 Selim Rinaz
+*/
 
 #ifndef MYNCURSES_HPP_
 # define MYNCURSES_HPP_
 
-# include "./../../graphic/IGraphic.hpp"
+# include "IGraphic.hpp"
 
 class myNcurses : public IGraphic
 {
 public:
   // Window
-  virtual int			openWindow(int x, int y);
-  virtual int			refreshWindow();
-  virtual int			clearWindow();
-  virtual int			closeWindow();
-  virtual IGraphic::e_key	getKey();
+  virtual void			openWindow(const int &x, const int &y);
+  virtual void			refreshWindow();
+  virtual void			clearWindow();
+  virtual void			closeWindow();
+  virtual IGraphic::e_key	getKey() const;
 
   // Draw
-  virtual int			buildCell(int x, int y, e_color col);
-  virtual int			writeStuff(int x, int y, std::string& text);
+  virtual void			buildCell(const int &x,
+					  const int &y,
+					  const e_color &col);
+  virtual void			writeStuff(const int &x,
+					   const int &y,
+					   const std::string& text);
 
 private:
   WINDOW			*win;

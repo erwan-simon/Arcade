@@ -1,17 +1,19 @@
-//
-// main.cpp for arcade in /home/erwan/Code/teck/Cpp/cpp_arcade
-// 
-// Made by Simon
-// Login   <erwan.simon@epitech.eu>
-// 
-// Started on  Fri Mar 31 14:11:45 2017 Simon
-// Last update Fri Mar 31 17:19:22 2017 Simon
-//
+/*
+** main.cpp for main in /home/selimrinaz/repo/tek2/B4-CPP/cpp_arcade
+** 
+** Made by Selim Rinaz
+** Login   <selimrinaz@epitech.net>
+** 
+** Started on  Sat Apr  8 17:05:27 2017 Selim Rinaz
+** Last update Sat Apr  8 17:29:20 2017 Selim Rinaz
+*/
 
 #include <iostream>
+#include <stdexcept>
+#include <exception>
 #include <dlfcn.h>
-#include "./games/include/IGame.hpp"
-#include "./graphic/IGraphic.hpp"
+#include "IGame.hpp"
+#include "IGraphic.hpp"
 #include "Launcher.hpp"
 
 int             main(int ac, char **av)
@@ -24,7 +26,14 @@ int             main(int ac, char **av)
       return (1);
     }
   temp = av[1];
-  Launcher	l(temp);
-  l.launch();
+  try {
+    Launcher	l(temp);
+    l.launch();
+  }
+  catch(std::exception const& error)
+    {
+      std::cerr << "ERROR : " << error.what() << std::endl;
+      return (84);
+    }
   return (0);
 }

@@ -1,17 +1,17 @@
-//
-// myNcurses.cpp for arcade in /home/erwan/Code/teck/Cpp/cpp_arcade/lib/ncurses
-// 
-// Made by Simon
-// Login   <erwan.simon@epitech.eu>
-// 
-// Started on  Tue Mar 28 19:02:29 2017 Simon
-// Last update Fri Apr  7 18:12:35 2017 Simon
-//
+/*
+** myNcurses.cpp for myNcurses in /home/selimrinaz/repo/tek2/B4-CPP/cpp_arcade/lib
+** 
+** Made by Selim Rinaz
+** Login   <selimrinaz@epitech.net>
+** 
+** Started on  Sat Apr  8 16:44:52 2017 Selim Rinaz
+** Last update Sat Apr  8 17:21:32 2017 Selim Rinaz
+*/
 
 #include <ncurses.h>
 #include "myNcurses.hpp"
 
-int	myNcurses::openWindow(int x, int y)
+void	myNcurses::openWindow(const int &x, const int &y)
 {
   initscr();
   cbreak();
@@ -28,33 +28,29 @@ int	myNcurses::openWindow(int x, int y)
   init_pair(5, COLOR_MAGENTA, COLOR_MAGENTA);
   init_pair(6, COLOR_GREEN, COLOR_GREEN);
   curs_set(0);
-  if ((this->win = newwin(y, x, 0, 0)) == NULL)
-    return (84);
-  return (0);
+  //ERREUR !!!!!! :
+  this->win = newwin(y, x, 0, 0);
 }
 
-int	myNcurses::refreshWindow()
+void	myNcurses::refreshWindow()
 {
   refresh();
-  return (0);
 }
 
-int	myNcurses::clearWindow()
+void	myNcurses::clearWindow()
 {
   clear();
-  return (0);
 }
 
-int	myNcurses::closeWindow()
+void	myNcurses::closeWindow()
 {
-  if (delwin(this->win) != 0)
-    return (84);
+  //ERREUR !!! :
+  delwin(this->win);
   curs_set(1);
   endwin();
-  return (0);
 }
 
-IGraphic::e_key	myNcurses::getKey()
+IGraphic::e_key	myNcurses::getKey() const
 {
   switch (getch()) {
   case KEY_LEFT:
@@ -85,15 +81,14 @@ IGraphic::e_key	myNcurses::getKey()
   return (IGraphic::E_NONE);
 }
 
-int	myNcurses::buildCell(int x, int y, IGraphic::e_color col)
+void	myNcurses::buildCell(const int &x, const int &y, const IGraphic::e_color &col)
 {
   attron(COLOR_PAIR(col));
   mvprintw(y, (x * 2), "OO");
   attroff(COLOR_PAIR(col));
-  return (0);
 }
 
-int		myNcurses::writeStuff(int x, int y, std::string &text)
+void		myNcurses::writeStuff(const int &x, const int &y, const std::string &text)
 {
   unsigned int	a = 0;
 
@@ -102,7 +97,6 @@ int		myNcurses::writeStuff(int x, int y, std::string &text)
       mvprintw(y, (x * 2) + a, "%c", text.at(a / 2));
       a += 2;
     }
-  return (0);
 }
 
 extern "C"
