@@ -5,7 +5,7 @@
 ** Login   <selimrinaz@epitech.net>
 ** 
 ** Started on  Sat Apr  8 17:04:13 2017 Selim Rinaz
-// Last update Sat Apr  8 18:49:16 2017 Antoine
+// Last update Sat Apr  8 19:23:36 2017 Simon
 */
 
 #include <signal.h>
@@ -67,7 +67,7 @@ void				Launcher::graphPlay()
       t += milliseconds(200);
       std::this_thread::sleep_until(t);
       if (this->interact(this->_lib->getKey()) == -1)
-	return ;
+	break ;
       if ((this->_end = this->_game->_graphPlay()) != IGame::E_NONE)
 	break ;
       this->drawMap();
@@ -303,6 +303,7 @@ int		Launcher::interact(IGraphic::e_key key)
   if (key == IGraphic::E_2 || key == IGraphic::E_3)
     this->changeLib(key);
   else if (key == IGraphic::E_ESC)
+    
     return (-1);
   else if (key == IGraphic::E_4)
     {
@@ -318,8 +319,10 @@ int		Launcher::interact(IGraphic::e_key key)
       else
 	this->changeGame(key);
     }
-  else if (key == IGraphic::E_ENT)
+  else if (key == IGraphic::E_8)
     this->play();
+  else if (key == IGraphic::E_8)
+    return (-1);
   else if (this->_game != NULL && (key == IGraphic::E_RIGHT || key == IGraphic::E_LEFT ||
 				   key == IGraphic::E_UP || key == IGraphic::E_DOWN))
     this->_game->_setHeading(key);
