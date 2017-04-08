@@ -5,7 +5,7 @@
 ** Login   <selimrinaz@epitech.net>
 ** 
 ** Started on  Sat Apr  8 17:04:13 2017 Selim Rinaz
-// Last update Sat Apr  8 19:23:36 2017 Simon
+// Last update Sat Apr  8 19:27:10 2017 Antoine
 */
 
 #include <signal.h>
@@ -77,8 +77,8 @@ void				Launcher::graphPlay()
   this->_score = this->_game->_getScore();
   if(this->_dh_game != NULL)
     dlclose(this->_dh_game);
-  if (dlerror() != NULL)
-    throw std::runtime_error(dlerror());
+  // if (dlerror() != NULL)
+  //   throw std::runtime_error(dlerror());
   this->_game = NULL;
 }
 
@@ -154,8 +154,8 @@ void		Launcher::changeLib(IGraphic::e_key key)
   this->_lib->closeWindow();
   if(this->_dh_lib != NULL)
     dlclose(this->_dh_lib);
-  if (dlerror() != NULL)
-    throw std::runtime_error(dlerror());
+  // if (dlerror() != NULL)
+  //   throw std::runtime_error(dlerror());
   if (key == IGraphic::E_2 && this->_current_lib != 0)
     this->_current_lib -= 1;
   else if (key == IGraphic::E_3 && this->_lib_name[this->_current_lib + 1] != "")
@@ -176,8 +176,8 @@ void		Launcher::changeGame(IGraphic::e_key key)
 
   if(this->_dh_game != NULL)
     dlclose(this->_dh_game);
-  if (dlerror() != NULL)
-    throw std::runtime_error(dlerror());
+  // if (dlerror() != NULL)
+  //   throw std::runtime_error(dlerror());
   if (key == IGraphic::E_4 && this->_current_game != 0)
     this->_current_game -= 1;
   else if (key == IGraphic::E_5 && this->_game_name[this->_current_game + 1] != "")
@@ -206,8 +206,8 @@ void		Launcher::play()
   this->graphPlay();
   if(this->_dh_game != NULL)
     dlclose(this->_dh_game);
-  if (dlerror() != NULL)
-    throw std::runtime_error(dlerror());
+  // if (dlerror() != NULL)
+  //   throw std::runtime_error(dlerror());
 }
 
 void			Launcher::writeMenu()

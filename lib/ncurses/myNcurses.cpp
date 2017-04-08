@@ -5,7 +5,7 @@
 ** Login   <selimrinaz@epitech.net>
 ** 
 ** Started on  Sat Apr  8 16:44:52 2017 Selim Rinaz
-** Last update Sat Apr  8 17:21:32 2017 Selim Rinaz
+// Last update Sat Apr  8 19:23:21 2017 Antoine
 */
 
 #include <ncurses.h>
@@ -75,8 +75,6 @@ IGraphic::e_key	myNcurses::getKey() const
     return (IGraphic::E_9);
   case 27:
     return (IGraphic::E_ESC);
-  case 10:
-    return (IGraphic::E_ENT);
   }
   return (IGraphic::E_NONE);
 }

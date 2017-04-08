@@ -5,7 +5,7 @@
 ** Login   <selimrinaz@epitech.net>
 ** 
 ** Started on  Wed Mar 29 15:05:04 2017 Selim Rinaz
-** Last update Sat Apr  8 17:21:38 2017 Selim Rinaz
+// Last update Sat Apr  8 19:23:35 2017 Antoine
 */
 
 #ifndef IGRAPHIC_HPP_
@@ -40,8 +40,7 @@ public:
     E_5,
     E_8,
     E_9,
-    E_ESC,
-    E_ENT
+    E_ESC
   }			e_key;
 
   // Window

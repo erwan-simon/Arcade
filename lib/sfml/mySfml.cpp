@@ -5,7 +5,7 @@
 ** Login   <selimrinaz@epitech.net>
 ** 
 ** Started on  Sat Apr  8 17:14:23 2017 Selim Rinaz
-** Last update Sat Apr  8 17:21:20 2017 Selim Rinaz
+// Last update Sat Apr  8 19:23:06 2017 Antoine
 */
 
 #include <SFML/Window.hpp>
@@ -84,8 +84,6 @@ IGraphic::e_key	mySfml::getKey() const
     return (E_9);
   if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
     return (E_ESC);
-  if (sf::Keyboard::isKeyPressed(sf::Keyboard::Return))
-    return (E_ENT);
   return (E_NONE);
 }
 
