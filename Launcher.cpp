@@ -5,7 +5,7 @@
 ** Login   <selimrinaz@epitech.net>
 ** 
 ** Started on  Sat Apr  8 17:04:13 2017 Selim Rinaz
-// Last update Sat Apr  8 17:53:42 2017 Simon
+// Last update Sat Apr  8 18:49:16 2017 Antoine
 */
 
 #include <signal.h>
@@ -58,9 +58,9 @@ void	Launcher::drawMap()
 
 void				Launcher::graphPlay()
 {
-  this->_end = IGame::E_NONE;
   time_point<system_clock>	t = system_clock::now();
 
+  this->_end = IGame::E_NONE;
   this->_lib->clearWindow();
   while (1)
     {
@@ -77,6 +77,8 @@ void				Launcher::graphPlay()
   this->_score = this->_game->_getScore();
   if(this->_dh_game != NULL)
     dlclose(this->_dh_game);
+  if (dlerror() != NULL)
+    throw std::runtime_error(dlerror());
   this->_game = NULL;
 }
 
@@ -133,10 +135,10 @@ Launcher::Launcher(std::string &lib)
     throw std::runtime_error("lib " + lib + "does not exists");
   this->_dh_lib = dlopen(this->_lib_name[this->_current_lib].c_str(), RTLD_LAZY);
   if (this->_dh_lib == NULL)
-    throw std::runtime_error(this->_lib_name[this->_current_lib] + ": dhandle error");
+    throw std::runtime_error(dlerror());
   launch = reinterpret_cast<IGraphic* (*)()>(dlsym(this->_dh_lib, "launch_lib"));
   if (launch == NULL)
-    throw std::runtime_error(this->_lib_name[this->_current_lib] + ": launch lib error");
+    throw std::runtime_error(dlerror());
   this->_lib = launch();
 }
 
@@ -152,16 +154,18 @@ void		Launcher::changeLib(IGraphic::e_key key)
   this->_lib->closeWindow();
   if(this->_dh_lib != NULL)
     dlclose(this->_dh_lib);
+  if (dlerror() != NULL)
+    throw std::runtime_error(dlerror());
   if (key == IGraphic::E_2 && this->_current_lib != 0)
     this->_current_lib -= 1;
   else if (key == IGraphic::E_3 && this->_lib_name[this->_current_lib + 1] != "")
     this->_current_lib += 1;
   this->_dh_lib = dlopen(this->_lib_name[this->_current_lib].c_str(), RTLD_LAZY);
   if (this->_dh_lib == NULL)
-    throw std::runtime_error(this->_lib_name[this->_current_lib] + ": dhandle lib error");
+    throw std::runtime_error(dlerror());
   launch = reinterpret_cast<IGraphic* (*)()>(dlsym(this->_dh_lib, "launch_lib"));
   if (launch == NULL)
-    throw std::runtime_error(this->_lib_name[this->_current_lib] + ": launch lib error");
+    throw std::runtime_error(dlerror());
   this->_lib = launch();
   this->_lib->openWindow(40, 40);
 }
@@ -172,16 +176,18 @@ void		Launcher::changeGame(IGraphic::e_key key)
 
   if(this->_dh_game != NULL)
     dlclose(this->_dh_game);
+  if (dlerror() != NULL)
+    throw std::runtime_error(dlerror());
   if (key == IGraphic::E_4 && this->_current_game != 0)
     this->_current_game -= 1;
   else if (key == IGraphic::E_5 && this->_game_name[this->_current_game + 1] != "")
     this->_current_game += 1;
   this->_dh_game = dlopen(this->_game_name[this->_current_game].c_str(), RTLD_LAZY);
   if (this->_dh_game == NULL)
-    throw std::runtime_error(this->_game_name[this->_current_game] + ": dhandle game error");
+    throw std::runtime_error(dlerror());
   launch = reinterpret_cast<IGame* (*)(int, int, Launcher&)>(dlsym(this->_dh_game, "launch_game"));
   if (launch == NULL)
-    throw std::runtime_error(this->_game_name[this->_current_game] + ": lauch game error");
+    throw std::runtime_error(dlerror());
   this->_game = launch(40, 40, *this);
   this->graphPlay();
 }
@@ -192,14 +198,16 @@ void		Launcher::play()
 
   this->_dh_game = dlopen(this->_game_name[this->_current_game].c_str(), RTLD_LAZY);
   if (this->_dh_game == NULL)
-    throw std::runtime_error(this->_game_name[this->_current_game] + ": dhandle game error");
+    throw std::runtime_error(dlerror());
   launch = reinterpret_cast<IGame* (*)(int, int, Launcher&)>(dlsym(this->_dh_game, "launch_game"));
   if (launch == NULL)
-    throw std::runtime_error(this->_game_name[this->_current_game] + ": lauch game error");
+    throw std::runtime_error(dlerror());
   this->_game = launch(40, 40, *this);
   this->graphPlay();
   if(this->_dh_game != NULL)
     dlclose(this->_dh_game);
+  if (dlerror() != NULL)
+    throw std::runtime_error(dlerror());
 }
 
 void			Launcher::writeMenu()
