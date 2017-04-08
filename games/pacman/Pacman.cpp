@@ -5,7 +5,7 @@
 ** Login   <selimrinaz@epitech.net>
 ** 
 ** Started on  Sat Apr  8 16:56:56 2017 Selim Rinaz
-// Last update Sat Apr  8 18:51:13 2017 Simon
+// Last update Sat Apr  8 19:05:57 2017 Simon
 */
 
 #include <algorithm>
@@ -65,7 +65,13 @@ void	Pacman::_setHeading(IGraphic::e_key key)
 
 void		Pacman::_move(IGraphic::e_key key)
 {
-  if (key == IGraphic::E_LEFT &&
+  if (key == IGraphic::E_LEFT && this->_position->position[0].y == 19
+      && this->_position->position[0].x == 0)
+    this->_position->position[0].x = 39;
+  else if (key == IGraphic::E_RIGHT && this->_position->position[0].y == 19
+	   && this->_position->position[0].x == 39)
+    this->_position->position[0].x = 0;
+  else if (key == IGraphic::E_LEFT &&
       this->_map->tile[(this->_position->position[0].y * 40) +
 		       this->_position->position[0].x - 1] != static_cast<arcade::TileType>(1))
     {
@@ -167,6 +173,7 @@ IGame::e_end	Pacman::_graphPlay()
   else if (this->_map->tile[this->_position->position[0].y * 40 + this->_position->position[0].x]
 	   == static_cast<arcade::TileType>(7))
     {
+      this->_score += 10;
       save = free;
       this->_state = E_PREY;
       this->_map->tile[this->_position->position[0].y * 40 + this->_position->position[0].x]
@@ -191,6 +198,7 @@ IGame::e_end	Pacman::_gameOver()
 	    return (IGame::E_LOSE);
 	  else
 	    {
+	      this->_score += 100;
 	      this->_position->position[a].y = 20;
 	      this->_position->position[a].x = 18 + a;
 	    }
