@@ -5,7 +5,7 @@
 // Login   <erwan.simon@epitech.eu>
 // 
 // Started on  Wed Mar 29 17:30:33 2017 Simon
-// Last update Fri Apr  7 21:21:43 2017 Antoine
+// Last update Sat Apr  8 12:31:49 2017 Simon
 //
 
 #include <signal.h>
@@ -28,6 +28,7 @@ void	Launcher::drawMap()
   int		x = 0;
   int		y = 0;
   std::string	s = ".";
+  std::string	o = "O";
   
   for (y = 0; y != 40; y++)
     {
@@ -38,7 +39,7 @@ void	Launcher::drawMap()
 	  else if (this->_game->_getMap().tile[(y * 40) + x] == static_cast<arcade::TileType>(6))
 	    this->_lib->writeStuff(x, y, s);
 	  else if (this->_game->_getMap().tile[(y * 40) + x] == static_cast<arcade::TileType>(7))
-	    this->_lib->buildCell(x, y, IGraphic::E_PINK);
+	    this->_lib->writeStuff(x, y, o);
 	  if (this->_game->_whereAmI().position[0].x == x &&
 	      this->_game->_whereAmI().position[0].y == y)
 	    this->_lib->buildCell(x, y, IGraphic::E_YELLOW);

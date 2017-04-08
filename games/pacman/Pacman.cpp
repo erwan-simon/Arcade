@@ -5,7 +5,7 @@
 // Login   <erwan.simon@epitech.eu>
 // 
 // Started on  Mon Apr  3 14:51:47 2017 Simon
-// Last update Fri Apr  7 21:09:29 2017 Simon
+// Last update Sat Apr  8 15:11:08 2017 Simon
 //
 
 #include "../../Launcher.hpp"
@@ -19,6 +19,30 @@
 #include <string>
 #include <fstream>
 #include "Pacman.hpp"
+#include "Ghost.hpp"
+
+Pacman::Pacman(int width, int height)
+{
+  this->_score = 0;
+  this->_heading = IGraphic::E_RIGHT;
+  if ((this->_map = (struct arcade::GetMap *)
+       malloc(sizeof(struct arcade::GetMap)
+	      + (width * height * sizeof(arcade::TileType)))) == NULL)
+    exit(84);
+  if ((this->_position = (struct arcade::WhereAmI *)
+       malloc(sizeof(struct arcade::WhereAmI)
+	      + (5 * sizeof(struct arcade::Position)))) == NULL)
+    exit (84);
+  this->_initMap();
+  this->_initPosition();
+}
+
+Pacman::~Pacman()
+{
+  delete (this->_ghost);
+  free(this->_map);
+  free(this->_position);
+}
 
 struct arcade::WhereAmI&	Pacman::_whereAmI() const
 {
@@ -30,49 +54,19 @@ struct arcade::GetMap&		Pacman::_getMap() const
   return (*this->_map);
 }
 
-void	Pacman::_setHeading(IGraphic::e_key key)
-{
-  this->_heading = key;
-}
-
 int	Pacman::_getScore() const
 {
   return (this->_score);
 }
 
-void			Pacman::_evilMove()
+Ghost &	Pacman::_getGhost() const
 {
-  try {
-  int			a = 1;
-  std::vector<int>	way;
-  
-  while (a != 5)
-    {
-      if (this->_map->tile[this->_position->position[a].y * 40 + this->_position->position[a].x + 1] != static_cast<arcade::TileType>(1) || (this->_position->position[a].y == this->_position->position[0].y && this->_position->position[a].x + 1 == this->_position->position[0].x))
-	way.push_back(0);
-      if (this->_map->tile[this->_position->position[a].y * 40 + this->_position->position[a].x - 1] != static_cast<arcade::TileType>(1) || (this->_position->position[a].y == this->_position->position[0].y && this->_position->position[a].x - 1 == this->_position->position[0].x))
-	way.push_back(1);
-      if (this->_map->tile[(this->_position->position[a].y + 1)* 40 + this->_position->position[a].x] != static_cast<arcade::TileType>(1) || (this->_position->position[a].y + 1 == this->_position->position[0].y && this->_position->position[a].x == this->_position->position[0].x))
-	way.push_back(2);
-      if (this->_map->tile[(this->_position->position[a].y - 1) * 40 + this->_position->position[a].x] != static_cast<arcade::TileType>(1) || (this->_position->position[a].y - 1== this->_position->position[0].y && this->_position->position[a].x == this->_position->position[0].x))
-	way.push_back(3);
-      std::random_shuffle(way.begin(), way.end());
-      if (way.at(0) == 0)
-	this->_position->position[a].x += 1;
-      else if (way.at(0) == 1)
-	this->_position->position[a].x -= 1;
-      else if (way.at(0) == 2)
-	this->_position->position[a].y += 1;
-      else if (way.at(0) == 3)
-	this->_position->position[a].x -= 1;
-	  way.clear();
-      a++;
-    }
-  }
-  catch (std::out_of_range)
-    {
-      return ;
-    }
+  return (*this->_ghost);
+}
+
+void	Pacman::_setHeading(IGraphic::e_key key)
+{
+  this->_heading = key;
 }
 
 void		Pacman::_move(IGraphic::e_key key)
@@ -105,6 +99,58 @@ void		Pacman::_move(IGraphic::e_key key)
       this->_position->position[0].y += 1;
       _heading = key;
     }
+}
+
+void	Pacman::_evilMove()
+{
+  for (int i = 0; i != 5; i++)
+    {
+      if (this->_ghost[i].getState() == Ghost::PREDATOR)
+	{
+	  if (this->_ghost[i].getPosition().x == this->_position->position[0].x + 1 &&
+	      this->_ghost[i].getPosition().y == this->_position->position[0].y)
+	    this->_position->position[i + 1].x += 1;
+	  else if (this->_ghost[i].getPosition().x == this->_position->position[0].x - 1 &&
+		   this->_ghost[i].getPosition().y == this->_position->position[0].y)
+	    this->_position->position[i + 1].x -= 1;
+	  else if (this->_ghost[i].getPosition().x == this->_position->position[0].x &&
+		   this->_ghost[i].getPosition().y == this->_position->position[0].y + 1)
+	    this->_position->position[i + 1].y += 1;
+	  else if (this->_ghost[i].getPosition().x == this->_position->position[0].x &&
+		   this->_ghost[i].getPosition().y == this->_position->position[0].y - 1)
+	    this->_position->position[i + 1].y -= 1;
+	  else
+	    this->_ghost[i].move(*this->_map, this->_position->position[0]);
+	}
+      else
+	this->_ghost[i].move(*this->_map, this->_position->position[0]);
+    }
+}
+
+IGame::e_end	Pacman::_graphPlay()
+{
+  IGame::e_end	end;
+  static int	free = 0;
+
+  if (free == 50)
+    {
+      this->_map->tile[20 * 40 + 17] = static_cast<arcade::TileType>(0);
+      this->_map->tile[20 * 40 + 22] = static_cast<arcade::TileType>(0);
+    }
+  free++;
+  if (this->_map->tile[this->_position->position[0].y * 40 + this->_position->position[0].x]
+      == static_cast<arcade::TileType>(6))
+    {
+      this->_score += 1;
+      this->_map->tile[this->_position->position[0].y * 40 + this->_position->position[0].x]
+	= static_cast<arcade::TileType>(0);
+    }
+  end = this->_gameOver();
+  this->_move(this->_heading);
+  end = this->_gameOver();
+  this->_evilMove();
+  end = this->_gameOver();
+  return (end);
 }
 
 IGame::e_end	Pacman::_gameOver()
@@ -153,7 +199,6 @@ static std::string*	getFile()
 
 void		Pacman::_initMap()
 {
-  int		total = this->_map->width * this->_map->height;
   int		i = 0;
   std::string	*map;
 
@@ -162,12 +207,14 @@ void		Pacman::_initMap()
   this->_map->height = 40;
   if ((map = getFile()) == NULL)
     exit(84);
-  while (i < total)
+  while (i < this->_map->width * this->_map->height)
     {
-      if (map->at(i) == '1')
+      if (map->at(i) == 'O')
 	this->_map->tile[i] = static_cast<arcade::TileType>(1); // BLOCK
-      else if (map->at(i) == '6')
+      else if (map->at(i) == ' ')
 	this->_map->tile[i] = static_cast<arcade::TileType>(6);  // BONUS
+      else if (map->at(i) == 'X')
+	this->_map->tile[i] = static_cast<arcade::TileType>(7); // BONUS ANTI-FANTOME
       else
 	{
 	  std::cerr << "map.txt contains some illegal caracters" << std::endl;
@@ -182,67 +229,35 @@ void	Pacman::_initPosition()
 {
   this->_position->type = arcade::CommandType::WHERE_AM_I;
   this->_position->lenght = 5;
-  if (this->_map->tile[1 * 40 + 1] != static_cast<arcade::TileType>(6)
-      || this->_map->tile[38 * 40 + 1] != static_cast<arcade::TileType>(6)
-      || this->_map->tile[38 * 40 + 38] != static_cast<arcade::TileType>(6)
-      || this->_map->tile[1 * 40 + 38] != static_cast<arcade::TileType>(6)
-      || this->_map->tile[17 * 40 + 20] != static_cast<arcade::TileType>(6))
+  if (this->_map->tile[20 * 40 + 18] != static_cast<arcade::TileType>(6)
+      || this->_map->tile[20 * 40 + 19] != static_cast<arcade::TileType>(6)
+      || this->_map->tile[20 * 40 + 20] != static_cast<arcade::TileType>(6)
+      || this->_map->tile[20 * 40 + 21] != static_cast<arcade::TileType>(6)
+      || this->_map->tile[23 * 40 + 19] != static_cast<arcade::TileType>(6))
     {
       std::cerr << "map problem : can't place protagonists" << std::endl;
       exit (84);
     }
-  this->_position->position[0].x = 20;
-  this->_position->position[0].y = 17;
+  this->_position->position[0].x = 19;
+  this->_position->position[0].y = 23;
 
-  this->_position->position[1].x = 1;
-  this->_position->position[1].y = 38;
+  this->_position->position[1].x = 18;
+  this->_position->position[1].y = 20;
 
-  this->_position->position[2].x = 38;
-  this->_position->position[2].y = 38;
+  this->_position->position[2].x = 19;
+  this->_position->position[2].y = 20;
 
-  this->_position->position[3].x = 1;
-  this->_position->position[3].y = 1;
+  this->_position->position[3].x = 20;
+  this->_position->position[3].y = 20;
 
-  this->_position->position[4].x = 38;
-  this->_position->position[4].y = 1;
-}
+  this->_position->position[4].x = 21;
+  this->_position->position[4].y = 20;
 
-Pacman::Pacman(int width, int height)
-{
-  srand(time(NULL));
-  this->_score = 0;
-  this->_heading = IGraphic::E_RIGHT;
-  if ((this->_map = (struct arcade::GetMap *)
-       malloc(sizeof(struct arcade::GetMap)
-	      + (width * height * sizeof(arcade::TileType)))) == NULL)
-    exit(84);
-  if ((this->_position = (struct arcade::WhereAmI *)
-       malloc(sizeof(struct arcade::WhereAmI)
-	      + (5 * sizeof(struct arcade::Position)))) == NULL)
-    exit (84);
-  this->_map->width = width;
-  this->_map->height = height;
-  this->_initMap();
-  this->_initPosition();
-}
-
-IGame::e_end	Pacman::_graphPlay()
-{
-  IGame::e_end	end;
-  
-  if (this->_map->tile[this->_position->position[0].y * 40 + this->_position->position[0].x]
-      == static_cast<arcade::TileType>(6))
-    {
-      this->_score += 1;
-      this->_map->tile[this->_position->position[0].y * 40 + this->_position->position[0].x]
-	= static_cast<arcade::TileType>(0);
-    }
-  end = this->_gameOver();
-  this->_move(this->_heading);
-  end = this->_gameOver();
-  this->_evilMove();
-  end = this->_gameOver();
-  return (end);
+  this->_ghost = new Ghost[4];
+  this->_ghost[0].setPosition(this->_position->position[1]);
+  this->_ghost[1].setPosition(this->_position->position[2]);
+  this->_ghost[2].setPosition(this->_position->position[3]);
+  this->_ghost[3].setPosition(this->_position->position[4]);  
 }
 
 extern "C"
