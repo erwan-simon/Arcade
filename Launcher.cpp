@@ -5,7 +5,7 @@
 ** Login   <selimrinaz@epitech.net>
 ** 
 ** Started on  Sat Apr  8 17:04:13 2017 Selim Rinaz
-// Last update Sun Apr  9 13:37:35 2017 Simon
+// Last update Sun Apr  9 13:53:55 2017 Simon
 */
 
 #include <signal.h>
@@ -86,6 +86,7 @@ Launcher::Launcher(std::string &lib)
 Launcher::~Launcher()
 {
   delete this->_lib;
+  this->_lib = NULL;
   if(this->_dh_lib != NULL)
     dlclose(this->_dh_lib);
 }
@@ -95,6 +96,7 @@ void		Launcher::changeLib(IGraphic::e_key key)
   IGraphic*	(*launch)();
   this->_lib->closeWindow();
   delete this->_lib;
+  this->_lib = NULL;
   if(this->_dh_lib != NULL)
     dlclose(this->_dh_lib);
   // if (dlerror() != NULL)
@@ -118,6 +120,7 @@ void		Launcher::changeGame(IGraphic::e_key key)
   IGame*	(*launch)(int, int, Launcher&);
 
   delete this->_game;
+  this->_game = NULL;
   if(this->_dh_game != NULL)
     dlclose(this->_dh_game);
   // if (dlerror() != NULL)
@@ -271,6 +274,7 @@ void				Launcher::graphPlay()
     }
   this->_score = this->_game->_getScore();
   delete this->_game;
+  this->_game = NULL;
   if(this->_dh_game != NULL)
     dlclose(this->_dh_game);
   // if (dlerror() != NULL)
@@ -303,8 +307,7 @@ int		Launcher::interact(IGraphic::e_key key)
 {
   if (key == IGraphic::E_2 || key == IGraphic::E_3)
     this->changeLib(key);
-  else if (key == IGraphic::E_ESC)
-    
+  else if (key == IGraphic::E_ESC)    
     return (-1);
   else if (key == IGraphic::E_4)
     {
@@ -321,9 +324,12 @@ int		Launcher::interact(IGraphic::e_key key)
 	this->changeGame(key);
     }
   else if (key == IGraphic::E_8)
-    this->play();
-  else if (key == IGraphic::E_8)
-    return (-1);
+    {
+      if (this->_game == NULL)
+	this->play();
+    }
+  else if (key == IGraphic::E_9)
+    return (-2);
   else if (this->_game != NULL && (key == IGraphic::E_RIGHT || key == IGraphic::E_LEFT ||
 				   key == IGraphic::E_UP || key == IGraphic::E_DOWN))
     this->_game->_setHeading(key);
