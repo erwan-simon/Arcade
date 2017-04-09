@@ -5,7 +5,7 @@
 ** Login   <selimrinaz@epitech.net>
 ** 
 ** Started on  Wed Mar 29 15:05:04 2017 Selim Rinaz
-// Last update Sat Apr  8 19:23:35 2017 Antoine
+// Last update Sun Apr  9 13:16:38 2017 Simon
 */
 
 #ifndef IGRAPHIC_HPP_
@@ -42,6 +42,8 @@ public:
     E_9,
     E_ESC
   }			e_key;
+
+  virtual ~IGraphic() {};
 
   // Window
   virtual void		openWindow(const int &x, const int &y) = 0;

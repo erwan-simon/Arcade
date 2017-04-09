@@ -5,7 +5,7 @@
 ** Login   <selimrinaz@epitech.net>
 ** 
 ** Started on  Sat Apr  8 16:40:15 2017 Selim Rinaz
-** Last update Sat Apr  8 17:21:43 2017 Selim Rinaz
+// Last update Sun Apr  9 13:06:59 2017 Simon
 */
 
 #ifndef MYNCURSES_HPP_
@@ -16,6 +16,9 @@
 class myNcurses : public IGraphic
 {
 public:
+  myNcurses() {};
+  virtual ~myNcurses() {};
+  
   // Window
   virtual void			openWindow(const int &x, const int &y);
   virtual void			refreshWindow();

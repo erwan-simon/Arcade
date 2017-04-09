@@ -5,7 +5,7 @@
 ** Login   <selimrinaz@epitech.net>
 ** 
 ** Started on  Sat Apr  8 16:52:07 2017 Selim Rinaz
-// Last update Sat Apr  8 18:47:12 2017 Simon
+// Last update Sun Apr  9 13:07:50 2017 Simon
 */
 
 #ifndef PACMAN_HPP_
@@ -21,7 +21,7 @@ public:
   }					e_state;
   
   Pacman(int width, int height);
-  ~Pacman();
+  virtual ~Pacman();
   
   // Getters
   virtual struct arcade::WhereAmI&	_whereAmI() const;

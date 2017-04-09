@@ -5,7 +5,7 @@
 ** Login   <selimrinaz@epitech.net>
 ** 
 ** Started on  Sat Apr  8 16:44:35 2017 Selim Rinaz
-** Last update Sat Apr  8 17:21:25 2017 Selim Rinaz
+// Last update Sun Apr  9 13:06:29 2017 Simon
 */
 
 #ifndef MYSFML_HPP_
@@ -17,7 +17,8 @@ class				mySfml : public IGraphic
 {
 public:
   mySfml();
-
+  virtual ~mySfml() {};
+  
   // Window
   virtual void			openWindow(const int &x, const int &y);
   virtual void			refreshWindow();

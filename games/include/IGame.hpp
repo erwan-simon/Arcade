@@ -5,7 +5,7 @@
 ** Login   <selimrinaz@epitech.net>
 ** 
 ** Started on  Sat Apr  8 16:54:55 2017 Selim Rinaz
-** Last update Sat Apr  8 16:54:56 2017 Selim Rinaz
+// Last update Sun Apr  9 13:07:31 2017 Simon
 */
 
 #ifndef IGAME_HPP_
@@ -22,6 +22,8 @@ public:
     E_WIN,
     E_LOSE
   }	e_end;
+
+  virtual ~IGame() {};
 
   // Getters
   virtual arcade::WhereAmI&	_whereAmI() const = 0;

@@ -5,7 +5,7 @@
 // Login   <erwan.simon@epitech.eu>
 // 
 // Started on  Wed Mar 29 17:22:12 2017 Simon
-// Last update Sat Apr  8 17:41:48 2017 Antoine
+// Last update Sun Apr  9 13:35:49 2017 Simon
 //
 
 #include "Snake.hpp"
@@ -254,7 +254,7 @@ Snake::Snake(int width, int height)
   this->_map->height = height;
   this->_initMap();
   this->_initPosition();
-  this->_graphPlay();
+  // this->_graphPlay();
 }
 
 extern "C"

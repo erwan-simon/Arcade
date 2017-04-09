@@ -5,7 +5,7 @@
 ** Login   <selimrinaz@epitech.net>
 ** 
 ** Started on  Sat Apr  8 17:04:13 2017 Selim Rinaz
-// Last update Sat Apr  8 19:27:10 2017 Antoine
+// Last update Sun Apr  9 13:37:35 2017 Simon
 */
 
 #include <signal.h>
@@ -22,65 +22,6 @@
 #include "Launcher.hpp"
 
 using namespace std::chrono;
-
-void	Launcher::drawMap()
-{
-  int		a = 1;
-  int		x = 0;
-  int		y = 0;
-  std::string	s = ".";
-  std::string	o = "O";
-
-  for (y = 0; y != 40; y++)
-    {
-      for (x = 0; x != 40; x++)
-	{
-	  if (this->_game->_getMap().tile[(y * 40) + x] == static_cast<arcade::TileType>(1))
-	    this->_lib->buildCell(x, y, IGraphic::E_BLUE);
-	  else if (this->_game->_getMap().tile[(y * 40) + x] == static_cast<arcade::TileType>(6))
-	    this->_lib->writeStuff(x, y, s);
-	  else if (this->_game->_getMap().tile[(y * 40) + x] == static_cast<arcade::TileType>(7))
-	    this->_lib->writeStuff(x, y, o);
-	  if (this->_game->_whereAmI().position[0].x == x &&
-	      this->_game->_whereAmI().position[0].y == y)
-	    this->_lib->buildCell(x, y, IGraphic::E_YELLOW);
-	  while (a != this->_game->_whereAmI().lenght)
-	    {
-	      if (this->_game->_whereAmI().position[a].x == x &&
-		  this->_game->_whereAmI().position[a].y == y)
-		this->_lib->buildCell(x, y, IGraphic::E_GREEN);
-	      a++;
-	    }
-	  a = 1;
-	}
-    }
-}
-
-void				Launcher::graphPlay()
-{
-  time_point<system_clock>	t = system_clock::now();
-
-  this->_end = IGame::E_NONE;
-  this->_lib->clearWindow();
-  while (1)
-    {
-      t += milliseconds(200);
-      std::this_thread::sleep_until(t);
-      if (this->interact(this->_lib->getKey()) == -1)
-	break ;
-      if ((this->_end = this->_game->_graphPlay()) != IGame::E_NONE)
-	break ;
-      this->drawMap();
-      this->_lib->refreshWindow();
-      this->_lib->clearWindow();
-    }
-  this->_score = this->_game->_getScore();
-  if(this->_dh_game != NULL)
-    dlclose(this->_dh_game);
-  // if (dlerror() != NULL)
-  //   throw std::runtime_error(dlerror());
-  this->_game = NULL;
-}
 
 Launcher::Launcher(std::string &lib)
 {
@@ -144,6 +85,7 @@ Launcher::Launcher(std::string &lib)
 
 Launcher::~Launcher()
 {
+  delete this->_lib;
   if(this->_dh_lib != NULL)
     dlclose(this->_dh_lib);
 }
@@ -152,6 +94,7 @@ void		Launcher::changeLib(IGraphic::e_key key)
 {
   IGraphic*	(*launch)();
   this->_lib->closeWindow();
+  delete this->_lib;
   if(this->_dh_lib != NULL)
     dlclose(this->_dh_lib);
   // if (dlerror() != NULL)
@@ -174,6 +117,7 @@ void		Launcher::changeGame(IGraphic::e_key key)
 {
   IGame*	(*launch)(int, int, Launcher&);
 
+  delete this->_game;
   if(this->_dh_game != NULL)
     dlclose(this->_dh_game);
   // if (dlerror() != NULL)
@@ -189,25 +133,6 @@ void		Launcher::changeGame(IGraphic::e_key key)
   if (launch == NULL)
     throw std::runtime_error(dlerror());
   this->_game = launch(40, 40, *this);
-  this->graphPlay();
-}
-
-void		Launcher::play()
-{
-  IGame*	(*launch)(int, int, Launcher&);
-
-  this->_dh_game = dlopen(this->_game_name[this->_current_game].c_str(), RTLD_LAZY);
-  if (this->_dh_game == NULL)
-    throw std::runtime_error(dlerror());
-  launch = reinterpret_cast<IGame* (*)(int, int, Launcher&)>(dlsym(this->_dh_game, "launch_game"));
-  if (launch == NULL)
-    throw std::runtime_error(dlerror());
-  this->_game = launch(40, 40, *this);
-  this->graphPlay();
-  if(this->_dh_game != NULL)
-    dlclose(this->_dh_game);
-  // if (dlerror() != NULL)
-  //   throw std::runtime_error(dlerror());
 }
 
 void			Launcher::writeMenu()
@@ -292,6 +217,82 @@ void		Launcher::buildFrame()
   for (i = 3; i != 5; i++)
     this->_lib->buildCell(i, 24 + (2 * this->_current_game), IGraphic::E_YELLOW);  
 }
+
+void	Launcher::drawMap()
+{
+  int		a = 1;
+  int		x = 0;
+  int		y = 0;
+  std::string	s = ".";
+  std::string	o = "O";
+
+  for (y = 0; y != 40; y++)
+    {
+      for (x = 0; x != 40; x++)
+	{
+	  if (this->_game->_getMap().tile[(y * 40) + x] == static_cast<arcade::TileType>(1))
+	    this->_lib->buildCell(x, y, IGraphic::E_BLUE);
+	  else if (this->_game->_getMap().tile[(y * 40) + x] == static_cast<arcade::TileType>(6))
+	    this->_lib->writeStuff(x, y, s);
+	  else if (this->_game->_getMap().tile[(y * 40) + x] == static_cast<arcade::TileType>(7))
+	    this->_lib->writeStuff(x, y, o);
+	  if (this->_game->_whereAmI().position[0].x == x &&
+	      this->_game->_whereAmI().position[0].y == y)
+	    this->_lib->buildCell(x, y, IGraphic::E_YELLOW);
+	  while (a != this->_game->_whereAmI().lenght)
+	    {
+	      if (this->_game->_whereAmI().position[a].x == x &&
+		  this->_game->_whereAmI().position[a].y == y)
+		this->_lib->buildCell(x, y, IGraphic::E_GREEN);
+	      a++;
+	    }
+	  a = 1;
+	}
+    }
+}
+
+void				Launcher::graphPlay()
+{
+  time_point<system_clock>	t = system_clock::now();
+
+  this->_end = IGame::E_NONE;
+  this->_lib->clearWindow();
+  while (1)
+    {
+      t += milliseconds(200);
+      std::this_thread::sleep_until(t);
+      if (this->interact(this->_lib->getKey()) == -1)
+	break ;
+      if ((this->_end = this->_game->_graphPlay()) != IGame::E_NONE)
+	break ;
+      this->drawMap();
+      this->_lib->refreshWindow();
+      this->_lib->clearWindow();
+    }
+  this->_score = this->_game->_getScore();
+  delete this->_game;
+  if(this->_dh_game != NULL)
+    dlclose(this->_dh_game);
+  // if (dlerror() != NULL)
+  //   throw std::runtime_error(dlerror());
+}
+
+void		Launcher::play()
+{
+  IGame*	(*launch)(int, int, Launcher&);
+
+  this->_dh_game = dlopen(this->_game_name[this->_current_game].c_str(), RTLD_LAZY);
+  if (this->_dh_game == NULL)
+    throw std::runtime_error(dlerror());
+  launch = reinterpret_cast<IGame* (*)(int, int, Launcher&)>(dlsym(this->_dh_game, "launch_game"));
+  if (launch == NULL)
+    throw std::runtime_error(dlerror());
+  this->_game = launch(40, 40, *this);
+  this->graphPlay();
+  // if (dlerror() != NULL)
+  //   throw std::runtime_error(dlerror());
+}
+
 
 static void	sigIntHandler(int s)
 {
