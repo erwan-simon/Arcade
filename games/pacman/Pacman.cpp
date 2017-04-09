@@ -5,7 +5,7 @@
 ** Login   <selimrinaz@epitech.net>
 ** 
 ** Started on  Sat Apr  8 16:56:56 2017 Selim Rinaz
-// Last update Sat Apr  8 19:15:58 2017 Simon
+// Last update Sun Apr  9 20:01:30 2017 Simon
 */
 
 #include <algorithm>
@@ -189,7 +189,7 @@ IGame::e_end	Pacman::_graphPlay()
 
 IGame::e_end	Pacman::_gameOver()
 {
-  for (int a = 1; a <= 5; a++)
+  for (int a = 1; a < 5; a++)
     {
       if (this->_position->position[0].y == this->_position->position[a].y
 	  && this->_position->position[0].x == this->_position->position[a].x)
