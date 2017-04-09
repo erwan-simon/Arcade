@@ -5,7 +5,7 @@
 // Login   <erwan.simon@epitech.eu>
 // 
 // Started on  Wed Mar 29 17:22:12 2017 Simon
-// Last update Sun Apr  9 13:35:49 2017 Simon
+// Last update Sun Apr  9 19:51:06 2017 Antoine
 //
 
 #include "Snake.hpp"
@@ -102,6 +102,8 @@ IGame::e_end	Snake::_gameOver()
   if ((this->_map->tile[y * 40 + x] == static_cast<arcade::TileType>(1)) ||
       (_checkPos() == 1))
     return (IGame::E_LOSE);
+  if (this->_position->lenght == ((this->_map->width - 1) * (this->_map->height - 1)))
+    return (IGame::E_WIN);
   return (IGame::E_NONE);
 }
 
