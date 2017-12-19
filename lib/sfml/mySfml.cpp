@@ -5,7 +5,7 @@
 ** Login   <selimrinaz@epitech.net>
 ** 
 ** Started on  Sat Apr  8 17:14:23 2017 Selim Rinaz
-// Last update Sat Apr  8 19:23:06 2017 Antoine
+// Last update Tue Dec 19 18:21:55 2017 Erwan Simon
 */
 
 #include <SFML/Window.hpp>
@@ -116,7 +116,7 @@ void	mySfml::writeStuff(const int &x, const int &y, const std::string& text)
     exit (84);
   tx.setFont(font);
   tx.setCharacterSize(20);
-  tx.setColor(sf::Color::Red);
+  tx.setFillColor(sf::Color::Red);
   tx.setString(text);
   tx.setPosition(sf::Vector2f(x * this->_cellX, y * this->_cellY));
   unsigned int  i = 0;
