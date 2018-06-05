@@ -3,6 +3,7 @@ C++ launcher with 2 games and 2 graphical librairies
 
 ## Requirements
 
+ - Linux
  - [Make](https://www.gnu.org/software/make/)
  - [G++](https://gcc.gnu.org/)
  - [ncurses](https://www.gnu.org/software/ncurses/)
